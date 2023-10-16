@@ -30,6 +30,6 @@ http://bops.morpheuslabs.io:25295
 bfca53872ee34445ee0fb22fc82010bba6452033d214550e67faa965639343c1
 
 ---
-
-
+### Frontend Address
+https://serverfy45osgp-dev-machine-server-3000.morpheuslabs.io/
 
