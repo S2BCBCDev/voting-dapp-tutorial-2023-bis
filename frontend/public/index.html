@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting dApp</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+
+
+
+
+    <div id="votingStation">
+        <p id="connectWalletMessage">Please connect your wallet with Metamask:</p>
+        <button id="connectWalletbutton">Connect Wallet</button>
+
+
+
+        <div id="startElection">
+            <p id="startElectionMessage">Start Election panel</p>
+            <input type="text" id="addCandidateInput" placeholder="text separated by commas (,) " />
+            <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
+            <button id="startElectionButton">Start Election</button>
+        </div>
+
+
+
+        <div id="showCandidateListContainer">
+            <button id="showCandidateList">Show Candidates list</button>
+        </div>
+
+        <div id="mainBoard">
+            <table id="candidateBoard">
+                <tr>
+                    <th>ID No.</th>
+                    <th>Candidate</th>
+                    <th>Vote count</th>
+                    <th>Vote</th>
+                </tr>
+
+            </table>
+        </div>
+
+        <div id="voteForm">
+            <p>Please select the ID of the candidate you would like to vote for</p>
+            <label for="">
+                <input type="number" id="vote" />
+                <button id="sendVote">Send Vote</button>
+            </label>
+        </div>
+
+        <div id="admin">
+            <p id="admin">Only administrator (owner) can use this functions:</p>
+
+            <!-- <div id="startElection">
+                <p id="startElectionMessage">Start Election panel</p>
+                <input type="text" id="addCandidateInput" placeholder="text separated by commas (,) " />
+                <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
+                <button id="startElectionButton">Start Election</button>
+            </div> -->
+
+            <div id="addDuration">
+                <p>Add time to election duration</p>
+                <input type="number" id="addDurationInput" />
+                <button id="addDurationButton">Extend election duration</button>
+
+            </div>
+
+            <div id="timer">
+                <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
+
+                <p id="timerMessage"><span id="time">Time in seconds</span></p>
+            </div>
+
+            <div id="endElection">
+                <button id="endElectionButton">End Election</button>
+            </div>
+
+            <div id="saveResultsNFT">
+                <button id="saveResultsNFTButton">saveResultsNFT (not working yet)</button>
+            </div>
+
+            <div id="resetElection">
+                <button id="resetElectionButton">Reset Election</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

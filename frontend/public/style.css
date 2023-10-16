@@ -1,0 +1,179 @@
+body {
+    font-family: 'Roboto Regular', Helvetica, Arial, Lucida, sans-serif;
+    background-color: #6d2b2b;
+    line-height: 1.7em;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #1e1e2e;
+    /* Deep blue background */
+    font-size: 1.2em;
+    /* Adjusted font size for better readability */
+    color: #ffffff;
+    /* Clear font color */
+
+}
+
+#connectWalletBtn:active {
+    background-color: #00FF00; /* Change the background color */
+    color: #000000; /* Set font color to black */
+    font-weight: bold; /* Make the font bold */
+    font-size: 1.2em; /* Set font size to 1.2 em */
+}
+
+
+.container {
+    width: 80%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+#connectMetamask,
+#votingStation,
+#admin {
+    text-align: center;
+}
+
+#connectWalletMessage {
+    font-weight: bold;
+    color: var(--default);
+    margin-bottom: 20px;
+}
+
+
+
+#votingStation,
+#admin {
+    margin-top: 20px;
+}
+
+.timerMessage {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#mainBoard {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    border-radius: 5px;
+
+}
+
+table,
+th,
+td {
+    border: solid 3px #1565c0;
+    border-radius: 5px;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: var(--primary);
+    color: var(--color-white);
+}
+
+#voteForm {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#voteForm p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#voteForm input {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+#showResultContainer {
+    margin-top: 20px;
+}
+
+#showResult {
+    padding: 10px 20px;
+    background-color: var(--primary);
+    color: var(--color-white);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#showResult:hover {
+    background-color: var(--secondary);
+}
+
+#result {
+    margin-top: 20px;
+}
+
+#admin {
+    margin-top: 40px;
+}
+
+#admin p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#admin div {
+    margin-top: 10px;
+}
+
+#admin input,
+#admin button {
+    margin-top: 5px;
+}
+
+
+.container {
+    width: 80%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    cursor: pointer;
+    background-color: #1976d2;
+    /* MUI-like button color */
+    color: #ffffff;
+    /* Button text color */
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    /* Adjusted padding for buttons */
+}
+
+button:hover {
+    background-color: #1565c0;
+    /* Darker color on hover */
+}
