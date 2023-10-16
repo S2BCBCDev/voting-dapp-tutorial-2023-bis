@@ -411,59 +411,59 @@ let signer;
 connectWalletBtn.addEventListener("click", async () => {
   try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
-   // connectWalletBtn.style.display = "none";
-   connectWalletBtn.textContent = "Connected";
-   connectWalletBtn.style.backgroundColor = "#2ec27eff"; // Change the background color to light green
+    // connectWalletBtn.style.display = "none";
+    connectWalletBtn.textContent = "Connected";
+    connectWalletBtn.style.backgroundColor = "#2ec27eff"; // Change the background color to light green
 
-   const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
 
-provider.send("eth_requestAccounts", []).then(() => {
-    console.log("Accounts requested");
-    
-    provider.listAccounts().then((accounts) => {
+    provider.send("eth_requestAccounts", []).then(() => {
+      console.log("Accounts requested");
+
+      provider.listAccounts().then((accounts) => {
         console.log("List of accounts:", accounts);
-        
+
         signer = provider.getSigner(accounts[0]);
         contract = new ethers.Contract(contractAddress, contractABI, signer);
-        
-        console.log("Signer and Contract set up");
-    });
-});
 
-      votingStation.style.display = "block";
+        console.log("Signer and Contract set up");
+      });
+    });
+
+    votingStation.style.display = "block";
   } catch (error) {
-      console.error(error);
-      console.log("Error connecting to Metamask. Please make sure it's installed and unlocked.");
+    console.error(error);
+    console.log("Error connecting to Metamask. Please make sure it's installed and unlocked.");
   }
 });
 
 // Function to start the election
 startElectionButton.addEventListener("click", async () => {
   try {
-      const candidates = addCandidateInput.value.split(",");
-      const votingDuration = specifyDuration.value;
+    const candidates = addCandidateInput.value.split(",");
+    const votingDuration = specifyDuration.value;
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
 
 
-provider.send("eth_requestAccounts", []).then(() => {
-    console.log("Accounts requested");
-    
-    provider.listAccounts().then((accounts) => {
+    provider.send("eth_requestAccounts", []).then(() => {
+      console.log("Accounts requested");
+
+      provider.listAccounts().then((accounts) => {
         console.log("List of accounts:", accounts);
-        
+
         signer = provider.getSigner(accounts[0]);
         contract = new ethers.Contract(contractAddress, contractABI, signer);
-        
-        console.log("Signer and Contract set up");
-    });
-});
 
-      await contract.startElection(candidates, votingDuration);
-      console.log("Election started successfully!");
+        console.log("Signer and Contract set up");
+      });
+    });
+
+    await contract.startElection(candidates, votingDuration);
+    console.log("Election started successfully!");
   } catch (error) {
-      console.error(error);
-      console.log("Error starting the election: " + error.message);
+    console.error(error);
+    console.log("Error starting the election: " + error.message);
   }
 });
 
@@ -472,34 +472,34 @@ provider.send("eth_requestAccounts", []).then(() => {
 // Function to vote
 voteBtn.addEventListener("click", async () => {
   try {
-      const candidateId = vote.value;
-      await contract.voteTo(candidateId);
-      console.log("Vote cast successfully!");
+    const candidateId = vote.value;
+    await contract.voteTo(candidateId);
+    console.log("Vote cast successfully!");
   } catch (error) {
-      console.error(error);
-      console.log("Error casting vote: " + error.message);
+    console.error(error);
+    console.log("Error casting vote: " + error.message);
   }
 });
 
 // Function to end the election
 endElectionButton.addEventListener("click", async () => {
   try {
-      await contract.endElection();
-      console.log("Election ended successfully!");
+    await contract.endElection();
+    console.log("Election ended successfully!");
   } catch (error) {
-      console.error(error);
-      console.log("Error ending the election: " + error.message);
+    console.error(error);
+    console.log("Error ending the election: " + error.message);
   }
 });
 
 // Function to reset Election
 resetBtn.addEventListener("click", async () => {
   try {
-      await contract.resetElection();
-      console.log("Reset successfully!");
+    await contract.resetElection();
+    console.log("Reset successfully!");
   } catch (error) {
-      console.error(error);
-      console.log("Error reseting: " + error.message);
+    console.error(error);
+    console.log("Error reseting: " + error.message);
   }
 });
 
@@ -509,7 +509,7 @@ async function displayCandidates() {
     const candidates = await contract.retrieveVotes();
     const candidateBoard = document.querySelector("#candidateBoard");
     const rows = candidateBoard.querySelectorAll("tr");
-    
+
     for (let i = 1; i < rows.length; i++) {
       candidateBoard.removeChild(rows[i]);
     }
@@ -537,22 +537,22 @@ async function displayCandidates() {
 const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
 
 provider.send("eth_requestAccounts", []).then(() => {
-    provider.listAccounts().then((accounts) => {
-        signer = provider.getSigner(accounts[0]);
-        contract = new ethers.Contract(contractAddress, contractABI, signer);
-    });
+  provider.listAccounts().then((accounts) => {
+    signer = provider.getSigner(accounts[0]);
+    contract = new ethers.Contract(contractAddress, contractABI, signer);
+  });
 });
 
 // Function to Display Candidate
 showCandidateList.addEventListener("click", async () => {
   try {
-    
-      displayCandidates();
-      console.log("display successfully!");
+
+    displayCandidates();
+    console.log("display successfully!");
 
   } catch (error) {
-      console.error(error);
-      console.log("Error display: " + error.message);
+    console.error(error);
+    console.log("Error display: " + error.message);
   }
 });
 
@@ -609,43 +609,52 @@ console.log("Event listener set up");
 document.getElementById("showTimerButton").addEventListener("click", async () => {
   await showTimer();
   console.log("Timer displayed successfully!");
-   // Automatically refresh the timer every 5 seconds (5000 milliseconds)
-   setInterval(async () => {
+  // Automatically refresh the timer every 5 seconds (5000 milliseconds)
+  setInterval(async () => {
     await showTimer();
-  }, 12000); // Adjust the interval as needed
+  }, 24000); // Adjust the interval as needed
 });
-
-
 
 // Listen for the ElectionStarted event
-contract.events.ElectionStarted({fromBlock: 0}, function(error, event){
-  if (!error){
-    console.log(event.returnValues);
-    // You can handle the event data here
-  }
+// List all accounts connected to the provider
+provider.listAccounts().then(accounts => {
+
+  // Assuming you want to use the first account
+  const signer = provider.getSigner(accounts[0]);
+
+  // Assuming you have the contractAddress and contractABI defined
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+  // Define a filter for the ElectionStarted event
+  const filter = contract.filters.ElectionStarted();
+
+  // Set up an event listener for the ElectionStarted event
+  contract.on(filter, (fromBlock, data, event) => {
+    console.log("StartElection event!"); // Access event arguments here
+  });
+
+  // Listen for the VoteCast event
+  const voteCastFilter = contract.filters.VoteCast();
+
+  contract.on(voteCastFilter, (fromBlock, data, event) => {
+    console.log("VoteCast event!");
+  });
+
+  // Listen for the ElectionFinished event
+  const electionFinishedFilter = contract.filters.ElectionFinished();
+
+contract.on(electionFinishedFilter, (fromBlock, data, event) => {
+  console.log("ElectionFinished event!");
 });
 
-// Listen for the VoteCast event
-contract.events.VoteCast({fromBlock: 0}, function(error, event){
-  if (!error){
-    console.log(event.returnValues);
-    // You can handle the event data here
-  }
+  // Listen for the ElectionReset event
+  const electionResetFilter = contract.filters.ElectionReset();
+
+  contract.on(electionResetFilter, (fromBlock, data, event) => {
+    console.log("ElectionReset event!"); // Access event arguments here
+  });
+
+
 });
 
-// Listen for the ElectionFinished event
-contract.events.ElectionFinished({fromBlock: 0}, function(error, event){
-  if (!error){
-    console.log(event.returnValues);
-    // You can handle the event data here
-  }
-});
-
-// Listen for the ElectionReset event
-contract.events.ElectionReset({fromBlock: 0}, function(error, event){
-  if (!error){
-    console.log(event.returnValues);
-    // You can handle the event data here
-  }
-});
 
