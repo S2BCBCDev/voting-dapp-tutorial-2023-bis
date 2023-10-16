@@ -31,7 +31,5 @@ bfca53872ee34445ee0fb22fc82010bba6452033d214550e67faa965639343c1
 
 ---
 
-## Link of interest
-### Hardhat
-https://hackmd.io/@fvictorio/hardhat-networks-and-providers
+
 
