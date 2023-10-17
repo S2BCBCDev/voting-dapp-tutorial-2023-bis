@@ -615,6 +615,28 @@ document.getElementById("showTimerButton").addEventListener("click", async () =>
   }, 24000); // Adjust the interval as needed
 });
 
+// const addCandidateButton = document.querySelector("#addCandidateButton");
+
+// addCandidateButton.addEventListener("click", async () => {
+//   try {
+//     const candidate = addCandidateInputBonus.value;
+//     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+//     await provider.send("eth_requestAccounts", []);
+//     const accounts = await provider.listAccounts();
+//     const signer = provider.getSigner(accounts[0]);
+//     const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+//     // Call the addCandidate function
+//     await contract.addCandidate(candidate);
+//     console.log(`Candidate ${candidate} added successfully!`);
+//   } catch (error) {
+//     console.error(error);
+//     console.log("Error adding candidate: " + error.message);
+//   }
+// });
+
+
 // Listen for the ElectionStarted event
 // List all accounts connected to the provider
 provider.listAccounts().then(accounts => {
