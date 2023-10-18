@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: UNLICENCED
 pragma solidity ^0.8.19;
+import "./ElectionNFT.sol";
+
 
 contract Voting {
+       address public electionNFTContract;
+
     // Create a structure template for each candidates
     struct Candidate {
         uint256 id; // Unique identifier for the candidate
@@ -23,6 +27,8 @@ contract Voting {
     // voting start and end session
     uint256 public votingStartTimeStamp;
     uint256 public votingEndTimeStamp;
+
+
 
     // Create an election status
     bool public electionStarted;
@@ -59,6 +65,7 @@ contract Voting {
         // Initialize owner
         owner = msg.sender;
     }
+   
 
     // To start an election
     function startElection(string[] memory _candidates, uint256 _votingDuration)
@@ -225,5 +232,22 @@ contract Voting {
         candidates.push(
             Candidate({id: candidates.length, name: _name, numberOfVotes: 0})
         );
+    }
+
+
+    function mintResult(address _participant, string memory _tokenURI) public onlyOwner  {
+    // require(electionStarted, "Election has not started");
+    // require(!voterStatus(_participant), "Participant has already received an NFT");
+
+    // Mint an NFT for the participant
+    ElectionNFT(electionNFTContract).mintNFT(_participant, _tokenURI);
+
+    // Mark the participant as having received an NFT
+    voters[_participant] = true;
+}
+
+// Function to set ElectionNFT contract address
+    function setElectionNFTContract(address _electionNFTContract) public onlyOwner {
+        electionNFTContract = _electionNFTContract;
     }
 }
