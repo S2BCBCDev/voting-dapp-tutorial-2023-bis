@@ -4,35 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tuto 2023 Voting dApp</title>
+    <title>Voting dApp</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <body>
-
-
-
-
     <div id="votingStation">
-        <p id="connectWalletMessage">Voting dApp</p>
-        <button id="connectWalletbutton">Connect Wallet</button>
-
-
-
-        <div id="startElection">
-            <p id="startElectionMessage">Start Election panel</p>
-            <input type="text" id="addCandidateInput" placeholder="text separated by commas (,) " />
-            <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
-            <button id="startElectionButton">Start Election</button>
-        </div>
-
-
-
-        <div id="showCandidateListContainer">
-            <button id="showCandidateList">Show Candidates list</button>
-        </div>
-
+        
+        <h2>Voting dApp 2023</h2>
+       
         <div id="mainBoard">
             <table id="candidateBoard">
                 <tr>
@@ -45,6 +27,23 @@
             </table>
         </div>
 
+        
+
+        <div id="showCandidateListContainer">
+            <button id="showCandidateList">Show Candidates list</button>
+        </div>
+
+        <div id="timer">
+            <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
+
+            <p id="timerMessage"><span id="time">Time in seconds</span></p>
+        </div>
+
+        <div id="connectWallet">
+            <h3 id="connectWalletMessage">Connect your wallet:</h3>
+            <button id="connectWalletbutton">Connect Wallet</button>
+        </div>
+
         <div id="voteForm">
             <p>Please select the ID of the candidate you would like to vote for</p>
             <label for="">
@@ -54,34 +53,26 @@
         </div>
 
         <div id="admin">
-            <p id="admin">Only administrator (owner) can use this functions:</p>
-
-            <!-- <div id="startElection">
-                <p id="startElectionMessage">Start Election panel</p>
+            <h2 id="admin">Administrator panel:</h2>
+            <div id="startElection">
+                <h2 id="startElectionMessage">Voting panel:</h2>
                 <input type="text" id="addCandidateInput" placeholder="text separated by commas (,) " />
                 <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
                 <button id="startElectionButton">Start Election</button>
-            </div> -->
+            </div>
+
+            <div id="changeElectionDuration">
+                <p>Add time to election duration</p>
+                <input type="number" id="changeElectionDurationInput" />
+                <button id="changeElectionDurationButton">Extend election duration</button>
+
+            </div>
 
             <div id="addCandidate">
-                <p>Add a Candidate to election </p>
-                <input type="number" id="addCandidateInputBonus" />
+                <p>Add time to election Candidate</p>
+                <input type="text" id="addCandidateInputBonus" />
                 <button id="addCandidateButton">Add Candidate</button>
 
-            </div>
-            
-
-            <div id="addDuration">
-                <p>Add time to election duration</p>
-                <input type="number" id="addDurationInput" />
-                <button id="addDurationButton">Extend election duration</button>
-
-            </div>
-
-            <div id="timer">
-                <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
-
-                <p id="timerMessage"><span id="time">Time in seconds</span></p>
             </div>
 
             <div id="endElection">
@@ -89,13 +80,14 @@
             </div>
 
             <div id="saveResultsNFT">
-                <button id="saveResultsNFTButton">saveResultsNFT (not working yet)</button>
+                <button id="saveResultsNFTButton">Mint NFT Results</button>
             </div>
 
             <div id="resetElection">
-                <button id="resetElectionButton">Delete Election data</button>
+                <button id="resetElectionButton">Reset Election</button>
             </div>
         </div>
+
     </div>
 
     <script src="script.js"></script>

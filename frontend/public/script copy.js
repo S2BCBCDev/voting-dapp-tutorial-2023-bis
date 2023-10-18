@@ -106,14 +106,20 @@ const contractABI = [
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
-    "name": "addCandidate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "ListOfVoters",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -146,19 +152,6 @@ const contractABI = [
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_newDuration",
-        "type": "uint256"
-      }
-    ],
-    "name": "changeElectionDuration",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "checkElectionPeriod",
     "outputs": [
@@ -166,19 +159,6 @@ const contractABI = [
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "electionNFTContract",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -212,25 +192,14 @@ const contractABI = [
   },
   {
     "inputs": [],
-    "name": "endElection",
+    "name": "emergencyStopElection",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_participant",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "_tokenURI",
-        "type": "string"
-      }
-    ],
-    "name": "mintResult",
+    "inputs": [],
+    "name": "endElection",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -310,19 +279,6 @@ const contractABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_electionNFTContract",
-        "type": "address"
-      }
-    ],
-    "name": "setElectionNFTContract",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -438,6 +394,15 @@ const contractABI = [
 let contract;
 let signer;
 
+
+// const provider = new ethers.providers.Web3Provider(window.ethereum, 1287);
+// provider.send("eth_requestAccounts", []).then(() => {
+//     provider.listAccounts().then((accounts) => {
+//         signer = provider.getSigner(accounts[0]);
+//         contract = new ethers.Contract(contractAddress, contractABI, signer);
+//     });
+// });
+
 // const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
 // Function to connect Metamask
@@ -515,14 +480,13 @@ voteBtn.addEventListener("click", async () => {
 });
 
 // Function to end the election
-changeElectionDurationButton.addEventListener("click", async () => {
+endElectionButton.addEventListener("click", async () => {
   try {
-    const duration = changeElectionDurationInput.value;
-    await contract.changeElectionDuration(duration);
-    console.log("Duration changed successfully!");
+    await contract.endElection();
+    console.log("Election ended successfully!");
   } catch (error) {
     console.error(error);
-    console.log("Error add duration: " + error.message);
+    console.log("Error ending the election: " + error.message);
   }
 });
 
@@ -534,29 +498,6 @@ resetBtn.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error reseting: " + error.message);
-  }
-});
-
-// Function to add candidate
-addCandidateButton.addEventListener("click", async () => {
-  try {
-    const candidateName = addCandidateInputBonus.value;
-    await contract.addCandidate(candidateName);
-    console.log("Candidate added successfully!");
-  } catch (error) {
-    console.error(error);
-    console.log("Error adding candidate: " + error.message);
-  }
-});
-
-// Function change election duration
-endElectionButton.addEventListener("click", async () => {
-  try {
-    await contract.endElection();
-    console.log("Election ended successfully!");
-  } catch (error) {
-    console.error(error);
-    console.log("Error ending the election: " + error.message);
   }
 });
 
@@ -624,8 +565,9 @@ async function checkAccountConnection() {
   try {
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
     if (accounts.length > 0) {
+      // Account is already connected
       connectWalletBtn.textContent = "Connected";
-      connectWalletBtn.style.backgroundColor = "#2ec27eff";
+      connectWalletBtn.style.backgroundColor = "#00FF00"; // Change the background color
       votingStation.style.display = "block";
     } else {
       // Account is not connected
@@ -670,6 +612,28 @@ document.getElementById("showTimerButton").addEventListener("click", async () =>
     await showTimer();
   }, 24000); // Adjust the interval as needed
 });
+
+// const addCandidateButton = document.querySelector("#addCandidateButton");
+
+// addCandidateButton.addEventListener("click", async () => {
+//   try {
+//     const candidate = addCandidateInputBonus.value;
+//     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+//     await provider.send("eth_requestAccounts", []);
+//     const accounts = await provider.listAccounts();
+//     const signer = provider.getSigner(accounts[0]);
+//     const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+//     // Call the addCandidate function
+//     await contract.addCandidate(candidate);
+//     console.log(`Candidate ${candidate} added successfully!`);
+//   } catch (error) {
+//     console.error(error);
+//     console.log("Error adding candidate: " + error.message);
+//   }
+// });
+
 
 // Listen for the ElectionStarted event
 // List all accounts connected to the provider
