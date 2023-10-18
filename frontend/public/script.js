@@ -24,7 +24,7 @@ const changeElectionDurationButton = document.querySelector("#changeElectionDura
 
 
 // configure ethers
-const contractAddress = '0xe9f62BF7e763A950A796B98fFFE567C436f7ea89';
+const contractAddress = '0x559e33d6091c4c06f20419d0Ed36b25275F64f59';
 
 // Load the contract ABI
 const contractABI = [
