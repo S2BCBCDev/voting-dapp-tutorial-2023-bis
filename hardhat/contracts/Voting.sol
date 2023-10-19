@@ -23,6 +23,7 @@ contract Voting {
 
     // List of voters
     address[] internal ListOfVoters;
+    address[] internal ListOfVotersEligible;
 
     // voting start and end session
     uint256 public votingStartTimeStamp;
@@ -71,10 +72,10 @@ contract Voting {
     }
 
     // To start an election
-    function startElection(string[] memory _candidates, uint256 _votingDuration)
-        public
-        onlyOwner
-    {
+    function startElection(
+        string[] memory _candidates,
+        uint256 _votingDuration
+    ) public onlyOwner {
         require(electionStarted == false, "Election is currently ongoing");
 
         // Clear existing candidates
@@ -96,12 +97,9 @@ contract Voting {
     }
 
     // Check voter's status
-    function voterStatus(address _voter)
-        public
-        view
-        electionOnGoing
-        returns (bool)
-    {
+    function voterStatus(
+        address _voter
+    ) public view electionOnGoing returns (bool) {
         if (voters[_voter] == true) {
             return true;
         }
@@ -120,6 +118,8 @@ contract Voting {
 
         candidates[_id].numberOfVotes++;
         voters[msg.sender] = true;
+
+        // Add to the has voted voters list
         ListOfVoters.push(msg.sender);
 
         emit VoteCast(msg.sender, _id);
@@ -157,10 +157,13 @@ contract Voting {
     function resetElection() public onlyOwner {
         require(!electionStarted, "Election is currently ongoing");
 
-        // Reset candidates and their vote counts
-        for (uint256 i = 0; i < candidates.length; i++) {
-            candidates[i].numberOfVotes = 0;
+        // Reset ListOfVotersEligible mappings
+        for (uint256 i = 0; i < ListOfVotersEligible.length; i++) {
+            eligibleVoters[ListOfVotersEligible[i]] = false;
         }
+
+        // Clear ListOfVotersEligible
+        delete ListOfVotersEligible;
 
         // Reset voter status
         resetAllVoterStatus();
@@ -208,11 +211,9 @@ contract Voting {
         owner = newOwner;
     }
 
-    function changeElectionDuration(uint256 _newDuration)
-        public
-        onlyOwner
-        electionOnGoing
-    {
+    function changeElectionDuration(
+        uint256 _newDuration
+    ) public onlyOwner electionOnGoing {
         require(_newDuration > 0, "Invalid duration");
 
         votingEndTimeStamp = votingStartTimeStamp + (_newDuration * 1 minutes);
@@ -220,11 +221,9 @@ contract Voting {
         emit ElectionDurationChanged(_newDuration);
     }
 
-    function addCandidate(string memory _name)
-        public
-        onlyOwner
-        electionOnGoing
-    {
+    function addCandidate(
+        string memory _name
+    ) public onlyOwner electionOnGoing {
         candidates.push(
             Candidate({id: candidates.length, name: _name, numberOfVotes: 0})
         );
@@ -232,35 +231,55 @@ contract Voting {
         emit CandidateAdded(candidates.length - 1, _name);
     }
 
-    function registerVoter(address _voter) public onlyOwner {
-        eligibleVoters[_voter] = true;
+    function registerVoter(address _eligible_voter) public onlyOwner {
+        eligibleVoters[_eligible_voter] = true;
+        ListOfVotersEligible.push(_eligible_voter); // Add the voter to the ListOfVotersEligible
     }
 
-   function mintResultNFTs(string memory _tokenURI) public onlyOwner {
-    for (uint256 i = 0; i < ListOfVoters.length; i++) {
-        if (eligibleVoters[ListOfVoters[i]]) {
-            // Mint NFT to eligible voter
+    function registerVoters(
+        address[] memory _eligible_voters
+    ) public onlyOwner {
+        for (uint256 i = 0; i < _eligible_voters.length; i++) {
+            eligibleVoters[_eligible_voters[i]] = true;
+            ListOfVotersEligible.push(_eligible_voters[i]);
+        }
+    }
+
+    function mintResultNFTs(string memory _tokenURI) public onlyOwner {
+        require(!electionStarted, "Election is ongoing, cannot mint NFTs yet");
+        require(
+            votingStartTimeStamp != 0,
+            "Timestamp is 0, election not even started"
+        );
+        for (uint256 i = 0; i < ListOfVoters.length; i++) {
+            // Mint NFT to each voter
             ElectionNFT(electionNFTContract).mintNFT(
                 ListOfVoters[i],
                 _tokenURI
             );
         }
     }
-}
 
-function mintResult(address _participant, string memory _tokenURI) public onlyOwner {
-    // Mint an NFT for the participant
-    ElectionNFT(electionNFTContract).mintNFT(_participant, _tokenURI);
+    function mintResult(
+        address _participant,
+        string memory _tokenURI
+    ) public onlyOwner {
+        require(!electionStarted, "Election is ongoing, cannot mint NFTs yet");
+        require(
+            votingStartTimeStamp != 0,
+            "Timestamp is 0, election not even started"
+        );
+        // Mint an NFT for the participant
+        ElectionNFT(electionNFTContract).mintNFT(_participant, _tokenURI);
 
-    // Mark the participant as having received an NFT
-    voters[_participant] = true;
-}
+        // Mark the participant as having received an NFT
+        voters[_participant] = true;
+    }
 
     // Function to set ElectionNFT contract address
-    function setElectionNFTContract(address _electionNFTContract)
-        public
-        onlyOwner
-    {
+    function setElectionNFTContract(
+        address _electionNFTContract
+    ) public onlyOwner {
         electionNFTContract = _electionNFTContract;
     }
 }

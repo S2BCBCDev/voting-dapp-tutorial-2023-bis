@@ -25,7 +25,7 @@ const addVoterInput = document.querySelector("#addVoterInput");
 const addVoterButton = document.querySelector("#addVoterButton");
 
 // configure ethers
-const contractAddress = '0x50D2ADf8b2EC0f36861c2621d2E5FE668b2b51F4';
+const contractAddress = '0x9A6bf9fa22Db3e709DE6bE8d830c52cd18433d21';
 
 // Load the contract ABI
 const contractABI = [
@@ -317,11 +317,24 @@ const contractABI = [
     "inputs": [
       {
         "internalType": "address",
-        "name": "_voter",
+        "name": "_eligible_voter",
         "type": "address"
       }
     ],
     "name": "registerVoter",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "_eligible_voters",
+        "type": "address[]"
+      }
+    ],
+    "name": "registerVoters",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
