@@ -21,6 +21,8 @@ const changeElectionDurationInput = document.querySelector("#changeElectionDurat
 const changeElectionDurationButton = document.querySelector("#changeElectionDurationButton");
 const saveResultsNFTInput = document.querySelector("#saveResultsNFTInput");
 const saveResultsNFTButton = document.querySelector("#saveResultsNFTButton");
+const addVoterInput = document.querySelector("#addVoterInput");
+const addVoterButton = document.querySelector("#addVoterButton");
 
 // configure ethers
 const contractAddress = '0x50D2ADf8b2EC0f36861c2621d2E5FE668b2b51F4';
@@ -1319,6 +1321,17 @@ saveResultsNFTButton.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error casting Mint Results: " + error.message);
+  }
+});
+
+addVoterButton.addEventListener("click", async () => {
+  try {
+      const voterAddress = addVoterInput.value;
+      await contract.registerVoter(voterAddress);
+      console.log(`Voter ${voterAddress} registered successfully!`);
+  } catch (error) {
+      console.error(error);
+      console.log(`Error registering voter: ${error.message}`);
   }
 });
 
