@@ -1200,8 +1200,21 @@ async function displayCandidates() {
             <th>${candidate.id || "No ID yet"}</th>
             <th>${candidate.name || "No name yet"}</th>
             <th>${candidate.numberOfVotes || "No vote yet"}</th>
+            <th><button class="voteBtnRow">Vote</button></th>
         `;
         candidateBoard.appendChild(row);
+
+        const voteRowButton = row.querySelector('.voteBtnRow');
+        voteRowButton.addEventListener('click', async () => {
+            try {
+                const candidateId = candidate.id;
+                await contract.voteTo(candidateId);
+                console.log("Vote cast successfully!");
+            } catch (error) {
+                console.error(error);
+                console.log("Error casting vote: " + error.message);
+            }
+        });
       });
     }
   }

@@ -2,13 +2,16 @@
 <html lang="en">
 
 <head>
+    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
     <title>Voting dApp</title>
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <!-- Link to external ethers.js library -->
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <body>
     <div id="votingStation">
@@ -16,33 +19,38 @@
         <h2>Voting dApp 2023</h2>
 
         <div id="mainBoard">
+            <!-- Table for displaying candidates -->
             <table id="candidateBoard">
                 <tr>
                     <th>ID No.</th>
                     <th>Candidate</th>
                     <th>Vote count</th>
-                    <th>Vote</th>
+                    <th>Vote Button</th>
                 </tr>
             </table>
         </div>
 
         <div id="showCandidateListContainer">
+            <!-- Button to show candidates list and votes -->
             <h3>Open the Election main board:</h3>
             <button id="showCandidateList">Show Candidates list and votes</button>
         </div>
 
         <div id="timer">
+            <!-- Election timer section -->
+            <h3>Election Timer:</h3>
             <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
-
             <p id="timerMessage"><span id="time">Duration in seconds</span></p>
         </div>
 
         <div id="connectWallet">
-            <h3 id="connectWalletMessage">Connect your wallet:</h3>
+            <!-- Connect wallet section -->
+            <h3>Connect your wallet:</h3>
             <button id="connectWalletbutton">Connect Wallet</button>
         </div>
 
         <div id="voteForm">
+            <!-- Form for casting votes -->
             <p>Please select the ID of the candidate you would like to vote for</p>
             <label for="">
                 <input type="number" id="vote" />
@@ -51,11 +59,12 @@
         </div>
 
         <div id="admin">
+            <!-- Administrator panel section -->
 
-                <h2>Administrator panel</h2>
-
+            <h2>Administrator panel</h2>
 
             <div id="startElection">
+                <!-- Section for starting an election -->
                 <h3 id="startElectionMessage">Start an Election:</h3>
                 <input type="text" id="addCandidateInput" placeholder="text separated by commas (,) " />
                 <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
@@ -63,37 +72,41 @@
             </div>
 
             <div id="changeElectionDuration">
+                <!-- Section for changing election duration -->
                 <h3>Add time to election duration:</h3>
                 <input type="number" id="changeElectionDurationInput" />
                 <button id="changeElectionDurationButton">Extend duration:</button>
-
             </div>
 
             <div id="addCandidate">
+                <!-- Section for adding a candidate -->
                 <h3>Add a candidate to election:</h3>
                 <input type="text" id="addCandidateInputBonus" />
                 <button id="addCandidateButton">Add Candidate</button>
-
             </div>
 
             <div id="addVoter">
+                <!-- Section for registering voters -->
                 <h3>Register voters addresses to election:</h3>
                 <input type="text" id="addVoterInput" />
                 <button id="addVoterButton">Register Voter</button>
             </div>
 
             <div id="endElection">
+                <!-- Section for finalizing the election -->
                 <h3>Finalise the election:</h3>
                 <button id="endElectionButton">End Election</button>
             </div>
 
             <div id="saveResultsNFT">
+                <!-- Section for minting an NFT certificate -->
                 <h3>Mint an NFT certificate of the result on all voter's address:</h3>
                 <input type="text" id="saveResultsNFTInput" />
                 <button id="saveResultsNFTButton">Mint ENFT ElectionNFT</button>
             </div>
 
             <div id="resetElection">
+                <!-- Section for reinitializing the election -->
                 <h3>Reinitialise the election</h3>
                 <button id="resetElectionButton">Reinitialise!</button>
             </div>
@@ -101,6 +114,7 @@
 
     </div>
 
+    <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
 
