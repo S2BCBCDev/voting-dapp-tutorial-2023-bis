@@ -2,9 +2,8 @@
 pragma solidity ^0.8.19;
 import "./ElectionNFT.sol";
 
-
 contract Voting {
-       address public electionNFTContract;
+    address public electionNFTContract;
 
     // Create a structure template for each candidates
     struct Candidate {
@@ -20,6 +19,7 @@ contract Voting {
 
     // Mapp all voter addresses
     mapping(address => bool) public voters;
+    mapping(address => bool) public eligibleVoters;
 
     // List of voters
     address[] internal ListOfVoters;
@@ -27,8 +27,6 @@ contract Voting {
     // voting start and end session
     uint256 public votingStartTimeStamp;
     uint256 public votingEndTimeStamp;
-
-
 
     // Create an election status
     bool public electionStarted;
@@ -55,6 +53,12 @@ contract Voting {
     // Event emitted when a vote is cast
     event VoteCast(address indexed voter, uint256 candidateId);
 
+    // Event emitted when a new Candidate is added
+    event CandidateAdded(uint256 indexed id, string name);
+
+    // Event emitted when time has been added to the election period
+    event ElectionDurationChanged(uint256 newDuration);
+
     // Event emitted when the election finishes
     event ElectionFinished(address indexed owner);
 
@@ -65,7 +69,6 @@ contract Voting {
         // Initialize owner
         owner = msg.sender;
     }
-   
 
     // To start an election
     function startElection(string[] memory _candidates, uint256 _votingDuration)
@@ -113,6 +116,7 @@ contract Voting {
             "You already voted. You can only vote once."
         );
         require(_id < candidates.length, "Invalid candidate ID");
+        require(eligibleVoters[msg.sender], "You are not an eligible voter.");
 
         candidates[_id].numberOfVotes++;
         voters[msg.sender] = true;
@@ -180,14 +184,6 @@ contract Voting {
         emit ElectionFinished(owner);
     }
 
-    // function removeCandidate(uint256 _candidateId) public onlyOwner {
-    //     require(_candidateId < candidates.length, "Invalid candidate ID");
-    //     for (uint256 i = _candidateId; i < candidates.length - 1; i++) {
-    //         candidates[i] = candidates[i + 1];
-    //     }
-    //     candidates.pop();
-    // }
-
     function removeCandidate(uint256 _candidateId) public onlyOwner {
         require(_candidateId < candidates.length, "Invalid candidate ID");
         require(!electionStarted, "Election is ongoing");
@@ -212,8 +208,6 @@ contract Voting {
         owner = newOwner;
     }
 
-    /// additional code
-
     function changeElectionDuration(uint256 _newDuration)
         public
         onlyOwner
@@ -222,6 +216,8 @@ contract Voting {
         require(_newDuration > 0, "Invalid duration");
 
         votingEndTimeStamp = votingStartTimeStamp + (_newDuration * 1 minutes);
+
+        emit ElectionDurationChanged(_newDuration);
     }
 
     function addCandidate(string memory _name)
@@ -232,13 +228,27 @@ contract Voting {
         candidates.push(
             Candidate({id: candidates.length, name: _name, numberOfVotes: 0})
         );
+
+        emit CandidateAdded(candidates.length - 1, _name);
     }
 
+    function registerVoter(address _voter) public onlyOwner {
+        eligibleVoters[_voter] = true;
+    }
 
-    function mintResult(address _participant, string memory _tokenURI) public onlyOwner  {
-    // require(electionStarted, "Election has not started");
-    // require(!voterStatus(_participant), "Participant has already received an NFT");
+   function mintResultNFTs(string memory _tokenURI) public onlyOwner {
+    for (uint256 i = 0; i < ListOfVoters.length; i++) {
+        if (eligibleVoters[ListOfVoters[i]]) {
+            // Mint NFT to eligible voter
+            ElectionNFT(electionNFTContract).mintNFT(
+                ListOfVoters[i],
+                _tokenURI
+            );
+        }
+    }
+}
 
+function mintResult(address _participant, string memory _tokenURI) public onlyOwner {
     // Mint an NFT for the participant
     ElectionNFT(electionNFTContract).mintNFT(_participant, _tokenURI);
 
@@ -246,8 +256,11 @@ contract Voting {
     voters[_participant] = true;
 }
 
-// Function to set ElectionNFT contract address
-    function setElectionNFTContract(address _electionNFTContract) public onlyOwner {
+    // Function to set ElectionNFT contract address
+    function setElectionNFTContract(address _electionNFTContract)
+        public
+        onlyOwner
+    {
         electionNFTContract = _electionNFTContract;
     }
 }

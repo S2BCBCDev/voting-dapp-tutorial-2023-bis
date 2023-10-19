@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract ElectionNFT is ERC721 {
@@ -13,7 +12,6 @@ contract ElectionNFT is ERC721 {
 
     constructor(address _electionContractAddress) ERC721("Election NFT", "ENFT") {
         electionContractAddress = _electionContractAddress;
-        
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -35,7 +33,4 @@ contract ElectionNFT is ERC721 {
     function getTokenURI(uint256 _tokenId) external view returns (string memory) {
         return tokenURIs[_tokenId];
     }
-
-    
-
 }
