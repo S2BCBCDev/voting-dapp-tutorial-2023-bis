@@ -12,9 +12,9 @@
 
 <body>
     <div id="votingStation">
-        
+
         <h2>Voting dApp 2023</h2>
-       
+
         <div id="mainBoard">
             <table id="candidateBoard">
                 <tr>
@@ -23,20 +23,18 @@
                     <th>Vote count</th>
                     <th>Vote</th>
                 </tr>
-
             </table>
         </div>
 
-        
-
         <div id="showCandidateListContainer">
-            <button id="showCandidateList">Show Candidates list</button>
+            <h3>Open the Election main board:</h3>
+            <button id="showCandidateList">Show Candidates list and votes</button>
         </div>
 
         <div id="timer">
             <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
 
-            <p id="timerMessage"><span id="time">Time in seconds</span></p>
+            <p id="timerMessage"><span id="time">Duration in seconds</span></p>
         </div>
 
         <div id="connectWallet">
@@ -53,45 +51,51 @@
         </div>
 
         <div id="admin">
-            <h2 id="admin">Administrator panel:</h2>
+
+                <h2>Administrator panel</h2>
+
+
             <div id="startElection">
-                <h2 id="startElectionMessage">Voting panel:</h2>
+                <h3 id="startElectionMessage">Start an Election:</h3>
                 <input type="text" id="addCandidateInput" placeholder="text separated by commas (,) " />
                 <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
                 <button id="startElectionButton">Start Election</button>
             </div>
 
             <div id="changeElectionDuration">
-                <p>Add time to election duration</p>
+                <h3>Add time to election duration:</h3>
                 <input type="number" id="changeElectionDurationInput" />
-                <button id="changeElectionDurationButton">Extend election duration</button>
+                <button id="changeElectionDurationButton">Extend duration:</button>
 
             </div>
 
             <div id="addCandidate">
-                <p>Add time to election Candidate</p>
+                <h3>Add a candidate to election:</h3>
                 <input type="text" id="addCandidateInputBonus" />
                 <button id="addCandidateButton">Add Candidate</button>
 
             </div>
 
             <div id="addVoter">
-                <p>Add time to election Candidate</p>
+                <h3>Register voters addresses to election:</h3>
                 <input type="text" id="addVoterInput" />
                 <button id="addVoterButton">Register Voter</button>
             </div>
 
             <div id="endElection">
+                <h3>Finalise the election:</h3>
                 <button id="endElectionButton">End Election</button>
             </div>
 
             <div id="saveResultsNFT">
+                <h3>Mint an NFT certificate of the result on all voter's address:</h3>
                 <input type="text" id="saveResultsNFTInput" />
-                <button id="saveResultsNFTButton">Mint NFT Results</button>
+                <button id="saveResultsNFTButton">Mint ENFT ElectionNFT</button>
             </div>
 
             <div id="resetElection">
-                <button id="resetElectionButton">Reset Election</button>
+                <h3>Reinitialise the election</h3>
+                <button id="resetElectionButton">Reinitialise!</button>
             </div>
         </div>
 

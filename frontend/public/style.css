@@ -21,19 +21,25 @@ body {
 }
 
 
+
 .container {
     width: 80%;
     padding: 20px;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h1,
-h2,
+h2 {
+        text-align: center;}
 h3 {
-    text-align: center;
+    text-align: left;
     margin-bottom: 10px;
+    border-radius: 5px;
+    border: solid 1px #1565c0;
+    background-color: #1e1e2e;
+    padding: 12px;
 }
 
 button {
@@ -50,10 +56,13 @@ button {
     text-align: center;
 }
 
-#connectWalletMessage {
-    font-weight: bold;
-    color: #2ec27eff;
-    margin-bottom: 20px;
+#admin {
+    text-align: right;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: solid 1px #1565c0;
+    background-color: #092f5a;
+    padding: 12px;
 }
 
 
@@ -74,15 +83,16 @@ button {
 
 table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate; /* Change to separate */
+    border-spacing: 0; /* Add this line */
     border-radius: 5px;
 }
 
 table,
 th,
 td {
-    border: solid 3px #1565c0;
-    border-radius: 5px;
+    border: solid 1px #1565c0;
+    /* border-radius: 3px; */
 }
 
 th,

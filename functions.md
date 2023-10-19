@@ -1,0 +1,21 @@
+| Function Name | Sighash    | Function Signature | 
+| ------------- | ---------- | ------------------ | 
+| startElection | 0b56a681 | startElection(string[],uint256) |
+| voterStatus | 576cc4f2 | voterStatus(address) |
+| voteTo | 3d7b995c | voteTo(uint256) |
+| retrieveVotes | 031e5004 | retrieveVotes() |
+| electionTimer | 3c9a4df3 | electionTimer() |
+| checkElectionPeriod | d4a6cac8 | checkElectionPeriod() |
+| resetAllVoterStatus | d4608b72 | resetAllVoterStatus() |
+| resetElection | e8f30523 | resetElection() |
+| endElection | 59f78468 | endElection() |
+| removeCandidate | 09e9d7e2 | removeCandidate(uint256) |
+| removeAllCandidates | f77683a0 | removeAllCandidates() |
+| transferOwnership | f2fde38b | transferOwnership(address) |
+| changeElectionDuration | 8cef1565 | changeElectionDuration(uint256) |
+| addCandidate | 462e91ec | addCandidate(string) |
+| registerVoter | 38db6dd3 | registerVoter(address) |
+| registerVoters | d55ec9c1 | registerVoters(address[]) |
+| mintResultNFTs | 128c14ba | mintResultNFTs(string) |
+| mintResult | ef220891 | mintResult(address,string) |
+| setElectionNFTContract | 4a399976 | setElectionNFTContract(address) |

@@ -1229,9 +1229,6 @@ showCandidateList.addEventListener("click", async () => {
   }
 });
 
-
-
-
 // Call displayCandidates() to display candidates when the page loads
 displayCandidates();
 
