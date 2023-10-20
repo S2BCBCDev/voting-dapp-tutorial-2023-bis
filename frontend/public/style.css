@@ -1,6 +1,21 @@
+/* CSS HEX */
+:root {
+    --prussian-blue: #102537ff;
+    --oxford-blue: #111A2Eff;
+    --oxford-blue-2: #1D283Cff;
+    --prussian-blue-2: #24344Cff;
+    --persian-green: #019B83ff;
+    --blue-ncs: #0684C2ff;
+    --paynes-gray: #5D7084ff;
+    --oxford-blue-3: #172237ff;
+    --rusty-red: #CA323Eff;
+    --cerulean: #077CB2ff;
+}
+
+
 body {
     font-family: 'Roboto Regular', Helvetica, Arial, Lucida, sans-serif;
-    background-color: #6d2b2b;
+    background-color: var(--prussian-blue);
     line-height: 1.7em;
     font-weight: 500;
     display: flex;
@@ -8,29 +23,33 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0 20px;
-    background: #1e1e2e;
+    background: var(--oxford-blue);
     font-size: 1.2em;
     color: #ffffff;
 
 }
 
 #connectWalletBtn:active {
-    background-color: #2ec27eff;
+    background-color: var(--persian-green);
     font-weight: bold;
-    font-size: 1.2em; 
+    font-size: 1.2em;
 }
 
 #connectWalletMessageSpan {
     display: block;
     word-break: break-all;
-    background-color: #2ec27eff; /* Background color when address appears */
-    padding: 4px 8px; /* Adjust padding for better visual appearance */
-    border-radius: 12px; /* Optional: Add rounded corners */
-    font-weight: bold; /* Optional: Make the text bold */
+    background-color: var(--persian-green);
+    /* Background color when address appears */
+    padding: 4px 8px;
+    /* Adjust padding for better visual appearance */
+    border-radius: 12px;
+    /* Optional: Add rounded corners */
+    font-weight: bold;
+    /* Optional: Make the text bold */
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     padding: 20px;
     background-color: #fff;
     border-radius: 12px;
@@ -39,26 +58,25 @@ body {
 
 h1,
 h2 {
-        text-align: center;}
+    text-align: center;
+}
+
 h3 {
     text-align: left;
     margin-bottom: 10px;
     border-radius: 12px;
-    border: solid 1px #1565c0;
-    background-color: #0c3e77;
+    border: solid 1px var(--blue-ncs);
+    background-color: var(--prussian-blue);
     padding: 12px;
+    width: 80%;
 }
 
 h3 p {
-    text-align: right;
-}
-
-button {
-    cursor: pointer;
+    text-align: center;
 }
 
 #votingStation {
-    height: 80vh;
+    height: 90vh;
 }
 
 #connectMetamask,
@@ -71,8 +89,8 @@ button {
     text-align: right;
     margin-bottom: 10px;
     border-radius: 12px;
-    border: solid 3px #1565c0;
-    background-color: #050225;
+    border: solid 3px var(--blue-ncs);
+    background-color: var(--oxford-blue-2);
     padding: 12px;
 }
 
@@ -94,17 +112,17 @@ button {
 
 table {
     width: 100%;
-    border-collapse: separate; /* Change to separate */
-    border-spacing: 0; /* Add this line */
+    border-collapse: separate;
+    /* Change to separate */
+    border-spacing: 0;
+    /* Add this line */
     border-radius: 12px;
+    border: solid 1px var(--blue-ncs);
+
 }
 
-table,
-th,
-td {
-    border: dashed 1px #1565c0;
-    border-radius: 12px;
-}
+
+
 
 th,
 td {
@@ -113,7 +131,7 @@ td {
 }
 
 th {
-    background-color: #050225;
+    background-color: var(--prussian-blue);
 }
 
 #voteForm {
@@ -126,10 +144,7 @@ th {
     margin-bottom: 10px;
 }
 
-#voteForm input {
-    padding: 5px;
-    margin-right: 10px;
-}
+
 
 
 
@@ -152,16 +167,7 @@ th {
 
 #admin input,
 #admin button {
-    margin-top: 5px;
-}
-
-
-.container {
-    width: 80%;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
 }
 
 button {
@@ -171,7 +177,7 @@ button {
     border: none;
     border-radius: 12px;
     padding: 8px 16px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 button:hover {
@@ -181,11 +187,12 @@ button:hover {
 /* Add these rules for input fields */
 input[type="text"],
 input[type="number"] {
-    padding: 5px;
-    border: 1px solid #ccc;
+    padding: 8px;
+    border: 3px solid var(--blue-ncs);
     border-radius: 12px;
     font-size: 16px;
     margin-bottom: 10px;
+    background-color: #fff;
 }
 
 /* Add these rules for input placeholders */
@@ -195,8 +202,12 @@ input[type="number"]::placeholder {
 }
 
 hr.custom-line {
-    border: 0px solid #1565c0; /* Set the color of the line */
-    height: 30px; /* Set the height of the line */
-    background-color: #050225;
-    width: 20%;
-  }
+    border: 1px dashed #1565c0;
+    /* Set the color of the line */
+    height: 1px;
+    /* Set the height of the line */
+    background-color: var(--persian-green);
+    width: 30%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
