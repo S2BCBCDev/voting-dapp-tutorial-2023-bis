@@ -11,9 +11,8 @@ async function main() {
   const contractData = JSON.parse(fileContent);
   const contractABI = contractData.abi;
 
- // Connect to Ganache
-  // const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545');
-//   const provider = new ethers.providers.JsonRpcProvider('http://bops.morpheuslabs.io:25295');
+ // Connect to RPC
+
 const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
 // Define your private key

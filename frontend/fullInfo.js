@@ -16,7 +16,7 @@ async function main() {
         console.log('Contract ABI loaded!');
 
         // Connect to Ganache
-        const provider = new ethers.providers.JsonRpcProvider('https://eth-sepolia.g.alchemy.com/v2/ySi48L5bQDYJDO8T5n3zl6XVgEPb8zHT');
+        const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
         console.log('Connected to provider:');
 
         // const signer = provider.getSigner();
@@ -30,7 +30,7 @@ async function main() {
         console.log('Signer:');
 
         // Load the contract
-        const contractAddress = '0xe9f62BF7e763A950A796B98fFFE567C436f7ea89'; // Replace with your actual contract address
+        const contractAddress = process.env.CONTRACT_ADDRESS; // Replace with your actual contract address
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
         console.log('Contract loaded:', contract.address);
 

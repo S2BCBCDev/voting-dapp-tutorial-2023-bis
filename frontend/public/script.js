@@ -24,10 +24,8 @@ const saveResultsNFTButton = document.querySelector("#saveResultsNFTButton");
 const addVoterInput = document.querySelector("#addVoterInput");
 const addVoterButton = document.querySelector("#addVoterButton");
 
-// configure ethers
+// Address and ABI of the Voting.sol contract
 const contractAddress = '0x9A6bf9fa22Db3e709DE6bE8d830c52cd18433d21';
-
-// Load the contract ABI
 const contractABI = [
   {
     "inputs": [],
@@ -526,7 +524,8 @@ const contractABI = [
   }
 ]
 
-const electionNFTAddress = '0xD230dBB05eBB2D4ff3c233A30079d254099f3BA8'; // Address of the deployed ElectionNFT contract
+// Address and ABI of the ElectionNFT contract
+const electionNFTAddress = '0x26E860c449A7e0430a5C7b694cC75659d462b12C'; // Address of the deployed ElectionNFT contract
 const electionNFTABI = [
   {
     "inputs": [
@@ -1048,7 +1047,7 @@ const electionNFTABI = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]; // ABI of the ElectionNFT contract
+]; 
 
 let contract;
 let signer;

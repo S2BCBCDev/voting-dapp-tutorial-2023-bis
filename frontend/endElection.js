@@ -1,6 +1,7 @@
 const { ethers } = require('ethers');
 const fs = require('fs');
 require('dotenv').config(); // Load environment variables from .env file
+
  
 
 async function main() {
@@ -11,7 +12,8 @@ async function main() {
   const contractABI = contractData.abi;
 
  // Connect to RPC
-  const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+
+const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
 // Define your private key
 const privateKey = process.env.PRIVATE_KEY;
@@ -19,14 +21,13 @@ const privateKey = process.env.PRIVATE_KEY;
 //   const signer = provider.getSigner();
 const signer = new ethers.Wallet(privateKey, provider);
 
- // Load the contract
- const contractAddress = process.env.CONTRACT_ADDRESS; // Replace with your actual contract address
- const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  // Load the contract
+  const contractAddress = process.env.CONTRACT_ADDRESS; // Replace with your actual contract address
+  const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  // resetElection
-  const resetElection = await contract.resetElection();
-  await resetElection.wait();
-  console.log('Reset Election done');
+  // Start an election (assuming the contract has a startElection function)
+  const endElection = await contract.endElection();
+  await endElection.wait();
 }
 
 main().catch((error) => {
