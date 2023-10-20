@@ -29,6 +29,10 @@ body {
 
 }
 
+#connectWalletBtn {
+    background-color: var(--blue-ncs);
+}
+
 #connectWalletBtn:active {
     background-color: var(--persian-green);
     font-weight: bold;
@@ -39,13 +43,9 @@ body {
     display: block;
     word-break: break-all;
     background-color: var(--persian-green);
-    /* Background color when address appears */
     padding: 4px 8px;
-    /* Adjust padding for better visual appearance */
     border-radius: 12px;
-    /* Optional: Add rounded corners */
     font-weight: bold;
-    /* Optional: Make the text bold */
 }
 
 .container {
@@ -63,12 +63,11 @@ h2 {
 
 h3 {
     text-align: left;
-    margin-bottom: 10px;
     border-radius: 12px;
-    border: solid 1px var(--blue-ncs);
+    border: 3px solid var(--blue-ncs);
     background-color: var(--prussian-blue);
     padding: 12px;
-    width: 80%;
+    width: 70%;
 }
 
 h3 p {
@@ -76,7 +75,7 @@ h3 p {
 }
 
 #votingStation {
-    height: 90vh;
+    height: 95vh;
 }
 
 #connectMetamask,
@@ -117,7 +116,7 @@ table {
     border-spacing: 0;
     /* Add this line */
     border-radius: 12px;
-    border: solid 1px var(--blue-ncs);
+    border: 3px solid var(--blue-ncs);
 
 }
 
@@ -153,7 +152,8 @@ th {
 }
 
 #admin {
-    margin-top: 40px;
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
 
 #admin p {
@@ -178,6 +178,8 @@ button {
     border-radius: 12px;
     padding: 8px 16px;
     margin-top: 30px;
+    font-weight: bolder;
+    font-size: 1em;
 }
 
 button:hover {
@@ -195,6 +197,13 @@ input[type="number"] {
     background-color: #fff;
 }
 
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: var(--persian-green); /* Change the border color when focused */
+    outline: none; /* Remove the default outline */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for visual feedback */
+}
+
 /* Add these rules for input placeholders */
 input[type="text"]::placeholder,
 input[type="number"]::placeholder {
@@ -208,6 +217,10 @@ hr.custom-line {
     /* Set the height of the line */
     background-color: var(--persian-green);
     width: 30%;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+#resetElectionButton {
+    background-color: var(--rusty-red);
 }

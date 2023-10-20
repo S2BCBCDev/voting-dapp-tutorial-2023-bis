@@ -1065,7 +1065,7 @@ connectWalletBtn.addEventListener("click", async () => {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     // connectWalletBtn.style.display = "none";
     connectWalletBtn.textContent = "Connected";
-    connectWalletBtn.style.backgroundColor = "#2ec27eff"; // Change the background color to light green
+    connectWalletBtn.style.backgroundColor = "#019B83ff"; // Change the background color to light green
 
     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
 
