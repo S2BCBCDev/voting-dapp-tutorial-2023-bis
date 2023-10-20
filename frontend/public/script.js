@@ -25,6 +25,8 @@ const addVoterInput = document.querySelector("#addVoterInput");
 const addVoterButton = document.querySelector("#addVoterButton");
 const addVoterInputArray = document.querySelector("#addVoterInputArray");
 const addVoterButtonArray = document.querySelector("#addVoterButtonArray");
+const connectWalletMessageSpan = document.querySelector("#connectWalletMessageSpan");
+
 
 // Address and ABI of the Voting.sol contract
 const contractAddress = '0x9A6bf9fa22Db3e709DE6bE8d830c52cd18433d21';
