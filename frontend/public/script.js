@@ -11,7 +11,7 @@ const showResultContainer = document.querySelector("#showResultContainer");
 const showResult = document.querySelector("#showResult");
 const result = document.querySelector("#result");
 const admin = document.querySelector("#admin");
-const addCandidateInput = document.querySelector("#addCandidateInput");
+const addCandidateInput4 = document.querySelector("#addCandidateInput4");
 const specifyDuration = document.querySelector("#specifyDuration");
 const startElectionButton = document.querySelector("#startElectionButton");
 const addCandidateInputBonus = document.querySelector("#addCandidateInputBonus");
@@ -1090,7 +1090,13 @@ connectWalletBtn.addEventListener("click", async () => {
 // Function to start the election
 startElectionButton.addEventListener("click", async () => {
   try {
-    const candidates = addCandidateInput.value.split(",");
+    const candidates = [
+      addCandidateInput.value,
+      addCandidateInput2.value,
+      addCandidateInput3.value,
+      ...addCandidateInput4.value.split(",")
+  ].filter(Boolean);
+    console.log(candidates);
     const votingDuration = specifyDuration.value;
 
     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
@@ -1254,7 +1260,8 @@ async function checkAccountConnection() {
       connectWalletBtn.textContent = "Connected";
       connectWalletBtn.style.backgroundColor = "#2ec27eff";
       votingStation.style.display = "block";
-      connectWalletMessageSpan.textContent = `account: ${accounts[0]}`;
+      connectWalletMessageSpan.innerHTML = `Account connected:<br>${accounts[0]}`;
+
 
     } else {
       connectWalletMessageSpan.textContent = "Click connect button please";
