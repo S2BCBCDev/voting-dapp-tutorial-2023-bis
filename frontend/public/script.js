@@ -23,6 +23,8 @@ const saveResultsNFTInput = document.querySelector("#saveResultsNFTInput");
 const saveResultsNFTButton = document.querySelector("#saveResultsNFTButton");
 const addVoterInput = document.querySelector("#addVoterInput");
 const addVoterButton = document.querySelector("#addVoterButton");
+const addVoterInputArray = document.querySelector("#addVoterInputArray");
+const addVoterButtonArray = document.querySelector("#addVoterButtonArray");
 
 // Address and ABI of the Voting.sol contract
 const contractAddress = '0x9A6bf9fa22Db3e709DE6bE8d830c52cd18433d21';
@@ -1252,7 +1254,11 @@ async function checkAccountConnection() {
       connectWalletBtn.textContent = "Connected";
       connectWalletBtn.style.backgroundColor = "#2ec27eff";
       votingStation.style.display = "block";
+      connectWalletMessageSpan.textContent = `account: ${accounts[0]}`;
+
     } else {
+      connectWalletMessageSpan.textContent = "Click connect button please";
+
       // Account is not connected
       // Wait for the user to connect the wallet
     }
@@ -1271,6 +1277,7 @@ function updateTimerMessage(seconds) {
   timerMessage.textContent = seconds;
   timerMessage.innerHTML = `<span id="time">${seconds}</span> seconds left`;
 }
+
 
 // calling contract.electionTimer() inside an async function
 async function showTimer() {
@@ -1354,6 +1361,17 @@ addVoterButton.addEventListener("click", async () => {
   } catch (error) {
       console.error(error);
       console.log(`Error registering voter: ${error.message}`);
+  }
+});
+
+addVoterButtonArray.addEventListener("click", async () => {
+  try {
+    const voterAddresses = addVoterInputArray.value.split(',').map(address => address.trim());
+    await contract.registerVoters(voterAddresses);
+    console.log(`Voters registered successfully!`);
+  } catch (error) {
+    console.error(error);
+    console.log(`Error registering voters: ${error.message}`);
   }
 });
 
