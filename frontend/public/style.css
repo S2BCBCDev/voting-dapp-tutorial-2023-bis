@@ -85,12 +85,11 @@ h3 p {
 }
 
 #admin {
-    text-align: right;
     margin-bottom: 10px;
     border-radius: 12px;
     border: solid 3px var(--blue-ncs);
     background-color: var(--oxford-blue-2);
-    padding: 12px;
+    padding: 30px;
 }
 
 
@@ -117,11 +116,10 @@ table {
     /* Add this line */
     border-radius: 12px;
     border: 3px solid var(--blue-ncs);
+    background-color: var(--prussian-blue);
+    padding: 30px;
 
 }
-
-
-
 
 th,
 td {
@@ -129,9 +127,7 @@ td {
     text-align: center;
 }
 
-th {
-    background-color: var(--prussian-blue);
-}
+
 
 #voteForm {
     margin-top: 20px;
@@ -167,7 +163,7 @@ th {
 
 #admin input,
 #admin button {
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
 button {
@@ -177,7 +173,7 @@ button {
     border: none;
     border-radius: 12px;
     padding: 8px 16px;
-    margin-top: 30px;
+    margin-top: 10px;
     font-weight: bolder;
     font-size: 1em;
 }
