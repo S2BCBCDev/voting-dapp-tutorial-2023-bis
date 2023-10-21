@@ -75,7 +75,7 @@ h3 p {
 }
 
 #votingStation {
-    height: 95vh;
+    height: 100vh;
 }
 
 #connectMetamask,
@@ -89,7 +89,7 @@ h3 p {
     border-radius: 12px;
     border: solid 3px var(--blue-ncs);
     background-color: var(--oxford-blue-2);
-    padding: 30px;
+    padding: 10px;
 }
 
 
@@ -117,7 +117,7 @@ table {
     border-radius: 12px;
     border: 3px solid var(--blue-ncs);
     background-color: var(--prussian-blue);
-    padding: 30px;
+    padding: 10px;
 
 }
 
