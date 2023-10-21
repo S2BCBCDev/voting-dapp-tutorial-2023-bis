@@ -29,7 +29,7 @@ const connectWalletMessageSpan = document.querySelector("#connectWalletMessageSp
 
 
 // Address and ABI of the Voting.sol contract
-const contractAddress = '0x9A6bf9fa22Db3e709DE6bE8d830c52cd18433d21';
+const contractAddress = '0x5b6c0c79F37D20fcAAC3B2b79c8Dca8F164c1C00';
 const contractABI = [
   {
     "inputs": [],
@@ -208,6 +208,19 @@ const contractABI = [
   },
   {
     "inputs": [],
+    "name": "electionID",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "electionNFTContract",
     "outputs": [
       {
@@ -269,6 +282,105 @@ const contractABI = [
     "name": "endElection",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "generateElectionMetadata",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "electionID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "candidateIDs",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "candidateVotes",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "string[]",
+            "name": "candidateNames",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string",
+            "name": "winner",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endTime",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Voting.ElectionMetadata",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "generateMetadata",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "candidateIDs",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "candidateNames",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "candidateVotes",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getNumVotes",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getWinner",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1427,4 +1539,45 @@ contract.on(electionFinishedFilter, (fromBlock, data, event) => {
 
 });
 
+const generateAndUploadMetadataButton = document.querySelector("#generateAndUploadMetadataButton");
+
+
+
+// Add this function after your existing code
+async function generateAndUploadMetadata() {
+  try {
+    // Call generateMetadata function in your contract
+    const metadata = await contract.generateMetadata();
+
+    // Create JavaScript object
+    const electionMetadata = {
+        electionID: 1,
+        candidateIDs: metadata[0],
+        candidateVotes: metadata[2],
+        candidateNames: metadata[1],
+        winner: await contract.getWinner(),
+        startTime: votingStartTimeStamp,
+        endTime: votingEndTimeStamp
+    };
+
+    // Convert to JSON
+    const electionMetadataJSON = JSON.stringify(electionMetadata);
+
+    // Upload to IPFS
+    const ipfsResponse = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
+        method: 'POST',
+        body: new FormData().append('file', new Blob([electionMetadataJSON]))
+    });
+    const ipfsData = await ipfsResponse.json();
+
+    console.log('IPFS URL:', `https://ipfs.io/ipfs/${ipfsData.Hash}`);
+  } catch (error) {
+    console.error(error);
+    console.log("Error generating and uploading metadata: " + error.message);
+  }
+}
+
+generateAndUploadMetadataButton.addEventListener("click", async () => {
+  await generateAndUploadMetadata();
+});
 

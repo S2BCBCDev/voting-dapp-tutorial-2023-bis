@@ -43,50 +43,32 @@ let electionNFTContract;
 // const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
 
 // Function to connect Metamask
-// connectWalletBtn.addEventListener("click", async () => {
-//   try {
-//     await window.ethereum.request({ method: 'eth_requestAccounts' });
-//     // connectWalletBtn.style.display = "none";
-//     connectWalletBtn.textContent = "Connected";
-//     connectWalletBtn.style.backgroundColor = "#2ec27eff"; // Change the background color to light green
-
-//     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
-
-//     provider.send("eth_requestAccounts", []).then(() => {
-//       console.log("Accounts requested");
-
-//       provider.listAccounts().then((accounts) => {
-//         console.log("List of accounts:", accounts);
-
-//         signer = provider.getSigner(accounts[0]);
-//         contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-//         console.log("Signer and Contract set up");
-//       });
-//     });
-
-//     votingStation.style.display = "block";
-//   } catch (error) {
-//     console.error(error);
-//     console.log("Error connecting to Metamask. Please make sure it's installed and unlocked.");
-//   }
-// });
 connectWalletBtn.addEventListener("click", async () => {
   try {
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-    if (accounts.length > 0) {
-      connectWalletBtn.textContent = "Connected";
-      connectWalletBtn.style.backgroundColor = "#2ec27eff";
-      votingStation.style.display = "block";
-      connectWalletMessageSpan.innerHTML = `Account connected:<br>${accounts[0]}`;
-    } else {
-      connectWalletMessageSpan.textContent = "Click connect button please";
-      // Account is not connected
-      // Wait for the user to connect the wallet
-    }
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    // connectWalletBtn.style.display = "none";
+    connectWalletBtn.textContent = "Connected";
+    connectWalletBtn.style.backgroundColor = "#019B83ff"; // Change the background color to light green
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+    provider.send("eth_requestAccounts", []).then(() => {
+      console.log("Accounts requested");
+
+      provider.listAccounts().then((accounts) => {
+        console.log("List of accounts:", accounts);
+
+        signer = provider.getSigner(accounts[0]);
+        contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+        console.log("Signer and Contract set up");
+      });
+    });
+
+    votingStation.style.display = "block";
   } catch (error) {
     console.error(error);
-    alert("Error checking account connection. Please make sure Metamask is installed and unlocked.");
+    console.log("Error connecting to Metamask. Please make sure it's installed and unlocked.");
   }
 });
 
@@ -279,7 +261,7 @@ async function checkAccountConnection() {
 }
 
 // Call checkAccountConnection() at the startup of the page
-// window.addEventListener('DOMContentLoaded', checkAccountConnection);
+window.addEventListener('DOMContentLoaded', checkAccountConnection);
 
 // Function to update the timer message
 function updateTimerMessage(seconds) {
@@ -427,5 +409,50 @@ contract.on(electionFinishedFilter, (fromBlock, data, event) => {
 
 
 });
+
+// Add this function after your existing code
+async function generateAndUploadMetadata() {
+  try {
+    // Call generateMetadata function in your contract
+    const metadata = await contract.generateMetadata();
+
+    // Create JavaScript object
+    const electionMetadata = {
+        electionID: 1,
+        candidateIDs: metadata[0],
+        candidateVotes: metadata[2],
+        candidateNames: metadata[1],
+        winner: await contract.getWinner(),
+        startTime: votingStartTimeStamp,
+        endTime: votingEndTimeStamp
+    };
+
+    // Convert to JSON
+    const electionMetadataJSON = JSON.stringify(electionMetadata);
+
+    // Upload to IPFS
+    const ipfsResponse = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
+        method: 'POST',
+        body: new FormData().append('file', new Blob([electionMetadataJSON]))
+    });
+    const ipfsData = await ipfsResponse.json();
+
+    console.log('IPFS URL:', `https://ipfs.io/ipfs/${ipfsData.Hash}`);
+  } catch (error) {
+    console.error(error);
+    console.log("Error generating and uploading metadata: " + error.message);
+  }
+
+
+const generateAndUploadMetadataButton = document.querySelector("#generateAndUploadMetadataButton");
+
+generateAndUploadMetadataButton.addEventListener("click", async () => {
+  await generateAndUploadMetadata();
+});
+
+
+}
+
+
 
 

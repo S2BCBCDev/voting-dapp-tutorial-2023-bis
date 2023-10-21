@@ -11,6 +11,10 @@ contract Voting {
         string name; // Name of the candidate
         uint256 numberOfVotes; // Number of votes received by the candidate
     }
+
+    // Election ID ( is never deleted and increment at every starting new election )
+    uint256 public electionID = 0;
+
     // List of all candidates
     Candidate[] public candidates;
 
@@ -72,11 +76,14 @@ contract Voting {
     }
 
     // To start an election
-    function startElection(
-        string[] memory _candidates,
-        uint256 _votingDuration
-    ) public onlyOwner {
+    function startElection(string[] memory _candidates, uint256 _votingDuration)
+        public
+        onlyOwner
+    {
         require(electionStarted == false, "Election is currently ongoing");
+
+        // Increment electionID
+        electionID += 1;
 
         // Clear existing candidates
         while (candidates.length > 0) {
@@ -97,9 +104,12 @@ contract Voting {
     }
 
     // Check voter's status
-    function voterStatus(
-        address _voter
-    ) public view electionOnGoing returns (bool) {
+    function voterStatus(address _voter)
+        public
+        view
+        electionOnGoing
+        returns (bool)
+    {
         if (voters[_voter] == true) {
             return true;
         }
@@ -211,9 +221,11 @@ contract Voting {
         owner = newOwner;
     }
 
-    function changeElectionDuration(
-        uint256 _newDuration
-    ) public onlyOwner electionOnGoing {
+    function changeElectionDuration(uint256 _newDuration)
+        public
+        onlyOwner
+        electionOnGoing
+    {
         require(_newDuration > 0, "Invalid duration");
 
         votingEndTimeStamp = votingStartTimeStamp + (_newDuration * 1 minutes);
@@ -221,9 +233,11 @@ contract Voting {
         emit ElectionDurationChanged(_newDuration);
     }
 
-    function addCandidate(
-        string memory _name
-    ) public onlyOwner electionOnGoing {
+    function addCandidate(string memory _name)
+        public
+        onlyOwner
+        electionOnGoing
+    {
         candidates.push(
             Candidate({id: candidates.length, name: _name, numberOfVotes: 0})
         );
@@ -236,9 +250,10 @@ contract Voting {
         ListOfVotersEligible.push(_eligible_voter); // Add the voter to the ListOfVotersEligible
     }
 
-    function registerVoters(
-        address[] memory _eligible_voters
-    ) public onlyOwner {
+    function registerVoters(address[] memory _eligible_voters)
+        public
+        onlyOwner
+    {
         for (uint256 i = 0; i < _eligible_voters.length; i++) {
             eligibleVoters[_eligible_voters[i]] = true;
             ListOfVotersEligible.push(_eligible_voters[i]);
@@ -260,10 +275,10 @@ contract Voting {
         }
     }
 
-    function mintResult(
-        address _participant,
-        string memory _tokenURI
-    ) public onlyOwner {
+    function mintResult(address _participant, string memory _tokenURI)
+        public
+        onlyOwner
+    {
         require(!electionStarted, "Election is ongoing, cannot mint NFTs yet");
         require(
             votingStartTimeStamp != 0,
@@ -277,9 +292,101 @@ contract Voting {
     }
 
     // Function to set ElectionNFT contract address
-    function setElectionNFTContract(
-        address _electionNFTContract
-    ) public onlyOwner {
+    function setElectionNFTContract(address _electionNFTContract)
+        public
+        onlyOwner
+    {
         electionNFTContract = _electionNFTContract;
+    }
+
+    // Structure template for election metadata
+    struct ElectionMetadata {
+        uint256 electionID;
+        uint256[] candidateIDs; // Change this line
+        uint256[] candidateVotes;
+        string[] candidateNames;
+        string winner;
+        uint256 startTime;
+        uint256 endTime;
+    }
+
+    function getWinner() public view returns (string memory) {
+        require(!electionStarted, "Election is still ongoing");
+        require(candidates.length > 0, "No candidates available");
+
+        uint256 maxVotes = 0;
+        string memory winnerName;
+
+        for (uint256 i = 0; i < candidates.length; i++) {
+            if (candidates[i].numberOfVotes > maxVotes) {
+                maxVotes = candidates[i].numberOfVotes;
+                winnerName = candidates[i].name;
+            }
+        }
+
+        return winnerName;
+    }
+
+    function getNumVotes() public view returns (uint256) {
+        uint256 totalVotes = 0;
+
+        for (uint256 i = 0; i < candidates.length; i++) {
+            totalVotes += candidates[i].numberOfVotes;
+        }
+
+        return totalVotes;
+    }
+
+    function getCandidateNames() internal view returns (string[] memory) {
+        string[] memory candidateNames = new string[](candidates.length);
+
+        for (uint256 i = 0; i < candidates.length; i++) {
+            candidateNames[i] = candidates[i].name;
+        }
+
+        return candidateNames;
+    }
+
+    function generateMetadata()
+        public
+        view
+        returns (
+            uint256[] memory candidateIDs,
+            string[] memory candidateNames,
+            uint256[] memory candidateVotes
+        )
+    {
+        candidateIDs = new uint256[](candidates.length);
+        candidateNames = new string[](candidates.length);
+        candidateVotes = new uint256[](candidates.length);
+
+        for (uint256 i = 0; i < candidates.length; i++) {
+            candidateIDs[i] = candidates[i].id;
+            candidateNames[i] = candidates[i].name;
+            candidateVotes[i] = candidates[i].numberOfVotes;
+        }
+    }
+
+    function generateElectionMetadata()
+        public
+        view
+        returns (ElectionMetadata memory)
+    {
+        uint256[] memory candidateIDs;
+        string[] memory candidateNames;
+        uint256[] memory candidateVotes;
+
+        (candidateIDs, candidateNames, candidateVotes) = generateMetadata();
+
+        return
+            ElectionMetadata({
+                electionID: electionID,
+                candidateIDs: candidateIDs,
+                candidateVotes: candidateVotes,
+                candidateNames: candidateNames,
+                winner: getWinner(),
+                startTime: votingStartTimeStamp,
+                endTime: votingEndTimeStamp
+            });
     }
 }

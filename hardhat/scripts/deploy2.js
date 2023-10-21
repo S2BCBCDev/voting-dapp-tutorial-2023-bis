@@ -6,7 +6,7 @@ async function main() {
   console.log("Deploying ElectionNFT contract with the account:", deployer.address);
 
   const electionNFTContract = await hre.ethers.getContractFactory("ElectionNFT");
-  const deployedElectionNFTContract = await electionNFTContract.deploy("0x9A6bf9fa22Db3e709DE6bE8d830c52cd18433d21");
+  const deployedElectionNFTContract = await electionNFTContract.deploy("0x5b6c0c79F37D20fcAAC3B2b79c8Dca8F164c1C00");
 
   console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
 
