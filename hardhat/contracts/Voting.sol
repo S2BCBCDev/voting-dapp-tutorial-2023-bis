@@ -302,91 +302,83 @@ contract Voting {
     // Structure template for election metadata
     struct ElectionMetadata {
         uint256 electionID;
-        uint256[] candidateIDs; // Change this line
-        uint256[] candidateVotes;
-        string[] candidateNames;
-        string winner;
+        uint256 winnerID;
+        string winnerName;
+        uint256 numberOfVotes;
         uint256 startTime;
         uint256 endTime;
     }
 
-    function getWinner() public view returns (string memory) {
-        require(!electionStarted, "Election is still ongoing");
-        require(candidates.length > 0, "No candidates available");
+    struct Winner {
+    uint256 candidateID;
+    string name;
+    uint256 numberOfVotes;
+    uint256 electionID;
+}
 
-        uint256 maxVotes = 0;
-        string memory winnerName;
+    function getWinnerInfo() public view returns (Winner memory) {
+    require(!electionStarted, "Election is still ongoing");
+    require(candidates.length > 0, "No candidates available");
 
-        for (uint256 i = 0; i < candidates.length; i++) {
-            if (candidates[i].numberOfVotes > maxVotes) {
-                maxVotes = candidates[i].numberOfVotes;
-                winnerName = candidates[i].name;
-            }
-        }
+    uint256 maxVotes = 0;
+    uint256 winningCandidateIndex;
 
-        return winnerName;
-    }
-
-    function getNumVotes() public view returns (uint256) {
-        uint256 totalVotes = 0;
-
-        for (uint256 i = 0; i < candidates.length; i++) {
-            totalVotes += candidates[i].numberOfVotes;
-        }
-
-        return totalVotes;
-    }
-
-    function getCandidateNames() internal view returns (string[] memory) {
-        string[] memory candidateNames = new string[](candidates.length);
-
-        for (uint256 i = 0; i < candidates.length; i++) {
-            candidateNames[i] = candidates[i].name;
-        }
-
-        return candidateNames;
-    }
-
-    function generateMetadata()
-        public
-        view
-        returns (
-            uint256[] memory candidateIDs,
-            string[] memory candidateNames,
-            uint256[] memory candidateVotes
-        )
-    {
-        candidateIDs = new uint256[](candidates.length);
-        candidateNames = new string[](candidates.length);
-        candidateVotes = new uint256[](candidates.length);
-
-        for (uint256 i = 0; i < candidates.length; i++) {
-            candidateIDs[i] = candidates[i].id;
-            candidateNames[i] = candidates[i].name;
-            candidateVotes[i] = candidates[i].numberOfVotes;
+    for (uint256 i = 0; i < candidates.length; i++) {
+        if (candidates[i].numberOfVotes > maxVotes) {
+            maxVotes = candidates[i].numberOfVotes;
+            winningCandidateIndex = i;
         }
     }
 
-    function generateElectionMetadata()
-        public
-        view
-        returns (ElectionMetadata memory)
-    {
-        uint256[] memory candidateIDs;
-        string[] memory candidateNames;
-        uint256[] memory candidateVotes;
+    Winner memory winner = Winner({
+        candidateID: candidates[winningCandidateIndex].id,
+        name: candidates[winningCandidateIndex].name,
+        numberOfVotes: maxVotes,
+        electionID: electionID
+    });
 
-        (candidateIDs, candidateNames, candidateVotes) = generateMetadata();
+    return winner;
+}
 
-        return
-            ElectionMetadata({
-                electionID: electionID,
-                candidateIDs: candidateIDs,
-                candidateVotes: candidateVotes,
-                candidateNames: candidateNames,
-                winner: getWinner(),
-                startTime: votingStartTimeStamp,
-                endTime: votingEndTimeStamp
-            });
+
+   
+    
+
+ function generateMetadata()
+    public
+    view
+    returns (ElectionMetadata memory)
+{
+    require(!electionStarted, "Election is still ongoing");
+    require(candidates.length > 0, "No candidates available");
+
+    uint256 maxVotes = 0;
+    uint256 winningCandidateIndex;
+
+    for (uint256 i = 0; i < candidates.length; i++) {
+        if (candidates[i].numberOfVotes > maxVotes) {
+            maxVotes = candidates[i].numberOfVotes;
+            winningCandidateIndex = i;
+        }
     }
+
+    Winner memory winner = Winner({
+        candidateID: candidates[winningCandidateIndex].id,
+        name: candidates[winningCandidateIndex].name,
+        numberOfVotes: maxVotes,
+        electionID: electionID
+    });
+
+    // Create ElectionMetadata struct
+    ElectionMetadata memory metadata = ElectionMetadata({
+        electionID: electionID,
+        winnerID: winner.candidateID,
+        winnerName: winner.name,
+        numberOfVotes: winner.numberOfVotes,
+        startTime: votingStartTimeStamp,
+        endTime: votingEndTimeStamp
+    });
+
+    return metadata;
+}
 }

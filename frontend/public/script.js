@@ -29,7 +29,7 @@ const connectWalletMessageSpan = document.querySelector("#connectWalletMessageSp
 
 
 // Address and ABI of the Voting.sol contract
-const contractAddress = '0x5b6c0c79F37D20fcAAC3B2b79c8Dca8F164c1C00';
+const contractAddress = '0xa8E7220367bF8487371e6e02D651439B74E00720';
 const contractABI = [
   {
     "inputs": [],
@@ -286,7 +286,7 @@ const contractABI = [
   },
   {
     "inputs": [],
-    "name": "generateElectionMetadata",
+    "name": "generateMetadata",
     "outputs": [
       {
         "components": [
@@ -296,24 +296,19 @@ const contractABI = [
             "type": "uint256"
           },
           {
-            "internalType": "uint256[]",
-            "name": "candidateIDs",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "candidateVotes",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "string[]",
-            "name": "candidateNames",
-            "type": "string[]"
+            "internalType": "uint256",
+            "name": "winnerID",
+            "type": "uint256"
           },
           {
             "internalType": "string",
-            "name": "winner",
+            "name": "winnerName",
             "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "numberOfVotes",
+            "type": "uint256"
           },
           {
             "internalType": "uint256",
@@ -336,48 +331,34 @@ const contractABI = [
   },
   {
     "inputs": [],
-    "name": "generateMetadata",
+    "name": "getWinnerInfo",
     "outputs": [
       {
-        "internalType": "uint256[]",
-        "name": "candidateIDs",
-        "type": "uint256[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "candidateNames",
-        "type": "string[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "candidateVotes",
-        "type": "uint256[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getNumVotes",
-    "outputs": [
-      {
-        "internalType": "uint256",
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "candidateID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "numberOfVotes",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "electionID",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Voting.Winner",
         "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getWinner",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -1542,42 +1523,64 @@ contract.on(electionFinishedFilter, (fromBlock, data, event) => {
 const generateAndUploadMetadataButton = document.querySelector("#generateAndUploadMetadataButton");
 
 
+let metadata;
 
-// Add this function after your existing code
+
+
 async function generateAndUploadMetadata() {
   try {
-    // Call generateMetadata function in your contract
-    const metadata = await contract.generateMetadata();
+      const winner = await contract.getWinnerInfo();
+      const startTimestamp = await contract.votingStartTimeStamp();
+      const endTimestamp = await contract.votingEndTimeStamp();
+      
+      const metadata = {
+          electionID: parseInt(winner.electionID._hex, 16),
+          winnerID: parseInt(winner.candidateID._hex, 16),
+          winnerName: winner.name,
+          numberOfVotes: parseInt(winner.numberOfVotes._hex, 16),
+          startTime: parseInt(startTimestamp._hex, 16),
+          endTime: parseInt(endTimestamp._hex, 16)
+      };
 
-    // Create JavaScript object
-    const electionMetadata = {
-        electionID: 1,
-        candidateIDs: metadata[0],
-        candidateVotes: metadata[2],
-        candidateNames: metadata[1],
-        winner: await contract.getWinner(),
-        startTime: votingStartTimeStamp,
-        endTime: votingEndTimeStamp
-    };
+      console.log("Metadata uploaded successfully!", metadata);
 
-    // Convert to JSON
-    const electionMetadataJSON = JSON.stringify(electionMetadata);
 
-    // Upload to IPFS
-    const ipfsResponse = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
-        method: 'POST',
-        body: new FormData().append('file', new Blob([electionMetadataJSON]))
-    });
-    const ipfsData = await ipfsResponse.json();
-
-    console.log('IPFS URL:', `https://ipfs.io/ipfs/${ipfsData.Hash}`);
+      // Assuming you have a function to upload metadata to IPFS
+     // await uploadMetadataToIPFS(metadata);
   } catch (error) {
-    console.error(error);
-    console.log("Error generating and uploading metadata: " + error.message);
+      console.error('Error:', error);
   }
 }
 
+
+
+// Assuming generateAndUploadMetadataButton is a valid HTML element
+
 generateAndUploadMetadataButton.addEventListener("click", async () => {
-  await generateAndUploadMetadata();
+  await getElectionID();
+  console.log("Button clicked!");
+  generateAndUploadMetadata();
+  console.log("Metadata uploaded successfully!", metadata);
 });
 
+async function getElectionID() {
+  const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+  try {
+    await provider.send("eth_requestAccounts", []);
+    console.log("Accounts requested");
+
+    const accounts = await provider.listAccounts();
+    console.log("List of accounts:", accounts);
+
+    const signer = provider.getSigner(accounts[0]);
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+    const electionID = await contract.electionID();
+    console.log('Election ID:', electionID.toString());
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+getElectionID();

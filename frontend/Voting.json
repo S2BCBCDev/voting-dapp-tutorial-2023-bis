@@ -258,7 +258,7 @@
     },
     {
       "inputs": [],
-      "name": "generateElectionMetadata",
+      "name": "generateMetadata",
       "outputs": [
         {
           "components": [
@@ -268,24 +268,19 @@
               "type": "uint256"
             },
             {
-              "internalType": "uint256[]",
-              "name": "candidateIDs",
-              "type": "uint256[]"
-            },
-            {
-              "internalType": "uint256[]",
-              "name": "candidateVotes",
-              "type": "uint256[]"
-            },
-            {
-              "internalType": "string[]",
-              "name": "candidateNames",
-              "type": "string[]"
+              "internalType": "uint256",
+              "name": "winnerID",
+              "type": "uint256"
             },
             {
               "internalType": "string",
-              "name": "winner",
+              "name": "winnerName",
               "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "numberOfVotes",
+              "type": "uint256"
             },
             {
               "internalType": "uint256",
@@ -308,48 +303,34 @@
     },
     {
       "inputs": [],
-      "name": "generateMetadata",
+      "name": "getWinnerInfo",
       "outputs": [
         {
-          "internalType": "uint256[]",
-          "name": "candidateIDs",
-          "type": "uint256[]"
-        },
-        {
-          "internalType": "string[]",
-          "name": "candidateNames",
-          "type": "string[]"
-        },
-        {
-          "internalType": "uint256[]",
-          "name": "candidateVotes",
-          "type": "uint256[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getNumVotes",
-      "outputs": [
-        {
-          "internalType": "uint256",
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "candidateID",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "numberOfVotes",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "electionID",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct Voting.Winner",
           "name": "",
-          "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getWinner",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
+          "type": "tuple"
         }
       ],
       "stateMutability": "view",
