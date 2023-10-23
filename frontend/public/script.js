@@ -1317,6 +1317,8 @@ async function displayCandidates() {
                 console.log("Error casting vote: " + error.message);
             }
         });
+        getElectionID();
+
       });
     }
   }
@@ -1559,7 +1561,7 @@ async function generateAndUploadMetadata() {
 generateAndUploadMetadataButton.addEventListener("click", async () => {
   await getElectionID();
   console.log("Button clicked!");
-  generateAndUploadMetadata();
+  generateAndUploadMetadata2();
   console.log("Metadata uploaded successfully!", metadata);
 });
 
@@ -1576,11 +1578,55 @@ async function getElectionID() {
     const signer = provider.getSigner(accounts[0]);
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
+    const electionStarted = await contract.electionStarted();
+    if (!electionStarted) {
+      document.getElementById('electionID').textContent = "Not started yet";
+      return;
+    }
+
     const electionID = await contract.electionID();
     console.log('Election ID:', electionID.toString());
+
+    document.getElementById('electionID').textContent = electionID.toString();
   } catch (error) {
     console.error('Error:', error);
   }
 }
 
-getElectionID();
+// Call getElectionID at the startup of the page
+window.addEventListener('DOMContentLoaded', getElectionID);
+
+
+
+
+
+
+
+async function generateAndUploadMetadata2() {
+  try {
+    const winner = await contract.getWinnerInfo();
+    const startTimestamp = await contract.votingStartTimeStamp();
+    const endTimestamp = await contract.votingEndTimeStamp();
+    
+    metadata = {
+      electionID: parseInt(winner.electionID._hex, 16),
+      winnerID: parseInt(winner.candidateID._hex, 16),
+      winnerName: winner.name,
+      numberOfVotes: parseInt(winner.numberOfVotes._hex, 16),
+      startTime: parseInt(startTimestamp._hex, 16),
+      endTime: parseInt(endTimestamp._hex, 16)
+    };
+
+    console.log("Metadata generated successfully!", metadata);
+
+    // Convert metadata to string and set it as the tokenURI
+    const tokenURI = JSON.stringify(metadata);
+    
+    // Assuming you have a function to mint NFTs, update it to use tokenURI
+    await contract.mintResultNFTs(tokenURI);
+    
+    console.log("NFT minted successfully!");
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
