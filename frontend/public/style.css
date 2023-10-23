@@ -19,6 +19,7 @@ body {
     line-height: 1.7em;
     font-weight: 500;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -46,6 +47,8 @@ body {
     padding: 4px 8px;
     border-radius: 12px;
     font-weight: bold;
+    font-size: 0.7em;
+    margin-top: 10px;
 }
 
 .container {
@@ -75,45 +78,58 @@ h3 p {
 }
 
 #votingStation {
-    height: 100vh;
+    height: 95vh;
 }
 
 #connectMetamask,
 #votingStation,
-#admin, #votePanel {
+#admin {
     text-align: center;
 }
 
-#admin, #votePanel {
-    margin-bottom: 10px;
+
+
+.panel {
+    border: solid 3px var(--blue-ncs);
+    background-color: var(--oxford-blue-2);
+    padding: 10px;
+    margin-top: 60px;
+    margin-bottom: 60px;
     border-radius: 12px;
     border: solid 3px var(--blue-ncs);
     background-color: var(--oxford-blue-2);
     padding: 10px;
+    display: none;
+    text-align: center;
 }
 
+.panel p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-
-#votingStation,
-#admin, #votePanel {
+.panel div {
     margin-top: 20px;
 }
+
+
+
+#votingStation {
+    margin-top: 20px;
+}
+
 
 .timerMessage {
     font-size: 30px;
     font-weight: bold;
 }
 
-#mainBoard {
-    margin-top: 20px;
-}
+
 
 table {
     width: 100%;
     border-collapse: separate;
-    /* Change to separate */
     border-spacing: 0;
-    /* Add this line */
     border-radius: 12px;
     border: 3px solid var(--blue-ncs);
     background-color: var(--prussian-blue);
@@ -147,24 +163,9 @@ td {
     margin-top: 20px;
 }
 
-#admin, #votePanel {
-    margin-top: 60px;
-    margin-bottom: 60px;
-}
 
-#admin, #votePanel p {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
 
-#admin, #votePanel div {
-    margin-top: 10px;
-}
 
-#admin, #votePanel input,
-#admin, #votePanel button {
-    margin-top: 10px;
-}
 
 button {
     cursor: pointer;
@@ -182,7 +183,6 @@ button:hover {
     background-color: #1565c0;
 }
 
-/* Add these rules for input fields */
 input[type="text"],
 input[type="number"] {
     padding: 8px;
@@ -195,12 +195,11 @@ input[type="number"] {
 
 input[type="text"]:focus,
 input[type="number"]:focus {
-    border-color: var(--persian-green); /* Change the border color when focused */
-    outline: none; /* Remove the default outline */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for visual feedback */
+    border-color: var(--persian-green);
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Add these rules for input placeholders */
 input[type="text"]::placeholder,
 input[type="number"]::placeholder {
     color: #535353;
@@ -208,9 +207,7 @@ input[type="number"]::placeholder {
 
 hr.custom-line {
     border: 1px dashed #1565c0;
-    /* Set the color of the line */
     height: 1px;
-    /* Set the height of the line */
     background-color: var(--persian-green);
     width: 30%;
     margin-top: 60px;

@@ -1357,7 +1357,7 @@ async function checkAccountConnection() {
       connectWalletBtn.textContent = "Connected";
       connectWalletBtn.style.backgroundColor = "#2ec27eff";
       votingStation.style.display = "block";
-      connectWalletMessageSpan.innerHTML = `Account connected:<br>${accounts[0]}`;
+      connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
 
 
     } else {
@@ -1641,6 +1641,12 @@ function toggleAdminPanel() {
   adminDiv.style.display = (adminDiv.style.display === 'block') ? 'none' : 'block';
 }
 
+// Function to toggle admin panel visibility
+function toggleVotePanel() {
+  const voteDiv = document.getElementById('votePanel');
+  voteDiv.style.display = (voteDiv.style.display === 'block')? 'none' : 'block';
+}
+
 // Event listener for admin panel button click
 document.getElementById('adminPanelButton').addEventListener('click', async () => {
   const accounts = await window.ethereum.request({ method: 'eth_accounts' });
@@ -1651,6 +1657,8 @@ document.getElementById('adminPanelButton').addEventListener('click', async () =
 
       if (connectedAddress.toLowerCase() === ownerAddress.toLowerCase()) {
           toggleAdminPanel();
+          if (document.getElementById('votePanel').style.display === 'block') {
+            toggleVotePanel();}
       } else {
           alert("You are not the administrator of the election session.");
       }
@@ -1658,4 +1666,13 @@ document.getElementById('adminPanelButton').addEventListener('click', async () =
       alert("Please connect with administrator wallet address.");
   }
 });
+
+// Event listener for vote panel button click
+document.getElementById('votePanelButton').addEventListener('click', () => {
+  toggleVotePanel();
+  if (document.getElementById('admin').style.display === 'block') {
+    toggleAdminPanel();
+  }
+});
+
 

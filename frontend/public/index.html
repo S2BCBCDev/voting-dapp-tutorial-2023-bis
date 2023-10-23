@@ -14,12 +14,26 @@
 </head>
 
 <body>
+
+
     <div id="votingStation">
+        <div id="connectWallet">
+            <!-- Connect wallet section -->
+            <p id="connectWalletMessage"><button id="connectWalletbutton">Connect Wallet</button><span
+                    id="connectWalletMessageSpan"></span> </p>
+
+
+        </div>
         <h1>Voting dApp 2023</h1>
-        <div id="votePanel">
+        <div id="buttonPanel">
+
+            <hr class="custom-line">
+            <button id="votePanelButton">Vote Panel</button>
+            <button id="adminPanelButton">Admin Panel</button>
+        </div>
+        <div id="votePanel" class="panel">
 
             <h2>Election Panel</h2>
-            <hr class="custom-line">
 
             <div id="mainBoard">
                 <p>Election ID: <span id="electionID"></span></p>
@@ -48,14 +62,7 @@
             </div>
             <hr class="custom-line">
 
-            <div id="connectWallet">
-                <!-- Connect wallet section -->
-                <h3>Connect your wallet:<p id="connectWalletMessage"><span id="connectWalletMessageSpan">Account not yet
-                            connected</span></p>
-                </h3>
-                <button id="connectWalletbutton">Connect Wallet</button>
-            </div>
-            <hr class="custom-line">
+
             <div id="voteForm">
                 <!-- Form for casting votes -->
                 <h3>ID of the candidate you would like to vote for:</h3>
@@ -65,14 +72,11 @@
                 </label>
             </div>
         </div>
-        <button id="adminPanelButton">Admin Panel</button>
 
-        <div id="admin">
+        <div id="admin" class="panel">
             <!-- Administrator panel section -->
 
             <h2>Administrator panel</h2>
-            <hr class="custom-line">
-
             <div id="startElection">
                 <!-- Section for start an election -->
                 <h3 id="startElectionMessage">Start an Election:</h3>
@@ -138,12 +142,13 @@
                 <h3>Reinitialise the election:</h3>
                 <button id="resetElectionButton">Reinitialise!</button>
             </div>
-            
+
 
         </div>
 
     </div>
     <br>
+    <p>" "</p>
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
