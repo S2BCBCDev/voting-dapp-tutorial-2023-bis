@@ -1372,8 +1372,9 @@ async function checkAccountConnection() {
   }
 }
 
-// Call checkAccountConnection() at the startup of the page
-window.addEventListener('DOMContentLoaded', checkAccountConnection);
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(checkAccountConnection, 1000); // Delay for 1 second (adjust if needed)
+});
 
 // Function to update the timer message
 function updateTimerMessage(seconds) {
@@ -1578,8 +1579,8 @@ async function getElectionID() {
     const signer = provider.getSigner(accounts[0]);
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
 
-    const electionStarted = await contract.electionStarted();
-    if (!electionStarted) {
+    const startTimestamp = await contract.votingStartTimeStamp();
+    if (startTimestamp.toNumber() === 0) {
       document.getElementById('electionID').textContent = "Not started yet";
       return;
     }
@@ -1595,6 +1596,9 @@ async function getElectionID() {
 
 // Call getElectionID at the startup of the page
 window.addEventListener('DOMContentLoaded', getElectionID);
+
+// Automatically refresh the Election ID every 5 seconds (5000 milliseconds)
+setInterval(getElectionID, 12000);
 
 
 
