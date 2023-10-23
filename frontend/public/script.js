@@ -1634,3 +1634,28 @@ async function generateAndUploadMetadata2() {
     console.error('Error:', error);
   }
 }
+
+// Function to toggle admin panel visibility
+function toggleAdminPanel() {
+  const adminDiv = document.getElementById('admin');
+  adminDiv.style.display = (adminDiv.style.display === 'block') ? 'none' : 'block';
+}
+
+// Event listener for admin panel button click
+document.getElementById('adminPanelButton').addEventListener('click', async () => {
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+  
+  if (accounts.length > 0) {
+      const connectedAddress = accounts[0];
+      const ownerAddress = await contract.owner();
+
+      if (connectedAddress.toLowerCase() === ownerAddress.toLowerCase()) {
+          toggleAdminPanel();
+      } else {
+          alert("You are not the administrator of the election session.");
+      }
+  } else {
+      alert("Please connect with administrator wallet address.");
+  }
+});
+

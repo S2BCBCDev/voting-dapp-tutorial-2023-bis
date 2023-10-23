@@ -80,11 +80,11 @@ h3 p {
 
 #connectMetamask,
 #votingStation,
-#admin {
+#admin, #votePanel {
     text-align: center;
 }
 
-#admin {
+#admin, #votePanel {
     margin-bottom: 10px;
     border-radius: 12px;
     border: solid 3px var(--blue-ncs);
@@ -95,7 +95,7 @@ h3 p {
 
 
 #votingStation,
-#admin {
+#admin, #votePanel {
     margin-top: 20px;
 }
 
@@ -147,22 +147,22 @@ td {
     margin-top: 20px;
 }
 
-#admin {
+#admin, #votePanel {
     margin-top: 60px;
     margin-bottom: 60px;
 }
 
-#admin p {
+#admin, #votePanel p {
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-#admin div {
+#admin, #votePanel div {
     margin-top: 10px;
 }
 
-#admin input,
-#admin button {
+#admin, #votePanel input,
+#admin, #votePanel button {
     margin-top: 10px;
 }
 
