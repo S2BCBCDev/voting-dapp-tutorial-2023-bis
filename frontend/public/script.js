@@ -26,6 +26,7 @@ const addVoterButtonArray = document.querySelector("#addVoterButtonArray");
 const connectWalletMessageSpan = document.querySelector("#connectWalletMessageSpan");
 
 
+
 // Address and ABI of the Voting.sol contract
 const contractAddress = '0xa8E7220367bF8487371e6e02D651439B74E00720';
 const contractABI = [
@@ -1142,7 +1143,7 @@ const electionNFTABI = [
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]; 
+];
 
 let contract;
 let signer;
@@ -1170,6 +1171,8 @@ connectWalletBtn.addEventListener("click", async () => {
         contract = new ethers.Contract(contractAddress, contractABI, signer);
 
         console.log("Signer and Contract set up");
+
+        connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
       });
     });
 
@@ -1188,7 +1191,7 @@ startElectionButton.addEventListener("click", async () => {
       addCandidateInput2.value,
       addCandidateInput3.value,
       ...addCandidateInput4.value.split(",")
-  ].filter(Boolean);
+    ].filter(Boolean);
     console.log(candidates);
     const votingDuration = specifyDuration.value;
 
@@ -1306,14 +1309,14 @@ async function displayCandidates() {
 
         const voteRowButton = row.querySelector('.voteBtnRow');
         voteRowButton.addEventListener('click', async () => {
-            try {
-                const candidateId = candidate.id;
-                await contract.voteTo(candidateId);
-                console.log("Vote cast successfully!");
-            } catch (error) {
-                console.error(error);
-                console.log("Error casting vote: " + error.message);
-            }
+          try {
+            const candidateId = candidate.id;
+            await contract.voteTo(candidateId);
+            console.log("Vote cast successfully!");
+          } catch (error) {
+            console.error(error);
+            console.log("Error casting vote: " + error.message);
+          }
         });
         getElectionID();
 
@@ -1370,9 +1373,9 @@ async function checkAccountConnection() {
   }
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  setTimeout(checkAccountConnection, 1000); // Delay for 1 second (adjust if needed)
-});
+// window.addEventListener('DOMContentLoaded', () => {
+//   setTimeout(checkAccountConnection, 1000); // Delay for 1 second (adjust if needed)
+// });
 
 // Function to update the timer message
 function updateTimerMessage(seconds) {
@@ -1458,12 +1461,12 @@ saveResultsNFTButton.addEventListener("click", async () => {
 
 addVoterButton.addEventListener("click", async () => {
   try {
-      const voterAddress = addVoterInput.value;
-      await contract.registerVoter(voterAddress);
-      console.log(`Voter ${voterAddress} registered successfully!`);
+    const voterAddress = addVoterInput.value;
+    await contract.registerVoter(voterAddress);
+    console.log(`Voter ${voterAddress} registered successfully!`);
   } catch (error) {
-      console.error(error);
-      console.log(`Error registering voter: ${error.message}`);
+    console.error(error);
+    console.log(`Error registering voter: ${error.message}`);
   }
 });
 
@@ -1507,9 +1510,9 @@ provider.listAccounts().then(accounts => {
   // Listen for the ElectionFinished event
   const electionFinishedFilter = contract.filters.ElectionFinished();
 
-contract.on(electionFinishedFilter, (fromBlock, data, event) => {
-  console.log("ElectionFinished event!");
-});
+  contract.on(electionFinishedFilter, (fromBlock, data, event) => {
+    console.log("ElectionFinished event!");
+  });
 
   // Listen for the ElectionReset event
   const electionResetFilter = contract.filters.ElectionReset();
@@ -1530,26 +1533,26 @@ let metadata;
 
 async function generateAndUploadMetadata() {
   try {
-      const winner = await contract.getWinnerInfo();
-      const startTimestamp = await contract.votingStartTimeStamp();
-      const endTimestamp = await contract.votingEndTimeStamp();
-      
-      const metadata = {
-          electionID: parseInt(winner.electionID._hex, 16),
-          winnerID: parseInt(winner.candidateID._hex, 16),
-          winnerName: winner.name,
-          numberOfVotes: parseInt(winner.numberOfVotes._hex, 16),
-          startTime: parseInt(startTimestamp._hex, 16),
-          endTime: parseInt(endTimestamp._hex, 16)
-      };
+    const winner = await contract.getWinnerInfo();
+    const startTimestamp = await contract.votingStartTimeStamp();
+    const endTimestamp = await contract.votingEndTimeStamp();
 
-      console.log("Metadata uploaded successfully!", metadata);
+    const metadata = {
+      electionID: parseInt(winner.electionID._hex, 16),
+      winnerID: parseInt(winner.candidateID._hex, 16),
+      winnerName: winner.name,
+      numberOfVotes: parseInt(winner.numberOfVotes._hex, 16),
+      startTime: parseInt(startTimestamp._hex, 16),
+      endTime: parseInt(endTimestamp._hex, 16)
+    };
+
+    console.log("Metadata uploaded successfully!", metadata);
 
 
-      // Assuming you have a function to upload metadata to IPFS
-     // await uploadMetadataToIPFS(metadata);
+    // Assuming you have a function to upload metadata to IPFS
+    // await uploadMetadataToIPFS(metadata);
   } catch (error) {
-      console.error('Error:', error);
+    console.error('Error:', error);
   }
 }
 
@@ -1609,7 +1612,7 @@ async function generateAndUploadMetadata2() {
     const winner = await contract.getWinnerInfo();
     const startTimestamp = await contract.votingStartTimeStamp();
     const endTimestamp = await contract.votingEndTimeStamp();
-    
+
     metadata = {
       electionID: parseInt(winner.electionID._hex, 16),
       winnerID: parseInt(winner.candidateID._hex, 16),
@@ -1623,10 +1626,10 @@ async function generateAndUploadMetadata2() {
 
     // Convert metadata to string and set it as the tokenURI
     const tokenURI = JSON.stringify(metadata);
-    
+
     // Assuming you have a function to mint NFTs, update it to use tokenURI
     await contract.mintResultNFTs(tokenURI);
-    
+
     console.log("NFT minted successfully!");
   } catch (error) {
     console.error('Error:', error);
@@ -1642,26 +1645,27 @@ function toggleAdminPanel() {
 // Function to toggle admin panel visibility
 function toggleVotePanel() {
   const voteDiv = document.getElementById('votePanel');
-  voteDiv.style.display = (voteDiv.style.display === 'block')? 'none' : 'block';
+  voteDiv.style.display = (voteDiv.style.display === 'block') ? 'none' : 'block';
 }
 
 // Event listener for admin panel button click
 document.getElementById('adminPanelButton').addEventListener('click', async () => {
   const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-  
-  if (accounts.length > 0) {
-      const connectedAddress = accounts[0];
-      const ownerAddress = await contract.owner();
 
-      if (connectedAddress.toLowerCase() === ownerAddress.toLowerCase()) {
-          toggleAdminPanel();
-          if (document.getElementById('votePanel').style.display === 'block') {
-            toggleVotePanel();}
-      } else {
-          alert("You are not the administrator of the election session.");
+  if (accounts.length > 0) {
+    const connectedAddress = accounts[0];
+    const ownerAddress = await contract.owner();
+
+    if (connectedAddress.toLowerCase() === ownerAddress.toLowerCase()) {
+      toggleAdminPanel();
+      if (document.getElementById('votePanel').style.display === 'block') {
+        toggleVotePanel();
       }
+    } else {
+      alert("You are not the administrator of the election session.");
+    }
   } else {
-      alert("Please connect with administrator wallet address.");
+    alert("Please connect with administrator wallet address.");
   }
 });
 

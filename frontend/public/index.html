@@ -27,7 +27,7 @@
 
             <hr class="custom-line">
             <button id="votePanelButton">Vote Panel</button>
-            <button id="adminPanelButton">Admin Panel</button>
+            <button id="adminPanelButton">Administrator Panel</button>
         </div>
 
         <div id="votePanel" class="panel">
@@ -36,11 +36,11 @@
 
             <div id="mainBoard">
 
-                <div style="display: flex; flex-direction: row;">
-                <p>Election ID: <span id="electionID"></span></p>
-                <p id="timerMessage">Timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
-                
-            </div>
+                <div style="display: flex; flex-direction: row; border: 3px solid var(--blue-ncs); border-radius: 12px; margin-bottom: 10px; padding: 10px; text-align: center;">
+                    <p style="margin-right: 20px;">Election ID: <span id="electionID"></span></p>
+                    <p id="timerMessage">Timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
+
+                </div>
 
                 <!-- Table for displaying candidates -->
                 <table id="candidateBoard">
@@ -51,14 +51,15 @@
                         <th>Vote Button</th>
                     </tr>
                 </table>
+                
             </div>
 
             <div id="showCandidateListContainer">
                 <!-- Button to show candidates list and votes -->
-                <button id="showCandidateList" onclick="showTimer()">Show Candidates list and votes</button>
-                <button id="showTimerButton" onclick="showTimer()">Refresh Timer</button>
+                <button id="showCandidateList" onclick="showTimer()">Refresh voting board</button>
+                <button id="showTimerButton" onclick="showTimer()">Refresh timer</button>
             </div>
-            
+
             <hr class="custom-line">
 
             <div id="voteForm">

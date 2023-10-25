@@ -53,7 +53,8 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 12px;
-    box-sizing: border-box; /* Ensure padding and border don't increase width */
+    box-sizing: border-box;
+    /* Ensure padding and border don't increase width */
 
 }
 
