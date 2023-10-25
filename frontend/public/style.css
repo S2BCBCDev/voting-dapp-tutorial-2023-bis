@@ -49,6 +49,7 @@ body {
     font-weight: bold;
     font-size: 0.7em;
     margin-top: 10px;
+    width: 600px;
 }
 
 .container {
@@ -78,16 +79,15 @@ h3 p {
 }
 
 #votingStation {
-    height: 95vh;
-}
-
-#connectMetamask,
-#votingStation,
-#admin {
-    text-align: center;
+    height: 100vh;
 }
 
 
+
+#startElection {
+    display: flex;
+    flex-direction: column;
+}
 
 .panel {
     border: solid 3px var(--blue-ncs);
@@ -98,9 +98,11 @@ h3 p {
     border-radius: 12px;
     border: solid 3px var(--blue-ncs);
     background-color: var(--oxford-blue-2);
-    padding: 10px;
+    padding: 30px;
     display: none;
     text-align: center;
+    width: 600px;
+    flex-direction: column;
 }
 
 .panel p {

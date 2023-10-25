@@ -37,6 +37,8 @@
 
             <div id="mainBoard">
                 <p>Election ID: <span id="electionID"></span></p>
+                <p id="timerMessage">timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
+            
                 <!-- Table for displaying candidates -->
                 <table id="candidateBoard">
                     <tr>
@@ -51,20 +53,17 @@
             <div id="showCandidateListContainer">
                 <!-- Button to show candidates list and votes -->
                 <button id="showCandidateList">Show Candidates list and votes</button>
+                <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
             </div>
             <hr class="custom-line">
-            <div id="timer">
-                <!-- Election timer section -->
+            <!-- <div id="timer">
                 <h3>Election Timer:<p id="timerMessage"><span id="time" onclick="showTimer()">[refresh timer]</span></p>
-                </h3>
+                </p></h3>
                 <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
 
-            </div>
-            <hr class="custom-line">
-
+            </div> -->
 
             <div id="voteForm">
-                <!-- Form for casting votes -->
                 <h3>ID of the candidate you would like to vote for:</h3>
                 <label for="">
                     <input type="number" id="vote" />
@@ -90,6 +89,16 @@
                 <button id="startElectionButton">Start Election</button>
             </div>
 
+            <hr class="custom-line">
+            <div id="addVoterArray">
+                <!-- Section for registering voters -->
+                <h3>Register a list of voters addresses:</h3>
+
+                <input type="text" id="addVoterInputArray" placeholder="+ addresses separated by(,)" />
+                <br>
+                <button id="addVoterButtonArray">Register Voters List</button>
+            </div>
+
 
             <hr class="custom-line">
             <div id="changeElectionDuration">
@@ -107,20 +116,11 @@
             </div>
             <hr class="custom-line">
             <div id="addVoter">
-                <!-- Section for registering voters -->
-                <h3>Register voter address to election:</h3>
+                <h3>Register a unique voter address:</h3>
                 <input type="text" id="addVoterInput" />
                 <button id="addVoterButton">Register Voter</button>
             </div>
-            <hr class="custom-line">
-            <div id="addVoterArray">
-                <!-- Section for registering voters -->
-                <h3>Register a list of voters addresses to election:</h3>
-
-                <input type="text" id="addVoterInputArray" placeholder="+ addresses separated by(,)" />
-                <br>
-                <button id="addVoterButtonArray">Register Voters List</button>
-            </div>
+           
             <hr class="custom-line">
             <div id="endElection">
                 <!-- Section for finalizing the election -->
@@ -131,10 +131,10 @@
             <div id="saveResultsNFT">
                 <!-- Section for minting an NFT certificate -->
                 <h3>Mint an NFT certificate of the result on all voter's address:</h3>
-                <input type="text" id="saveResultsNFTInput" />
-                <button id="saveResultsNFTButton">Mint ENFT ElectionNFT</button>
+                <button id="generateAndUploadMetadataButton">Mint NFT with metadata of results election</button>
                 <p>or</p>
-                <button id="generateAndUploadMetadataButton">Mint NFT with metadata of election</button>
+                <input placeholder="Custum tokenURI" type="text" id="saveResultsNFTInput" />
+                <button id="saveResultsNFTButton">Mint ENFT ElectionNFT</button>
             </div>
             <hr class="custom-line">
             <div id="resetElection">
@@ -147,8 +147,6 @@
         </div>
 
     </div>
-    <br>
-    <p>" "</p>
 
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
