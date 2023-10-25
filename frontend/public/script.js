@@ -1297,9 +1297,9 @@ async function displayCandidates() {
       candidates.forEach(candidate => {
         const row = document.createElement("tr");
         row.innerHTML = `
-            <th>${candidate.id || "No ID yet"}</th>
-            <th>${candidate.name || "No name yet"}</th>
-            <th>${candidate.numberOfVotes || "No vote yet"}</th>
+            <th style="word-break: break-all;">${candidate.id || "No ID yet"}</th>
+            <th style="word-break: break-all;">${candidate.name || "No name yet"}</th>
+            <th style="word-break: break-all;">${candidate.numberOfVotes || "No vote yet"}</th>
             <th><button class="voteBtnRow">Vote</button></th>
         `;
         candidateBoard.appendChild(row);
@@ -1671,6 +1671,8 @@ document.getElementById('votePanelButton').addEventListener('click', () => {
   if (document.getElementById('admin').style.display === 'block') {
     toggleAdminPanel();
   }
+  displayCandidates();
+  showTimer();
 });
 
 
