@@ -1156,9 +1156,7 @@ connectWalletBtn.addEventListener("click", async () => {
   try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     // connectWalletBtn.style.display = "none";
-    connectWalletBtn.textContent = "Connected";
-    connectWalletBtn.style.backgroundColor = "#019B83ff"; // Change the background color to light green
-
+    
     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
 
     provider.send("eth_requestAccounts", []).then(() => {
@@ -1172,7 +1170,12 @@ connectWalletBtn.addEventListener("click", async () => {
 
         console.log("Signer and Contract set up");
 
+        connectWalletBtn.textContent = "Connected";
+        connectWalletBtn.style.backgroundColor = "#019B83ff"; // Change the background color to light green
+
+
         connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
+        getElectionID();
       });
     });
 
@@ -1348,7 +1351,7 @@ showCandidateList.addEventListener("click", async () => {
 });
 
 // Call displayCandidates() to display candidates when the page loads
-displayCandidates();
+// displayCandidates();
 
 // Function to check if account is already connected
 async function checkAccountConnection() {
@@ -1596,10 +1599,10 @@ async function getElectionID() {
 }
 
 // Call getElectionID at the startup of the page
-window.addEventListener('DOMContentLoaded', getElectionID);
+// window.addEventListener('DOMContentLoaded', getElectionID);
 
 // Automatically refresh the Election ID every 5 seconds (5000 milliseconds)
-setInterval(getElectionID, 12000);
+// setInterval(getElectionID, 12000);
 
 
 
