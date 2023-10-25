@@ -27,7 +27,12 @@ body {
     background: var(--oxford-blue);
     font-size: 1.2em;
     color: #ffffff;
+    max-width: 600px;
 
+}
+
+#connectWallet {
+    text-align: center;
 }
 
 #connectWalletBtn {
@@ -43,9 +48,13 @@ body {
 #connectWalletMessageSpan {
     display: block;
     word-break: break-all;
+    background-color: var(--persian-green);
+    padding: 4px 8px;
+    border-radius: 12px;
     font-weight: bold;
     font-size: 0.7em;
     margin-top: 10px;
+    width: 400px;
 }
 
 .container {
@@ -53,8 +62,11 @@ body {
     padding: 20px;
     background-color: #fff;
     border-radius: 12px;
-    box-sizing: border-box; /* Ensure padding and border don't increase width */
-
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 h1,
@@ -76,16 +88,23 @@ h3 p {
 }
 
 #votingStation {
-    height: 95vh;
+    height: 100vh;
 }
 
-#connectMetamask,
-#votingStation,
-#admin {
-    text-align: center;
+#voteForm {
+    margin-top: 20px;
+    text-align: right;
 }
 
+#voteForm p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
 
+#startElection {
+    display: flex;
+    flex-direction: column;
+}
 
 .panel {
     border: solid 3px var(--blue-ncs);
@@ -96,9 +115,10 @@ h3 p {
     border-radius: 12px;
     border: solid 3px var(--blue-ncs);
     background-color: var(--oxford-blue-2);
-    padding: 10px;
+    padding: 30px;
     display: none;
     text-align: center;
+    flex-direction: column;
 }
 
 .panel p {
@@ -111,58 +131,36 @@ h3 p {
 }
 
 
-
-#votingStation {
-    margin-top: 20px;
-}
-
-
 .timerMessage {
     font-size: 30px;
     font-weight: bold;
 }
 
-
-
 table {
-    width: 100%;
+    max-width: 90%;
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 12px;
     border: 3px solid var(--blue-ncs);
     background-color: var(--prussian-blue);
     padding: 10px;
-
+    margin: 0 auto;
 }
 
 th,
 td {
-    padding: 8px;
+    padding: 10px;
     text-align: center;
 }
 
-
-
-#voteForm {
-    margin-top: 20px;
-    text-align: right;
+#buttonPanel {
+    text-align: center;
 }
 
-#voteForm p {
-    font-size: 16px;
-    margin-bottom: 10px;
+#buttonPanel button {
+    width: 100%;
+    max-width: 150px;
 }
-
-
-
-
-
-#result {
-    margin-top: 20px;
-}
-
-
-
 
 
 button {
@@ -175,6 +173,8 @@ button {
     margin-top: 10px;
     font-weight: bolder;
     font-size: 1em;
+    width: 100%;
+    max-width: 200px;
 }
 
 button:hover {
@@ -207,7 +207,7 @@ hr.custom-line {
     border: 1px dashed #1565c0;
     height: 1px;
     background-color: var(--persian-green);
-    width: 30%;
+    width: 90px;
     margin-top: 60px;
     margin-bottom: 60px;
 }

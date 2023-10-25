@@ -2,12 +2,9 @@
 <html lang="en">
 
 <head>
-    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Title of the page -->
-    <title>Voting dApp</title>
-    <!-- Link to external CSS file -->
+    <title>Voting dApp 2023</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <!-- Link to external ethers.js library -->
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
@@ -18,27 +15,33 @@
 
     <div id="votingStation">
         <div id="connectWallet">
-            <!-- Connect wallet section -->
             <p id="connectWalletMessage"><button id="connectWalletbutton">Connect Wallet</button><span
                     id="connectWalletMessageSpan"></span> </p>
 
 
         </div>
+
         <h1>Voting dApp 2023</h1>
+
         <div id="buttonPanel">
 
             <hr class="custom-line">
             <button id="votePanelButton">Vote Panel</button>
             <button id="adminPanelButton">Admin Panel</button>
         </div>
+
         <div id="votePanel" class="panel">
 
             <h2>Election Panel</h2>
 
             <div id="mainBoard">
+
+                <div style="display: flex; flex-direction: row;">
                 <p>Election ID: <span id="electionID"></span></p>
-                <p id="timerMessage">timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
-            
+                <p id="timerMessage">, Timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
+                
+            </div>
+
                 <!-- Table for displaying candidates -->
                 <table id="candidateBoard">
                     <tr>
@@ -52,16 +55,11 @@
 
             <div id="showCandidateListContainer">
                 <!-- Button to show candidates list and votes -->
-                <button id="showCandidateList">Show Candidates list and votes</button>
-                <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
+                <button id="showCandidateList" onclick="showTimer()">Show Candidates list and votes</button>
+                <button id="showTimerButton" onclick="showTimer()">Refresh Timer</button>
             </div>
+            
             <hr class="custom-line">
-            <!-- <div id="timer">
-                <h3>Election Timer:<p id="timerMessage"><span id="time" onclick="showTimer()">[refresh timer]</span></p>
-                </p></h3>
-                <button id="showTimerButton" onclick="showTimer()">Show/refresh Timer</button>
-
-            </div> -->
 
             <div id="voteForm">
                 <h3>ID of the candidate you would like to vote for:</h3>
@@ -70,14 +68,14 @@
                     <button id="sendVote">Send Vote</button>
                 </label>
             </div>
+
         </div>
 
         <div id="admin" class="panel">
-            <!-- Administrator panel section -->
 
             <h2>Administrator panel</h2>
+
             <div id="startElection">
-                <!-- Section for start an election -->
                 <h3 id="startElectionMessage">Start an Election:</h3>
                 <input type="text" id="addCandidateInput" placeholder="Candidate 1" />
                 <input type="text" id="addCandidateInput2" placeholder="Candidate 2" />
@@ -85,49 +83,52 @@
                 <input type="text" id="addCandidateInput4" placeholder="+ candidates separated by (,) " />
 
                 <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
-                <br>
                 <button id="startElectionButton">Start Election</button>
             </div>
 
             <hr class="custom-line">
-            <div id="addVoterArray">
-                <!-- Section for registering voters -->
-                <h3>Register a list of voters addresses:</h3>
 
+            <div id="addVoterArray">
+                <h3>Register a list of voters addresses:</h3>
                 <input type="text" id="addVoterInputArray" placeholder="+ addresses separated by(,)" />
-                <br>
                 <button id="addVoterButtonArray">Register Voters List</button>
             </div>
 
-
             <hr class="custom-line">
+
             <div id="changeElectionDuration">
-                <!-- Section for changing election duration -->
                 <h3>Add time to election duration:</h3>
                 <input type="number" id="changeElectionDurationInput" />
                 <button id="changeElectionDurationButton">Extend duration:</button>
             </div>
+
             <hr class="custom-line">
+
             <div id="addCandidate">
                 <!-- Section for adding a candidate -->
                 <h3>Add a candidate to election:</h3>
                 <input type="text" id="addCandidateInputBonus" />
                 <button id="addCandidateButton">Add Candidate</button>
             </div>
+
             <hr class="custom-line">
+
             <div id="addVoter">
                 <h3>Register a unique voter address:</h3>
                 <input type="text" id="addVoterInput" />
                 <button id="addVoterButton">Register Voter</button>
             </div>
-           
+
             <hr class="custom-line">
+
             <div id="endElection">
                 <!-- Section for finalizing the election -->
                 <h3>Finalise the election:</h3>
                 <button id="endElectionButton">End Election</button>
             </div>
+
             <hr class="custom-line">
+
             <div id="saveResultsNFT">
                 <!-- Section for minting an NFT certificate -->
                 <h3>Mint an NFT certificate of the result on all voter's address:</h3>
@@ -136,13 +137,14 @@
                 <input placeholder="Custum tokenURI" type="text" id="saveResultsNFTInput" />
                 <button id="saveResultsNFTButton">Mint ENFT ElectionNFT</button>
             </div>
+
             <hr class="custom-line">
+
             <div id="resetElection">
                 <!-- Section for reinitializing the election -->
                 <h3>Reinitialise the election:</h3>
                 <button id="resetElectionButton">Reinitialise!</button>
             </div>
-
 
         </div>
 

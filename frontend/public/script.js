@@ -7,8 +7,6 @@ const mainBoard = document.querySelector("#mainBoard");
 const voteForm = document.querySelector("#voteForm");
 const vote = document.querySelector("#vote");
 const voteBtn = document.querySelector("#sendVote");
-const showResultContainer = document.querySelector("#showResultContainer");
-const showResult = document.querySelector("#showResult");
 const result = document.querySelector("#result");
 const admin = document.querySelector("#admin");
 const addCandidateInput4 = document.querySelector("#addCandidateInput4");
@@ -1355,7 +1353,7 @@ async function checkAccountConnection() {
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
     if (accounts.length > 0) {
       connectWalletBtn.textContent = "Connected";
-      connectWalletBtn.style.backgroundColor = "#2ec27eff";
+      connectWalletBtn.style.backgroundColor = "var(--persian-green)";
       votingStation.style.display = "block";
       connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
 
