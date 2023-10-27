@@ -95,9 +95,6 @@ h3 p {
     margin-top: 60px;
     margin-bottom: 60px;
     border-radius: 12px;
-    border: solid 3px var(--blue-ncs);
-    background-color: var(--oxford-blue-2);
-    padding: 10px;
     display: none;
     text-align: center;
 }
