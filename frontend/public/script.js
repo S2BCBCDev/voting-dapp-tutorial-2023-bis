@@ -17,10 +17,10 @@ const addCandidateButton = document.querySelector("#addCandidateButton");
 const resetBtn = document.querySelector("#resetElectionButton");
 const changeElectionDurationInput = document.querySelector("#changeElectionDurationInput");
 const changeElectionDurationButton = document.querySelector("#changeElectionDurationButton");
-const saveResultsNFTInput = document.querySelector("#saveResultsNFTInput");
-const saveResultsNFTButton = document.querySelector("#saveResultsNFTButton");
-const addVoterInput = document.querySelector("#addVoterInput");
-const addVoterButton = document.querySelector("#addVoterButton");
+//const saveResultsNFTInput = document.querySelector("#saveResultsNFTInput");
+//const saveResultsNFTButton = document.querySelector("#saveResultsNFTButton");
+//const addVoterInput = document.querySelector("#addVoterInput");
+//const addVoterButton = document.querySelector("#addVoterButton");
 const addVoterInputArray = document.querySelector("#addVoterInputArray");
 const addVoterButtonArray = document.querySelector("#addVoterButtonArray");
 const connectWalletMessageSpan = document.querySelector("#connectWalletMessageSpan");
@@ -1413,16 +1413,31 @@ async function checkAccountConnection() {
 function updateTimerMessage(seconds) {
   const timerMessage = document.getElementById("time");
   timerMessage.textContent = seconds;
-  timerMessage.innerHTML = `<span id="time">${seconds}</span> seconds left`;
+  timerMessage.innerHTML = `<span id="time">${seconds}</span> left`;
 }
 
 
 // calling contract.electionTimer() inside an async function
+// async function showTimer() {
+//   try {
+//     let secondsLeft = await contract.electionTimer();
+//     console.log("Seconds left:", secondsLeft); // Added console.log
+//     updateTimerMessage(secondsLeft);
+
+//     // ...
+//   } catch (error) {
+//     console.error("Error:", error); // Added console.error
+//     // Handle errors
+//   }
+// }
+
 async function showTimer() {
   try {
     let secondsLeft = await contract.electionTimer();
     console.log("Seconds left:", secondsLeft); // Added console.log
-    updateTimerMessage(secondsLeft);
+    let formattedDuration = formatDuration(secondsLeft); // <-- Corrected this line
+    console.log("Formatted Duration:", formattedDuration); // Added console.log
+    updateTimerMessage(formattedDuration);
 
     // ...
   } catch (error) {
@@ -1431,7 +1446,42 @@ async function showTimer() {
   }
 }
 
-console.log("Event listener set up");
+function formatDuration(seconds) {
+  let years = Math.floor(seconds / (60 * 60 * 24 * 365));
+  let days = Math.floor((seconds % (60 * 60 * 24 * 365)) / (60 * 60 * 24));
+  let hours = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+  let minutes = Math.floor((seconds % (60 * 60)) / 60);
+  let remainingSeconds = seconds % 60;
+
+  let result = "";
+
+  if (years > 0) {
+    result += years + (years === 1 ? " year" : " years") + " ";
+  }
+
+  if (days > 0) {
+    result += days + (days === 1 ? " day" : " days") + " ";
+  }
+
+  if (hours > 0) {
+    result += hours + (hours === 1 ? " h" : " h") + " ";
+  }
+
+  if (minutes > 0) {
+    result += minutes + (minutes === 1 ? " min" : " min") + " ";
+  }
+
+  if (remainingSeconds > 0) {
+    result += remainingSeconds + (remainingSeconds === 1 ? " s" : " s");
+  }
+
+  return result.trim();
+}
+
+
+
+// console.log("Event listener set up");
+
 document.getElementById("showTimerButton").addEventListener("click", async () => {
   await showTimer();
   console.log("Timer displayed successfully!");
@@ -1483,33 +1533,33 @@ async function mintResultNFTs(tokenURI) {
 }
 
 // Function to Mint NFT Results
-saveResultsNFTButton.addEventListener("click", async () => {
-  try {
-    const tokenURI = saveResultsNFTInput.value;
-    await contract.mintResultNFTs(tokenURI);
-    console.log("Mint Results in progress!");
-  } catch (error) {
-    console.error(error);
-    console.log("Error casting Mint Results: " + error.message);
-    const errorMessage = "Error minting NFT: " + extractErrorMessage(error);
-    console.log(errorMessage);
-    alert(errorMessage);
-  }
-});
+// saveResultsNFTButton.addEventListener("click", async () => {
+//   try {
+//     const tokenURI = saveResultsNFTInput.value;
+//     await contract.mintResultNFTs(tokenURI);
+//     console.log("Mint Results in progress!");
+//   } catch (error) {
+//     console.error(error);
+//     console.log("Error casting Mint Results: " + error.message);
+//     const errorMessage = "Error minting NFT: " + extractErrorMessage(error);
+//     console.log(errorMessage);
+//     alert(errorMessage);
+//   }
+// });
 
-addVoterButton.addEventListener("click", async () => {
-  try {
-    const voterAddress = addVoterInput.value;
-    await contract.registerVoter(voterAddress);
-    console.log(`Voter ${voterAddress} registered successfully!`);
-  } catch (error) {
-    console.error(error);
-    console.log(`Error registering voter: ${error.message}`);
-    const errorMessage = "Error registering voter: " + extractErrorMessage(error);
-    console.log(errorMessage);
-    alert(errorMessage);
-  }
-});
+// addVoterButton.addEventListener("click", async () => {
+//   try {
+//     const voterAddress = addVoterInput.value;
+//     await contract.registerVoter(voterAddress);
+//     console.log(`Voter ${voterAddress} registered successfully!`);
+//   } catch (error) {
+//     console.error(error);
+//     console.log(`Error registering voter: ${error.message}`);
+//     const errorMessage = "Error registering voter: " + extractErrorMessage(error);
+//     console.log(errorMessage);
+//     alert(errorMessage);
+//   }
+// });
 
 addVoterButtonArray.addEventListener("click", async () => {
   try {
