@@ -1156,7 +1156,7 @@ connectWalletBtn.addEventListener("click", async () => {
   try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     // connectWalletBtn.style.display = "none";
-    
+
     const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
 
     provider.send("eth_requestAccounts", []).then(() => {
@@ -1219,6 +1219,9 @@ startElectionButton.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error starting the election: " + error.message);
+    const errorMessage = "Error starting the election: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1233,6 +1236,9 @@ voteBtn.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error casting vote: " + error.message);
+    const errorMessage = "Error casting vote: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1243,8 +1249,11 @@ changeElectionDurationButton.addEventListener("click", async () => {
     await contract.changeElectionDuration(duration);
     console.log("Duration changed successfully!");
   } catch (error) {
-    console.error(error);
-    console.log("Error add duration: " + error.message);
+    // console.error(error);
+    // console.log("Error add duration: " + error.message);
+    const errorMessage = "Error change duration: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1256,6 +1265,9 @@ resetBtn.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error reseting: " + error.message);
+    const errorMessage = "Error reseting: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1268,17 +1280,30 @@ addCandidateButton.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error adding candidate: " + error.message);
+    const errorMessage = "Error adding candidate: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
-// Function change election duration
+function extractErrorMessage(error) {
+  const match = /"execution reverted: ([^"]*)/.exec(error.message);
+  if (match && match.length > 1) {
+    return match[1];
+  }
+  return "Unknown error";
+}
+
+// Function election end
 endElectionButton.addEventListener("click", async () => {
   try {
     await contract.endElection();
     console.log("Election ended successfully!");
   } catch (error) {
-    console.error(error);
-    console.log("Error ending the election: " + error.message);
+    // console.error(error);
+    const errorMessage = "Error ending the election: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1319,6 +1344,10 @@ async function displayCandidates() {
           } catch (error) {
             console.error(error);
             console.log("Error casting vote: " + error.message);
+            const errorMessage = "Error casting vote: " + extractErrorMessage(error);
+            console.log(errorMessage);
+            alert(errorMessage);
+
           }
         });
         getElectionID();
@@ -1446,7 +1475,10 @@ async function mintResultNFTs(tokenURI) {
     }
   } catch (error) {
     console.error(error);
-    console.log("Error minting NFTs: " + error.message);
+    console.log("Error minting NFT: " + error.message);
+    const errorMessage = "Error minting NFT: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 }
 
@@ -1459,6 +1491,9 @@ saveResultsNFTButton.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log("Error casting Mint Results: " + error.message);
+    const errorMessage = "Error minting NFT: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1470,6 +1505,9 @@ addVoterButton.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log(`Error registering voter: ${error.message}`);
+    const errorMessage = "Error registering voter: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1481,6 +1519,9 @@ addVoterButtonArray.addEventListener("click", async () => {
   } catch (error) {
     console.error(error);
     console.log(`Error registering voters: ${error.message}`);
+    const errorMessage = "Error registering voters: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 });
 
@@ -1595,6 +1636,9 @@ async function getElectionID() {
     document.getElementById('electionID').textContent = electionID.toString();
   } catch (error) {
     console.error('Error:', error);
+    const errorMessage = "Error generate metadata: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 }
 
@@ -1636,6 +1680,9 @@ async function generateAndUploadMetadata2() {
     console.log("NFT minted successfully!");
   } catch (error) {
     console.error('Error:', error);
+    const errorMessage = "Error generate metadata: " + extractErrorMessage(error);
+    console.log(errorMessage);
+    alert(errorMessage);
   }
 }
 
