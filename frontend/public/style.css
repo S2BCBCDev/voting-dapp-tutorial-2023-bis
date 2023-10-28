@@ -86,6 +86,7 @@ h3 p {
 
 #admin {
     text-align: right;
+    max-width: 600px;
 }
 
 .panel {
@@ -100,7 +101,7 @@ h3 p {
 
 .panel p {
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 60px;
     text-align: left;
 }
 
