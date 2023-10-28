@@ -12,7 +12,6 @@
     --cerulean: #077CB2ff;
 }
 
-
 body {
     font-family: 'Roboto Regular', Helvetica, Arial, Lucida, sans-serif;
     background-color: var(--prussian-blue);
@@ -81,12 +80,13 @@ h3 p {
 }
 
 #connectMetamask,
-#votingStation,
-#admin {
+#votingStation {
     text-align: center;
 }
 
-
+#admin {
+    text-align: right;
+}
 
 .panel {
     border: solid 3px var(--blue-ncs);
@@ -117,8 +117,10 @@ h3 p {
 #topBoard {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly; /* Evenly distribute elements */
-    align-items: center; /* Center items vertically */
+    justify-content: space-evenly;
+    /* Evenly distribute elements */
+    align-items: center;
+    /* Center items vertically */
     border: 3px solid var(--blue-ncs);
     border-radius: 12px;
 }
@@ -127,13 +129,10 @@ h3 p {
     margin-top: 20px;
 }
 
-
 .timerMessage {
     font-size: 30px;
     font-weight: bold;
 }
-
-
 
 table {
     width: 100%;
@@ -153,12 +152,6 @@ td {
     text-align: center;
 }
 
-
-
-
-
-
-
 #voteForm {
     margin-top: 20px;
     text-align: right;
@@ -169,17 +162,9 @@ td {
     margin-bottom: 10px;
 }
 
-
-
-
-
 #result {
     margin-top: 20px;
 }
-
-
-
-
 
 button {
     cursor: pointer;
@@ -202,7 +187,7 @@ input[type="number"] {
     padding: 10px;
     border: 3px solid var(--blue-ncs);
     border-radius: 12px;
-    font-size: 1em;
+    font-size: 1.1em;
     margin-top: 10px;
     background-color: #fff;
 }
@@ -231,3 +216,5 @@ hr.custom-line {
 #resetElectionButton {
     background-color: var(--rusty-red);
 }
+
+
