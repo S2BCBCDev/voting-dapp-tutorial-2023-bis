@@ -68,8 +68,8 @@ h3 {
     border-radius: 12px;
     border: 3px solid var(--blue-ncs);
     background-color: var(--prussian-blue);
-    padding: 12px;
-    width: 70%;
+    padding: 10px;
+    width: 60%;
 }
 
 h3 p {
@@ -92,8 +92,7 @@ h3 p {
     border: solid 3px var(--blue-ncs);
     background-color: var(--oxford-blue-2);
     padding: 10px;
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin-top: 30px;
     border-radius: 12px;
     display: none;
     text-align: center;
@@ -101,14 +100,28 @@ h3 p {
 
 .panel p {
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-top: 20px;
+    text-align: left;
 }
 
 .panel div {
-    margin-top: 20px;
+    margin-top: 10px;
+    padding: 0 10px;
+
 }
 
+.panel input {
+    color: #1565c0;
+}
 
+#topBoard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; /* Evenly distribute elements */
+    align-items: center; /* Center items vertically */
+    border: 3px solid var(--blue-ncs);
+    border-radius: 12px;
+}
 
 #votingStation {
     margin-top: 20px;
@@ -129,7 +142,8 @@ table {
     border-radius: 12px;
     border: 3px solid var(--blue-ncs);
     background-color: var(--prussian-blue);
-    padding: 10px;
+    padding: 0 10px;
+    margin-top: 20px;
 
 }
 
@@ -185,11 +199,11 @@ button:hover {
 
 input[type="text"],
 input[type="number"] {
-    padding: 8px;
+    padding: 10px;
     border: 3px solid var(--blue-ncs);
     border-radius: 12px;
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 1em;
+    margin-top: 10px;
     background-color: #fff;
 }
 
@@ -210,8 +224,8 @@ hr.custom-line {
     height: 1px;
     background-color: var(--persian-green);
     width: 30%;
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #resetElectionButton {

@@ -1421,7 +1421,7 @@ function updateTimerMessage(seconds) {
 // async function showTimer() {
 //   try {
 //     let secondsLeft = await contract.electionTimer();
-//     console.log("Seconds left:", secondsLeft); // Added console.log
+//     console.log("Seconds left:", secondsLeft); 
 //     updateTimerMessage(secondsLeft);
 
 //     // ...
@@ -1434,9 +1434,9 @@ function updateTimerMessage(seconds) {
 async function showTimer() {
   try {
     let secondsLeft = await contract.electionTimer();
-    console.log("Seconds left:", secondsLeft); // Added console.log
+    console.log("Seconds left:", secondsLeft); 
     let formattedDuration = formatDuration(secondsLeft); // <-- Corrected this line
-    console.log("Formatted Duration:", formattedDuration); // Added console.log
+    console.log("Formatted Duration:", formattedDuration); 
     updateTimerMessage(formattedDuration);
 
     // ...
@@ -1456,23 +1456,23 @@ function formatDuration(seconds) {
   let result = "";
 
   if (years > 0) {
-    result += years + (years === 1 ? " year" : " years") + " ";
+      result += years + (years === 1 ? " year" : " years") + " ";
   }
 
   if (days > 0) {
-    result += days + (days === 1 ? " day" : " days") + " ";
+      result += days + (days === 1 ? " day" : " days") + " ";
   }
 
   if (hours > 0) {
-    result += hours + (hours === 1 ? " h" : " h") + " ";
+      result += hours + (hours === 1 ? " h" : " h") + " ";
   }
 
   if (minutes > 0) {
-    result += minutes + (minutes === 1 ? " min" : " min") + " ";
+      result += minutes + (minutes === 1 ? " min" : " min") + " ";
   }
 
-  if (remainingSeconds > 0) {
-    result += remainingSeconds + (remainingSeconds === 1 ? " s" : " s");
+  if (remainingSeconds > 0 || result === "") { // Added condition to always show seconds
+      result += remainingSeconds + (remainingSeconds === 1 ? " s" : " s");
   }
 
   return result.trim();
@@ -1480,16 +1480,17 @@ function formatDuration(seconds) {
 
 
 
+
 // console.log("Event listener set up");
 
-document.getElementById("showTimerButton").addEventListener("click", async () => {
-  await showTimer();
-  console.log("Timer displayed successfully!");
-  // Automatically refresh the timer every 5 seconds (5000 milliseconds)
-  setInterval(async () => {
-    await showTimer();
-  }, 24000); // Adjust the interval as needed
-});
+// document.getElementById("showTimerButton").addEventListener("click", async () => {
+//   await showTimer();
+//   console.log("Timer displayed successfully!");
+//   // Automatically refresh the timer every 5 seconds (5000 milliseconds)
+//   setInterval(async () => {
+//     await showTimer();
+//   }, 24000); // Adjust the interval as needed
+// });
 
 // Function to connect to the ElectionNFT contract
 async function connectToElectionNFTContract() {

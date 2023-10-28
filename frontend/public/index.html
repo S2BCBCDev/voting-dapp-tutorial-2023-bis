@@ -32,14 +32,15 @@
 
         <div id="votePanel" class="panel">
 
-            <h2>Election Panel</h2>
+            <!-- <h2>Election Panel</h2> -->
 
             <div id="mainBoard">
 
-                <div style="display: flex; flex-direction: row; border: 3px solid var(--blue-ncs); border-radius: 12px; margin-bottom: 10px; padding: 10px; text-align: center;">
+                <div id="topBoard">
                     <p style="margin-right: 20px;">Election ID: <span id="electionID"></span></p>
-                    <p id="timerMessage" style="margin-right: 20px;">Timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
-                    <button id="showTimerButton" onclick="showTimer()">Refresh</button>
+                    <p id="timerMessage" style="margin-right: 20px;">Timer: <span id="time"
+                            onclick="showTimer()">[refresh]</span></p>
+                    <!-- <button id="showTimerButton" onclick="showTimer()">Refresh</button> -->
                 </div>
 
                 <!-- Table for displaying candidates -->
@@ -51,7 +52,7 @@
                         <th>Vote Button</th>
                     </tr>
                 </table>
-                
+
             </div>
 
             <div id="showCandidateListContainer">
@@ -61,7 +62,7 @@
             <hr class="custom-line">
 
             <div id="voteForm">
-                <h3>ID of the candidate you would like to vote for:</h3>
+                <h3>Please enter the candidate's ID for your vote:</h3>
                 <label for="">
                     <input type="number" id="vote" />
                     <button id="sendVote">Send Vote</button>
@@ -72,7 +73,7 @@
 
         <div id="admin" class="panel">
 
-            <h2>Administrator panel</h2>
+            <!-- <h2>Administrator panel</h2> -->
 
             <div id="startElection">
                 <h3 id="startElectionMessage">Start an Election:</h3>
@@ -80,7 +81,7 @@
                 <input type="text" id="addCandidateInput2" placeholder="Candidate 2" />
                 <input type="text" id="addCandidateInput3" placeholder="Candidate 3" />
                 <input type="text" id="addCandidateInput4" placeholder="+ candidates separated by (,) " />
-                <h4 >How long the election will last?:</h4>
+                <p>How long the election will last?:</p>
                 <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
                 <button id="startElectionButton">Start Election</button>
             </div>
@@ -130,7 +131,8 @@
 
             <div id="saveResultsNFT">
                 <!-- Section for minting an NFT certificate -->
-                <h3>Generate an NFT certificate representing the election results and distribute it to the addresses of all voters:</h3>
+                <h3>Generate an NFT certificate representing the election results and distribute it to the addresses of
+                    all voters:</h3>
                 <button id="generateAndUploadMetadataButton">Mint NFT</button>
                 <!-- <p>or</p>
                 <input placeholder="Custum tokenURI" type="text" id="saveResultsNFTInput" />
