@@ -2,6 +2,8 @@
 
 ### S2BC
 
+---
+
 ### Lab 1 - Developing Ethereum Smart Contracts
 - **BUILD** / TEST / INTEGRATE / RUN
 
@@ -21,7 +23,6 @@
 3. Integrate Smart Contracts with Web3 and establish and run your 1st dApp
 
 4. Run a dApp and considering next steps to create a possible contribution
-...
 
 ## DEVELOPING ETHEREUM SMART CONTRACTS
 
@@ -37,7 +38,6 @@ Traditional centralized voting systems pose significant security risks and lack 
 
 Integrating cryptocurrencies and smart contracts offers a robust solution to address these challenges. This approach empowers supporters by involving them directly in the development and decision-making processes of the projects they choose to back, ensuring transparency and security in the voting system.
 
-### How will it work?
 
 ### How will it work?
 
@@ -103,6 +103,8 @@ This comprehensive system ensures transparency, security, and integrity througho
 - `getWinnerInfo()`: Function to get information about the winner of the election.
 - `generateMetadata()`: Function to generate metadata for the election results.
 
+---
+
 ### A BRIEF INTRODUCTION TO SOME PROGRAMMING BASICS (SKIP, IF YOU HAVE SOME CODING EXPERIENCE)
 
 #### Introduction to Command Line
@@ -119,21 +121,96 @@ If you're using Windows, you might want to consider using Ubuntu Linux on Window
 
 - **On Morpheus Labs SEED BPaaS**: Access the terminal. (Ubuntu docker)
 
+
+
+#### Navigating your file system
+
 When navigating your file system, keep these commands in mind:
 
-- `cd ..` to move up one level.
-- `cd <folder name>` to enter a specific folder.
+
+- `cd ..`: Move up one directory level.
+- `cd <folder name>`: Enter a specific folder.
+- `ls`: List files and folders in the current directory.
+- `ls -a`: List all files and folders, including hidden ones.
+- `cat <file name>`: Display the contents of a file.
+- `touch <file name>`: Create a new file.
+- `mkdir <folder name>`: Create a new folder.
+- `rm <file name>`: Remove a file (be cautious, this action is irreversible).
+- `rm -r <folder name>`: Remove a folder and its contents.
+- `mv <source> <destination>`: Move or rename files and folders.
+- `cp <source> <destination>`: Copy files or folders.
+- `pwd`: Display the current working directory.
+- `clear`: Clear the terminal screen.
+- `history`: Display a list of recently used commands.
+- `grep <pattern> <file>`: Search for a specific pattern in a file.
+- `chmod <permissions> <file>`: Change the permissions of a file.
+- `nano <file name>`: Open the Nano text editor to edit a file.
+- `wget <URL>`: Download a file from the internet.
+- `curl <URL>`: Transfer data from or to a server.
 
 Once you're in the desired folder, you can run your program by typing `<program name>` in the command line. NPM, a potent package manager, will be your go-to tool for installing, updating, and removing packages like Hardhat.
 
 
-#### Navigating your file system
-
-...
-
 #### Introduction to Basic Programming Concepts
 
-...
+##### Variables and Constants
+
+In programming, variables and constants are essential components. They are used to store and manipulate data. 
+
+- **Variables**: These are containers that can hold various types of data, such as strings, integers, or booleans (true/false). The value of a variable can be changed during the execution of a program.
+
+    ```javascript
+    let name = "John"; // Here, 'name' is a variable storing a string value "John".
+    let age = 30;      // 'age' is a variable storing an integer value 30.
+    let isStudent = true; // 'isStudent' is a variable storing a boolean value true.
+    ```
+
+- **Constants**: Unlike variables, constants hold fixed values that do not change during the execution of a program.
+
+    ```javascript
+    const PI = 3.14; // Here, 'PI' is a constant with a fixed value of 3.14.
+    const MAX_SIZE = 100; // 'MAX_SIZE' is a constant with a fixed value of 100.
+    ```
+
+##### Data Structures
+
+Understanding data structures is crucial for efficient data management in programming. Here are some common data structures:
+
+- **Array**: An array is defined within square brackets `[]`. It can hold multiple values, each separated by commas. 
+
+    ```javascript
+    let numbers = [1, 2, 3, 4, 5]; // 'numbers' is an array containing five integers.
+    let names = ["Alice", "Bob", "Charlie"]; // 'names' is an array containing three strings.
+    ```
+
+- **Object (Dictionary)**: An object is defined within curly braces `{}`. It consists of key-value pairs, where each piece of data is mapped to a specific value. 
+
+    ```javascript
+    let person = {
+        name: "John",
+        age: 30,
+        isStudent: false
+    }; // 'person' is an object with name, age, and isStudent as keys and their respective values.
+    ```
+
+##### Functions
+
+Functions play a vital role in programming. They take input values, process them, and return a result. Functions are defined with a name, input parameters within parentheses `()`, and the code to be executed within curly braces `{}`. 
+
+They can be called by using the function name and providing the necessary input values. 
+
+```javascript
+function addNumbers(num1, num2) {
+    return num1 + num2;
+}
+
+let result = addNumbers(5, 3); // 'result' will be 8.
+```
+
+##### Classes
+
+Classes are fundamental to object-oriented programming (OOP). They encapsulate data and functions into a single unit. A class can contain multiple functions that define the behavior of objects created from that class.
+
 
 ### CREATING THE Voting.SOL FILE
 
@@ -147,87 +224,10 @@ Once you're in the desired folder, you can run your program by typing `<program 
 
 ...
 
+
+---
+
 ### Contact
 
 S2BC
 
----
-
-Now, let's fill in the missing details for each section:
-
-## To Set Up the Development Environment
-
-Provide detailed instructions on how to set up the development environment. This should include steps like:
-
-- Installing necessary software (e.g., Node.js, Solidity compiler)
-- Setting up a project directory structure
-- Initializing a new Solidity project using Hardhat or any other preferred framework.
-
-## DEVELOPING ETHEREUM SMART CONTRACTS
-
-### What is the problem?
-
-Explain the problem you're addressing with this smart contract. For example, in this case, the problem might be the need for a secure and transparent voting system.
-
-### What is the solution?
-
-Describe how the Ethereum smart contract will solve the identified problem. In this case, it's about creating a smart contract that facilitates a voting system.
-
-### How will it work?
-
-Give a high-level overview of how the smart contract will function. Explain the main components and interactions involved.
-
-### ELEMENTS OF THE APP
-
-#### Variables:
-
-List and briefly explain the key variables used in the smart contract. For example:
-
-- `electionNFTContract`: Address of the ElectionNFT smart contract.
-- `candidates`: Array storing information about candidates.
-
-#### Function:
-
-List and briefly explain the main functions in the smart contract. For example:
-
-- `startElection()`: Function to start a new election.
-- `voteTo(uint256 _id)`: Function to allow a voter to cast their vote.
-
-### A BRIEF INTRODUCTION TO SOME PROGRAMMING BASICS (SKIP, IF YOU HAVE SOME CODING EXPERIENCE)
-
-#### Introduction to Command Line
-
-Explain basic command line operations relevant to the development process. Include commands for navigating directories, creating files, and running scripts.
-
-#### Navigating your file system
-
-Explain how to navigate the project file system. Provide examples of common file operations.
-
-#### Introduction to Basic Programming Concepts
-
-Give a brief overview of basic programming concepts like variables, loops, and conditional statements. Explain how they will be used in the smart contract.
-
-### CREATING THE Voting.SOL FILE
-
-Explain the purpose of the `Voting.sol` file. Provide a high-level overview of its structure.
-
-### CREATING THE ElectionNFT.SOL FILE
-
-Explain the purpose of the `ElectionNFT.sol` file. Provide a high-level overview of its structure.
-
-### DEPLOY COMPILED CONTRACT TO POA NETWORK
-
-Explain how to deploy the compiled smart contract to a Proof of Authority (POA) network. Include steps for configuring deployment parameters.
-
-### Contact
-
-Provide contact information for any questions or assistance related to this lab.
-
-S2BC
-
----
-
-Remember to provide detailed and clear instructions for each section. This will help your audience follow along effectively. If you have specific details or code snippets for any section, feel free to insert them accordingly.
-
-## notes
-error handling, events handling
