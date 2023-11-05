@@ -17,15 +17,10 @@ const addCandidateButton = document.querySelector("#addCandidateButton");
 const resetBtn = document.querySelector("#resetElectionButton");
 const changeElectionDurationInput = document.querySelector("#changeElectionDurationInput");
 const changeElectionDurationButton = document.querySelector("#changeElectionDurationButton");
-//const saveResultsNFTInput = document.querySelector("#saveResultsNFTInput");
-//const saveResultsNFTButton = document.querySelector("#saveResultsNFTButton");
-//const addVoterInput = document.querySelector("#addVoterInput");
-//const addVoterButton = document.querySelector("#addVoterButton");
 const addVoterInputArray = document.querySelector("#addVoterInputArray");
 const addVoterButtonArray = document.querySelector("#addVoterButtonArray");
 const connectWalletMessageSpan = document.querySelector("#connectWalletMessageSpan");
-
-
+const generateAndUploadMetadataButton = document.querySelector("#generateAndUploadMetadataButton");
 
 // Address and ABI of the Voting.sol contract
 const contractAddress = '0xa8E7220367bF8487371e6e02D651439B74E00720';
@@ -1148,11 +1143,21 @@ const electionNFTABI = [
 let contract;
 let signer;
 let electionNFTContract;
+let metadata;
 
-// const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL);
+function initializeProvider() {
+  provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+  return provider.send("eth_requestAccounts", []).then(() => {
+    return provider.listAccounts().then((accounts) => {
+      signer = provider.getSigner(accounts[0]);
+      contract = new ethers.Contract(contractAddress, contractABI, signer);
+    });
+  });
+}
 
 // Function to connect Metamask
-connectWalletBtn.addEventListener("click", async () => {
+async function connectToWallet() {
   try {
     await window.ethereum.request({ method: 'eth_requestAccounts' });
     // connectWalletBtn.style.display = "none";
@@ -1173,7 +1178,6 @@ connectWalletBtn.addEventListener("click", async () => {
         connectWalletBtn.textContent = "Connected";
         connectWalletBtn.style.backgroundColor = "#019B83ff"; // Change the background color to light green
 
-
         connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
         getElectionID();
       });
@@ -1184,7 +1188,10 @@ connectWalletBtn.addEventListener("click", async () => {
     console.error(error);
     console.log("Error connecting to Metamask. Please make sure it's installed and unlocked.");
   }
-});
+}
+
+// Add an event listener to the connectWalletBtn
+connectWalletBtn.addEventListener("click", connectToWallet);
 
 // Function to start the election
 startElectionButton.addEventListener("click", async () => {
@@ -1225,8 +1232,6 @@ startElectionButton.addEventListener("click", async () => {
   }
 });
 
-
-
 // Function to vote
 voteBtn.addEventListener("click", async () => {
   try {
@@ -1249,8 +1254,6 @@ changeElectionDurationButton.addEventListener("click", async () => {
     await contract.changeElectionDuration(duration);
     console.log("Duration changed successfully!");
   } catch (error) {
-    // console.error(error);
-    // console.log("Error add duration: " + error.message);
     const errorMessage = "Error change duration: " + extractErrorMessage(error);
     console.log(errorMessage);
     alert(errorMessage);
@@ -1306,7 +1309,6 @@ endElectionButton.addEventListener("click", async () => {
     alert(errorMessage);
   }
 });
-
 
 async function displayCandidates() {
   if (contract) {
@@ -1379,9 +1381,6 @@ showCandidateList.addEventListener("click", async () => {
   }
 });
 
-// Call displayCandidates() to display candidates when the page loads
-// displayCandidates();
-
 // Function to check if account is already connected
 async function checkAccountConnection() {
   try {
@@ -1405,10 +1404,6 @@ async function checkAccountConnection() {
   }
 }
 
-// window.addEventListener('DOMContentLoaded', () => {
-//   setTimeout(checkAccountConnection, 1000); // Delay for 1 second (adjust if needed)
-// });
-
 // Function to update the timer message
 function updateTimerMessage(seconds) {
   const timerMessage = document.getElementById("time");
@@ -1416,27 +1411,12 @@ function updateTimerMessage(seconds) {
   timerMessage.innerHTML = `<span id="time">${seconds}</span> left`;
 }
 
-
-// calling contract.electionTimer() inside an async function
-// async function showTimer() {
-//   try {
-//     let secondsLeft = await contract.electionTimer();
-//     console.log("Seconds left:", secondsLeft); 
-//     updateTimerMessage(secondsLeft);
-
-//     // ...
-//   } catch (error) {
-//     console.error("Error:", error); // Added console.error
-//     // Handle errors
-//   }
-// }
-
 async function showTimer() {
   try {
     let secondsLeft = await contract.electionTimer();
-    console.log("Seconds left:", secondsLeft); 
+    console.log("Seconds left:", secondsLeft);
     let formattedDuration = formatDuration(secondsLeft); // <-- Corrected this line
-    console.log("Formatted Duration:", formattedDuration); 
+    console.log("Formatted Duration:", formattedDuration);
     updateTimerMessage(formattedDuration);
 
     // ...
@@ -1456,41 +1436,27 @@ function formatDuration(seconds) {
   let result = "";
 
   if (years > 0) {
-      result += years + (years === 1 ? " year" : " years") + " ";
+    result += years + (years === 1 ? " year" : " years") + " ";
   }
 
   if (days > 0) {
-      result += days + (days === 1 ? " day" : " days") + " ";
+    result += days + (days === 1 ? " day" : " days") + " ";
   }
 
   if (hours > 0) {
-      result += hours + (hours === 1 ? " h" : " h") + " ";
+    result += hours + (hours === 1 ? " h" : " h") + " ";
   }
 
   if (minutes > 0) {
-      result += minutes + (minutes === 1 ? " min" : " min") + " ";
+    result += minutes + (minutes === 1 ? " min" : " min") + " ";
   }
 
   if (remainingSeconds > 0 || result === "") { // Added condition to always show seconds
-      result += remainingSeconds + (remainingSeconds === 1 ? " s" : " s");
+    result += remainingSeconds + (remainingSeconds === 1 ? " s" : " s");
   }
 
   return result.trim();
 }
-
-
-
-
-// console.log("Event listener set up");
-
-// document.getElementById("showTimerButton").addEventListener("click", async () => {
-//   await showTimer();
-//   console.log("Timer displayed successfully!");
-//   // Automatically refresh the timer every 5 seconds (5000 milliseconds)
-//   setInterval(async () => {
-//     await showTimer();
-//   }, 24000); // Adjust the interval as needed
-// });
 
 // Function to connect to the ElectionNFT contract
 async function connectToElectionNFTContract() {
@@ -1533,35 +1499,6 @@ async function mintResultNFTs(tokenURI) {
   }
 }
 
-// Function to Mint NFT Results
-// saveResultsNFTButton.addEventListener("click", async () => {
-//   try {
-//     const tokenURI = saveResultsNFTInput.value;
-//     await contract.mintResultNFTs(tokenURI);
-//     console.log("Mint Results in progress!");
-//   } catch (error) {
-//     console.error(error);
-//     console.log("Error casting Mint Results: " + error.message);
-//     const errorMessage = "Error minting NFT: " + extractErrorMessage(error);
-//     console.log(errorMessage);
-//     alert(errorMessage);
-//   }
-// });
-
-// addVoterButton.addEventListener("click", async () => {
-//   try {
-//     const voterAddress = addVoterInput.value;
-//     await contract.registerVoter(voterAddress);
-//     console.log(`Voter ${voterAddress} registered successfully!`);
-//   } catch (error) {
-//     console.error(error);
-//     console.log(`Error registering voter: ${error.message}`);
-//     const errorMessage = "Error registering voter: " + extractErrorMessage(error);
-//     console.log(errorMessage);
-//     alert(errorMessage);
-//   }
-// });
-
 addVoterButtonArray.addEventListener("click", async () => {
   try {
     const voterAddresses = addVoterInputArray.value.split(',').map(address => address.trim());
@@ -1577,7 +1514,6 @@ addVoterButtonArray.addEventListener("click", async () => {
 });
 
 
-// Listen for the ElectionStarted event
 // List all accounts connected to the provider
 provider.listAccounts().then(accounts => {
 
@@ -1619,13 +1555,6 @@ provider.listAccounts().then(accounts => {
 
 });
 
-const generateAndUploadMetadataButton = document.querySelector("#generateAndUploadMetadataButton");
-
-
-let metadata;
-
-
-
 async function generateAndUploadMetadata() {
   try {
     const winner = await contract.getWinnerInfo();
@@ -1643,17 +1572,10 @@ async function generateAndUploadMetadata() {
 
     console.log("Metadata uploaded successfully!", metadata);
 
-
-    // Assuming you have a function to upload metadata to IPFS
-    // await uploadMetadataToIPFS(metadata);
   } catch (error) {
     console.error('Error:', error);
   }
 }
-
-
-
-// Assuming generateAndUploadMetadataButton is a valid HTML element
 
 generateAndUploadMetadataButton.addEventListener("click", async () => {
   await getElectionID();
@@ -1692,18 +1614,6 @@ async function getElectionID() {
     alert(errorMessage);
   }
 }
-
-// Call getElectionID at the startup of the page
-// window.addEventListener('DOMContentLoaded', getElectionID);
-
-// Automatically refresh the Election ID every 5 seconds (5000 milliseconds)
-// setInterval(getElectionID, 12000);
-
-
-
-
-
-
 
 async function generateAndUploadMetadata2() {
   try {
