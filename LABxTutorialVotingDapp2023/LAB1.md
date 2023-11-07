@@ -22,6 +22,55 @@
 
 ---
 
+## Prerequisites
+
+To make the most out of this lab, a basic understanding of programming concepts and familiarity with JavaScript will be beneficial. However, even if you're new to blockchain development, we'll guide you through each step.
+
+Let's dive in and get started with the first part of our journey: Developing Ethereum Smart Contracts!
+
+---
+## dApp structure Overview
+
+```mermaid
+graph TD;
+    A[Root Folder: voting-dapp-tutorial] -->|Contains| B[Hardhat Folder];
+    A -->|Contains| C[Front-end Folder];
+    B -->|Contains| D[Contracts];
+    B -->|Contains| E[Scripts];
+    B -->|Contains| F[Tests];
+    C -->|Contains| G[public];
+    C -->|Contains| K[server.js];
+    G -->|Contains| H[HTML Files];
+    G -->|Contains| I[CSS Files];
+    G -->|Contains| J[JavaScript Files];
+
+```
+## Flow overview
+
+```mermaid
+    graph TD;
+    A[Front-end] -->|Triggers| B[Metamask];
+    B -->|Interacts with| C[Contract Blockchain];
+    C -->|Changes State / write data| D[Blockchain State];
+
+
+```
+---
+```mermaid
+graph TD;
+    A[Front-end] -->|RPC + Metamask| B[Blockchain];
+    B -->|Interacts with| C[Smart Contract];
+    C -->|Returns Data| A;
+
+```
+---
+
+## Overview contract Voting.sol
+
+@TODO add diagram
+
+
+
 ## To Set Up the Development Environment
 ### SETUP DEVELOPMENT ENVIRONMENT ON MORPHEUSLABS BPAAS SEED
 <!--  add setup -->
@@ -214,10 +263,53 @@ let result = addNumbers(5, 3); // 'result' will be 8.
 
 Classes are fundamental to object-oriented programming (OOP). They encapsulate data and functions into a single unit. A class can contain multiple functions that define the behavior of objects created from that class.
 
+Certainly! Here's the completed section you can include before creating the contract:
+
+```markdown
+## Set up main repo
+
+To get started with our decentralized voting application tutorial, we'll first set up the main repository. Follow these steps:
+
+### Step 1: Create a Folder
+
+Open a terminal and execute the following commands to create a new folder for our project:
+
+```bash
+mkdir voting-dapp-tutorial
+cd voting-dapp-tutorial
+touch README.md
+```
+
+This will create a new directory named `voting-dapp-tutorial` and a `README.md` file, which will serve as the main documentation for our project.
+
+### Step 2: Install HardHat
+
+Next, we'll install HardHat, a popular development environment for Ethereum. HardHat provides a set of tools that make it easy to compile, deploy, and test smart contracts. Execute the following command to install HardHat:
+
+```bash
+npx install hardhat
+```
+
+lunch VSCode
+```
+code .
+```
+
+```
+cd hardhat
+```
+
+This command will fetch and set up the HardHat environment in our project directory.
+
+With these initial steps completed, we're now ready to proceed with the creation of our smart contract for the decentralized voting system. Let's move on to the next section!
+
+
 
 ## CREATING THE `Voting.sol` FILE
 
 In this section, we'll guide you through the process of creating the `Voting.sol` file, which will house the smart contract for our decentralized voting application. This Solidity file will define the behavior and rules of our voting system on the Ethereum blockchain.
+
+- into hardhat/contracts folder, create a new file named Voting.sol
 
 ### Step 1: Set the Compiler Version and Import Dependencies
 
@@ -226,7 +318,7 @@ Open your preferred code editor and create a new file named `Voting.sol`. At the
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
-import "./ElectionNFT.sol";
+import "./ElectionNFT.sol"; //this is the import of the futur NFT contract
 
 contract Voting {
     // ... (content of the Voting.sol contract)
@@ -236,394 +328,6 @@ contract Voting {
 ### Step 2: Define the Contract Structure
 
 Within the `Voting.sol` file, we'll define the structure of our smart contract. This includes declaring variables, creating functions, and implementing modifiers. The content of the contract will be placed within the curly braces `{}`.
-
-```solidity
-// SPDX-License-Identifier: UNLICENCED
-pragma solidity ^0.8.19;
-import "./ElectionNFT.sol";
-
-contract Voting {
-    address public electionNFTContract;
-
-    // Create a structure template for each candidates
-    struct Candidate {
-        uint256 id; // Unique identifier for the candidate
-        string name; // Name of the candidate
-        uint256 numberOfVotes; // Number of votes received by the candidate
-    }
-
-    // Election ID ( is never deleted and increment at every starting new election )
-    uint256 public electionID = 0;
-
-    // List of all candidates
-    Candidate[] public candidates;
-
-    // This will be the owner's address
-    address public owner;
-
-    // Mapp all voter addresses
-    mapping(address => bool) public voters;
-    mapping(address => bool) public eligibleVoters;
-
-    // List of voters
-    address[] internal ListOfVoters;
-    address[] internal ListOfVotersEligible;
-
-    // voting start and end session
-    uint256 public votingStartTimeStamp;
-    uint256 public votingEndTimeStamp;
-
-    // Create an election status
-    bool public electionStarted;
-
-    // Restrict creating vote to the owner only
-    modifier onlyOwner() {
-        require(msg.sender == owner, "not authorized to start election");
-        _;
-    }
-
-    // Check if an election is ongoing
-    modifier electionOnGoing() {
-        require(electionStarted, "no election yet");
-        _;
-    }
-
-    // Event emitted when the election starts
-    event ElectionStarted(
-        address indexed owner,
-        uint256 startTimestamp,
-        uint256 endTimestamp
-    );
-
-    // Event emitted when a vote is cast
-    event VoteCast(address indexed voter, uint256 candidateId);
-
-    // Event emitted when a new Candidate is added
-    event CandidateAdded(uint256 indexed id, string name);
-
-    // Event emitted when time has been added to the election period
-    event ElectionDurationChanged(uint256 newDuration);
-
-    // Event emitted when the election finishes
-    event ElectionFinished(address indexed owner);
-
-    // Event emitted when the election is reset
-    event ElectionReset(address indexed owner);
-
-    constructor() {
-        // Initialize owner
-        owner = msg.sender;
-    }
-
-    // To start an election
-    function startElection(string[] memory _candidates, uint256 _votingDuration)
-        public
-        onlyOwner
-    {
-        require(electionStarted == false, "Election is currently ongoing");
-
-        // Increment electionID
-        electionID += 1;
-
-        // Clear existing candidates
-        while (candidates.length > 0) {
-            removeCandidate(0);
-        }
-
-        // Add new candidates
-        for (uint256 i = 0; i < _candidates.length; i++) {
-            candidates.push(
-                Candidate({id: i, name: _candidates[i], numberOfVotes: 0})
-            );
-        }
-        electionStarted = true;
-        votingStartTimeStamp = block.timestamp;
-        votingEndTimeStamp = block.timestamp + (_votingDuration * 1 minutes);
-
-        emit ElectionStarted(owner, votingStartTimeStamp, votingEndTimeStamp);
-    }
-
-    // Check voter's status
-    function voterStatus(address _voter)
-        public
-        view
-        electionOnGoing
-        returns (bool)
-    {
-        if (voters[_voter] == true) {
-            return true;
-        }
-        return false;
-    }
-
-    // To vote function
-    function voteTo(uint256 _id) public electionOnGoing {
-        require(checkElectionPeriod(), "Election period has ended");
-        require(
-            !voterStatus(msg.sender),
-            "You already voted. You can only vote once."
-        );
-        require(_id < candidates.length, "Invalid candidate ID");
-        require(eligibleVoters[msg.sender], "You are not an eligible voter.");
-
-        candidates[_id].numberOfVotes++;
-        voters[msg.sender] = true;
-
-        // Add to the has voted voters list
-        ListOfVoters.push(msg.sender);
-
-        emit VoteCast(msg.sender, _id);
-    }
-
-    // Get the number of votes
-    function retrieveVotes() public view returns (Candidate[] memory) {
-        return candidates;
-    }
-
-    // Monitor the election time
-    function electionTimer() public view returns (uint256) {
-        if (block.timestamp >= votingEndTimeStamp) {
-            return 0;
-        }
-        return (votingEndTimeStamp - block.timestamp);
-    }
-
-    // Check if election period is still ongoing
-    function checkElectionPeriod() public view returns (bool) {
-        return electionTimer() > 0;
-    }
-
-    // Reset all voters status
-    function resetAllVoterStatus() public onlyOwner {
-        for (uint256 i = 0; i < ListOfVoters.length; i++) {
-            voters[ListOfVoters[i]] = false;
-        }
-        delete ListOfVoters;
-
-        emit ElectionReset(owner);
-    }
-
-    // Completely resetting the entire election process
-    function resetElection() public onlyOwner {
-        require(!electionStarted, "Election is currently ongoing");
-
-        // Reset ListOfVotersEligible mappings
-        for (uint256 i = 0; i < ListOfVotersEligible.length; i++) {
-            eligibleVoters[ListOfVotersEligible[i]] = false;
-        }
-
-        // Clear ListOfVotersEligible
-        delete ListOfVotersEligible;
-
-        // Reset voter status
-        resetAllVoterStatus();
-
-        // Reset election status and timers
-        electionStarted = false;
-        votingStartTimeStamp = 0;
-        votingEndTimeStamp = 0;
-
-        // Remove all candidates
-        removeAllCandidates();
-
-        // emit Election Reset
-        emit ElectionReset(owner);
-    }
-
-    function endElection() public onlyOwner electionOnGoing {
-        electionStarted = false;
-        votingEndTimeStamp = block.timestamp;
-
-        emit ElectionFinished(owner);
-    }
-
-    function removeCandidate(uint256 _candidateId) public onlyOwner {
-        require(_candidateId < candidates.length, "Invalid candidate ID");
-        require(!electionStarted, "Election is ongoing");
-
-        for (uint256 i = _candidateId; i < candidates.length - 1; i++) {
-            candidates[i] = candidates[i + 1];
-        }
-
-        delete candidates[candidates.length - 1];
-        candidates.pop();
-    }
-
-    function removeAllCandidates() public onlyOwner {
-        require(!electionStarted, "Election is currently ongoing");
-        while (candidates.length > 0) {
-            removeCandidate(0);
-        }
-    }
-
-    function transferOwnership(address newOwner) public onlyOwner {
-        require(newOwner != address(0), "Invalid new owner address");
-        owner = newOwner;
-    }
-
-    function changeElectionDuration(uint256 _newDuration)
-        public
-        onlyOwner
-        electionOnGoing
-    {
-        require(_newDuration > 0, "Invalid duration");
-
-        votingEndTimeStamp = votingStartTimeStamp + (_newDuration * 1 minutes);
-
-        emit ElectionDurationChanged(_newDuration);
-    }
-
-    function addCandidate(string memory _name)
-        public
-        onlyOwner
-        electionOnGoing
-    {
-        candidates.push(
-            Candidate({id: candidates.length, name: _name, numberOfVotes: 0})
-        );
-
-        emit CandidateAdded(candidates.length - 1, _name);
-    }
-
-    function registerVoter(address _eligible_voter) public onlyOwner {
-        eligibleVoters[_eligible_voter] = true;
-        ListOfVotersEligible.push(_eligible_voter); // Add the voter to the ListOfVotersEligible
-    }
-
-    function registerVoters(address[] memory _eligible_voters)
-        public
-        onlyOwner
-    {
-        for (uint256 i = 0; i < _eligible_voters.length; i++) {
-            eligibleVoters[_eligible_voters[i]] = true;
-            ListOfVotersEligible.push(_eligible_voters[i]);
-        }
-    }
-
-    function mintResultNFTs(string memory _tokenURI) public onlyOwner {
-        require(!electionStarted, "Election is ongoing, cannot mint NFTs yet");
-        require(
-            votingStartTimeStamp != 0,
-            "Timestamp is 0, election not even started"
-        );
-        for (uint256 i = 0; i < ListOfVoters.length; i++) {
-            // Mint NFT to each voter
-            ElectionNFT(electionNFTContract).mintNFT(
-                ListOfVoters[i],
-                _tokenURI
-            );
-        }
-    }
-
-    function mintResult(address _participant, string memory _tokenURI)
-        public
-        onlyOwner
-    {
-        require(!electionStarted, "Election is ongoing, cannot mint NFTs yet");
-        require(
-            votingStartTimeStamp != 0,
-            "Timestamp is 0, election not even started"
-        );
-        // Mint an NFT for the participant
-        ElectionNFT(electionNFTContract).mintNFT(_participant, _tokenURI);
-
-        // Mark the participant as having received an NFT
-        voters[_participant] = true;
-    }
-
-    // Function to set ElectionNFT contract address
-    function setElectionNFTContract(address _electionNFTContract)
-        public
-        onlyOwner
-    {
-        electionNFTContract = _electionNFTContract;
-    }
-
-    // Structure template for election metadata
-    struct ElectionMetadata {
-        uint256 electionID;
-        uint256 winnerID;
-        string winnerName;
-        uint256 numberOfVotes;
-        uint256 startTime;
-        uint256 endTime;
-    }
-
-    struct Winner {
-    uint256 candidateID;
-    string name;
-    uint256 numberOfVotes;
-    uint256 electionID;
-}
-
-    function getWinnerInfo() public view returns (Winner memory) {
-    require(!electionStarted, "Election is still ongoing");
-    require(candidates.length > 0, "No candidates available");
-
-    uint256 maxVotes = 0;
-    uint256 winningCandidateIndex;
-
-    for (uint256 i = 0; i < candidates.length; i++) {
-        if (candidates[i].numberOfVotes > maxVotes) {
-            maxVotes = candidates[i].numberOfVotes;
-            winningCandidateIndex = i;
-        }
-    }
-
-    Winner memory winner = Winner({
-        candidateID: candidates[winningCandidateIndex].id,
-        name: candidates[winningCandidateIndex].name,
-        numberOfVotes: maxVotes,
-        electionID: electionID
-    });
-
-    return winner;
-}
-
-
-   
-    
-
- function generateMetadata()
-    public
-    view
-    returns (ElectionMetadata memory)
-{
-    require(!electionStarted, "Election is still ongoing");
-    require(candidates.length > 0, "No candidates available");
-
-    uint256 maxVotes = 0;
-    uint256 winningCandidateIndex;
-
-    for (uint256 i = 0; i < candidates.length; i++) {
-        if (candidates[i].numberOfVotes > maxVotes) {
-            maxVotes = candidates[i].numberOfVotes;
-            winningCandidateIndex = i;
-        }
-    }
-
-    Winner memory winner = Winner({
-        candidateID: candidates[winningCandidateIndex].id,
-        name: candidates[winningCandidateIndex].name,
-        numberOfVotes: maxVotes,
-        electionID: electionID
-    });
-
-    // Create ElectionMetadata struct
-    ElectionMetadata memory metadata = ElectionMetadata({
-        electionID: electionID,
-        winnerID: winner.candidateID,
-        winnerName: winner.name,
-        numberOfVotes: winner.numberOfVotes,
-        startTime: votingStartTimeStamp,
-        endTime: votingEndTimeStamp
-    });
-
-    return metadata;
-}
-}
-
-```
 
 
 
@@ -712,7 +416,9 @@ With this step, we've laid the foundation for our decentralized voting system. T
 
 Next, we'll explore additional features like managing candidates, registering voters, and handling the voting process.
 
+### Full Voting.sol contract code
 
+[full contract code here]
 
 ### CREATING THE ElectionNFT.SOL FILE
 
@@ -720,6 +426,10 @@ Next, we'll explore additional features like managing candidates, registering vo
 In this section, we'll guide you through the process of creating the `ElectionNFT.sol` file, which will handle the creation of unique NFTs for each voter in our decentralized voting application.
 
 Create a new file named `ElectionNFT.sol` and paste the following code:
+
+### Full ElectionNFT.sol contract code
+
+[full contract code here]
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
@@ -761,10 +471,148 @@ contract ElectionNFT is ERC721 {
 
 ```
 
-### DEPLOY COMPILED CONTRACT TO POA NETWORK
 
-...
 
+### DEPLOY COMPILED CONTRACT TO BLOCKCHAIN NETWORK
+
+To deploy the compiled contract to the Ethereum blockchain network, follow these steps:
+
+#### Step 1: Configure a dotenv (.env) file
+
+First, install the `dotenv` package using the following command:
+
+```bash
+npx install dotenv
+```
+
+Next, create a `.env` file in the root folder of your HardHat project. This file will contain sensitive information that should be kept secure. Add the following variables to the `.env` file:
+
+```dotenv
+# This is the URL of the Ethereum RPC provider
+RPC_URL="https://example.com/rpc"
+
+# This is a private key for signing transactions
+PRIVATE_KEY="your_private_key_here"
+
+# This is an API key for accessing a specific service
+API_KEY="your_api_key_here"
+
+# This is the chain ID for the Ethereum network
+CHAIN_ID=12345
+
+# This is the address of a smart contract (optional)
+CONTRACT_ADDRESS='0x1234567890abcdef'
+```
+
+Make sure to replace the placeholder values with your actual credentials.
+
+#### Step 2: Configure hardhat.config.js
+
+Modify your `hardhat.config.js` file as follows:
+
+```javascript
+require("@nomicfoundation/hardhat-toolbox");
+
+require("dotenv").config();
+
+module.exports = {
+  solidity: "0.8.20",
+  networks: {
+    sepolia: {
+      chainId: 11155111,
+      url: process.env.RPC_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+  etherscan: {
+    apiKey: process.env.API_KEY,
+  },
+  paths: {
+    artifacts: "./src/artifacts",
+    contracts: './src/contracts',
+  }
+};
+```
+
+
+### Step 3: Create a New Deployment Script
+
+Create a new file named `deploy.js` inside the `hardhat/scripts` directory. Add the following content to the file:
+
+```javascript
+const hre = require("hardhat");
+const fs = require('fs');
+
+async function main() {
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying contracts with the account:", deployer.address);
+  const votingContract = await hre.ethers.getContractFactory("Voting");
+  const deployedVotingContract = await votingContract.deploy();
+
+  const deploymentInfo = `Deployer Address: ${deployer.address}\nContract Address: ${deployedVotingContract.address}`;
+
+  console.log(`Voting Contract Address deployed: ${deployedVotingContract.address}`);
+  fs.writeFileSync('deploymentInfo.txt', deploymentInfo);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
+
+To deploy the contract, use the following command in your terminal:
+
+```bash
+npx hardhat run scripts/deploy.js --network sepolia
+```
+
+The result output from the terminal will provide the contract addresses.
+
+A "deploymentInfo.txt" file will be created with the contract addresses.
+
+---
+
+### Step 3-bis: Create a New Deployment Script for ElectionNFT contract
+
+Next, deploy the ElectionNFT contract using the address of the previously deployed contract.
+
+Create a new file named `deploy2.js` inside the `hardhat/scripts` directory. Add the following content to the file:
+
+```javascript
+const hre = require("hardhat");
+const fs = require('fs');
+
+async function main() {
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying ElectionNFT contract with the account:", deployer.address);
+
+  const electionNFTContract = await hre.ethers.getContractFactory("ElectionNFT");
+  const deployedElectionNFTContract = await electionNFTContract.deploy("<FIRST CONTRACT ADDRESS>");
+
+  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
+
+  const deploymentInfo = `Deployer Address: ${deployer.address}\nContract Address: ${deployedElectionNFTContract.address}`;
+
+  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
+  fs.writeFileSync('deploymentInfoNFT.txt', deploymentInfo);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
+```
+
+Remember to replace `<FIRST CONTRACT ADDRESS>` with the address of the first contract deployed (check `deploymentInfo.txt`).
+
+### Verify contracts
+
+If you've added your Etherscan API key, you'll be able to verify the contracts using the following command:
+
+```bash
+npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
+```
 
 ---
 
