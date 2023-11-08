@@ -166,7 +166,3 @@ NFT_CONTRACT_ADDRESS='0x1234567890abcdef'
 
 S2BC
 
-## notes
-Provide an example of how to handle user authentication in the web app, especially if it involves interacting with Ethereum accounts.
-
-Consider adding a section on user interface design principles to help students create an intuitive and user-friendly voting interface.

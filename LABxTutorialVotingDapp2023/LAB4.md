@@ -60,7 +60,3 @@ For detailed steps on uploading your dApp, refer to the [documentation](https://
 
 S2BC
 
-## notes
-It might be helpful to provide some resources or tips on how to monitor and analyze the performance of a deployed dApp, especially in a real-world scenario.
-
-Consider including a section on deploying a dApp on a testnet first before deploying it on the mainnet, to allow for thorough testing in a controlled environment.

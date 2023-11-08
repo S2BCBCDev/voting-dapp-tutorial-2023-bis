@@ -66,9 +66,69 @@ graph TD;
 ---
 
 ## Overview contract Voting.sol
+### Diagram of interactions
 
-@TODO add diagram
+```mermaid
+sequenceDiagram
+    participant User
+    participant Administrator
+    participant VotingContract
+    participant ElectionNFTContract
 
+    User->>VotingContract: startElection()
+    VotingContract->>VotingContract: Check if election has started
+    VotingContract-->>User: ElectionStarted event emitted
+
+    Administrator->>VotingContract: addCandidate(name)
+    VotingContract->>VotingContract: Check if election is ongoing
+    VotingContract->>VotingContract: Add candidate to list
+    VotingContract-->>Administrator: CandidateAdded event emitted
+
+    Administrator->>VotingContract: registerVoter(address)
+    VotingContract->>VotingContract: Mark address as eligible voter
+    VotingContract-->>Administrator: VoterRegistered event emitted
+
+    User->>VotingContract: voteTo(candidateId)
+    VotingContract->>VotingContract: Check election period
+    VotingContract->>VotingContract: Check if user already voted
+    VotingContract->>VotingContract: Check if candidateId is valid
+    VotingContract->>VotingContract: Check if user is eligible to vote
+    VotingContract->>VotingContract: Update candidate's numberOfVotes
+    VotingContract->>VotingContract: Mark user as voted
+    VotingContract-->>User: VoteCast event emitted
+
+    User->>VotingContract: retrieveVotes()
+    VotingContract-->>User: List of candidates and their votes
+
+    User->>VotingContract: getWinnerInfo()
+    VotingContract-->>User: Winner information
+
+    User->>VotingContract: generateMetadata()
+    VotingContract-->>User: Election metadata
+
+    Administrator->>VotingContract: resetElection()
+    VotingContract->>VotingContract: Check if election is ongoing
+    VotingContract->>VotingContract: Reset all voter statuses
+    VotingContract->>VotingContract: Clear ListOfVotersEligible
+    VotingContract->>VotingContract: Reset election status and timers
+    VotingContract->>VotingContract: Remove all candidates
+    VotingContract-->>Administrator: ElectionReset event emitted
+
+    User->>ElectionNFTContract: mintNFT(to, tokenURI)
+    ElectionNFTContract->>ElectionNFTContract: Check if caller is election contract
+    ElectionNFTContract->>ElectionNFTContract: Mint NFT to 'to' address
+    ElectionNFTContract->>ElectionNFTContract: Store token URI
+    ElectionNFTContract-->>User: NFT Minted event emitted
+
+    Administrator->>ElectionNFTContract: setBaseTokenURI(newBaseTokenURI)
+    ElectionNFTContract->>ElectionNFTContract: Check if caller is election contract
+    ElectionNFTContract->>ElectionNFTContract: Set new base token URI
+    ElectionNFTContract-->>Administrator: BaseTokenURISet event emitted
+
+    User->>ElectionNFTContract: getTokenURI(tokenId)
+    ElectionNFTContract-->>User: Token URI for the specified token ID
+
+```
 
 
 ## To Set Up the Development Environment
