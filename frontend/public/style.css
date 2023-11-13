@@ -218,4 +218,10 @@ hr.custom-line {
     background-color: var(--rusty-red);
 }
 
+#logo {
+    width: 96px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
 

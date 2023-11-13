@@ -2,6 +2,12 @@
 
 ### S2BC
 
+<div style="text-align: center;">
+  <img src="s2bc-logo.svg" alt="Alt text" width="96" height="96">
+</div>
+
+---
+
 ### Lab 4: Run a dApp and Consider Next Steps
 - BUILD / TEST / INTEGRATE / **RUN**
 

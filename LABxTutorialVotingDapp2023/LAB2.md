@@ -1,6 +1,12 @@
 # Blockchain & Solidity Lab2 – Voting dApp Development
 
-## S2BC
+### S2BC
+
+<div style="text-align: center;">
+  <img src="s2bc-logo.svg" alt="Alt text" width="96" height="96">
+</div>
+
+---
 
 ### Lab 2: Testing Ethereum Smart Contracts with Hardhat
 - BUILD / **TEST** / INTEGRATE / RUN

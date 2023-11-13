@@ -2,6 +2,12 @@
 
 ### S2BC
 
+<div style="text-align: center;">
+  <img src="s2bc-logo.svg" alt="Alt text" width="96" height="96">
+</div>
+
+---
+
 ### Lab 3: Integrate Web App with Smart Contracts
 - BUILD / TEST / **INTEGRATE** / RUN
 
@@ -166,3 +172,12 @@ NFT_CONTRACT_ADDRESS='0x1234567890abcdef'
 
 S2BC
 
+@TODO
+add link to repo // look in LAB3 (cloning)
+
+@TODO
+add candidate rule
+add minting to all registered voters
+arrange NFT image and metadata
+focus on ducumentation
+add logo and favicon from email file
