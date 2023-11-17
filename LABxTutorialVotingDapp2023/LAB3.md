@@ -3,7 +3,7 @@
 ### S2BC
 
 <div style="text-align: center;">
-  <img src="s2bc-logo.svg" alt="Alt text" width="96" height="96">
+  <img src="s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
 ---
@@ -160,7 +160,7 @@ npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
 
 ---
 
-## Frontend
+# Frontend integration
 ### Setting Up the Frontend
 
 In this section, we will guide you through setting up the frontend of your Voting dApp. Follow these steps to create the necessary folders and files:
@@ -171,15 +171,15 @@ Begin by creating a folder named `frontend` within your project directory. This 
 
 Your tree folder should be like:
 ```
-|-voting-dapp-2023
-|-voting-dapp-2023/hardhat
-|-voting-dapp-2023/frontend
+- voting-dapp-2023
+   - hardhat
+   - frontend
 ```
-So come back to your root folder:
+So if you were in hardhat folder, come back to your root folder:
 ```
 cd ..
 ```
-then 
+then create the frontend folder
 
 ```
 mkdir frontend
@@ -224,9 +224,11 @@ You have two way to add dependencies:
 or
 - add a line "express": "^4.18.2" to the package.json file
 
-### 2. Create a server.js file
 
-This will be the setting for your server to run, to serve your explorater while browsing the dapp
+
+### 2. Set Up a Server by creating a server.js file
+
+If your dApp requires server-side functionality, create a file named `server.js` in the `frontend` folder. This file will handle any backend logic your application may need.
 
 Create a server.js file and add thoses lines:
 
@@ -286,24 +288,50 @@ Within the `public` folder, create the following files:
 - `index.html`: This is the main HTML file that will serve as the entry point of your web application. You can use this file to structure the layout of your dApp's user interface.
 
 ```html
-<!-- Add your HTML code here -->
+<html>
+Server is Up
+</html>
 ```
 
 - `script.js`: This JavaScript file will contain the client-side code that interacts with the smart contracts and updates the UI based on user actions.
 
 ```javascript
-// Add your JavaScript code here
+// JavaScript code will be here
 ```
 
-### 4. Set Up a Server (Optional)
+A this point your folder structure should looks like that:
+```
+- voting-dapp-2023
+  - hardhat
+  - frontend
+    - server.js
+    - public
+      - index.html
+      - script.js
+```        
 
-If your dApp requires server-side functionality, create a file named `server.js` in the `frontend` folder. This file will handle any backend logic your application may need.
+
 
 ### 5. Configure Environment Variables
 
-To securely manage sensitive information, it's best practice to use environment variables. Create a file named `.env.example` in the root directory of your project. This file will serve as an example template for your environment variables. Include any placeholders or default values that your application requires.
+#### Install Dotenv dependencies
+Come back to the frontend folder:
 
-Here's an example of how you can structure your `.env.example` file:
+```
+cd ..
+```
+then
+```
+npm instal dotenv
+```
+
+To securely manage sensitive information, it's best practice to use environment variables. Create a file named `.env` in the root directory of your project.
+
+
+
+
+
+Here's an example of how you can structure your `.env` file:
 
 ```plaintext
 # This is the URL of the Ethereum RPC provider
@@ -325,9 +353,16 @@ NFT_CONTRACT_ADDRESS='0x1234567890abcdef'
 
 ---
 
-### Diagram: Frontend Folder Structure
+### Frontend Folder Structure
 
-![Frontend Folder Structure Diagram](placeholder_frontend_diagram.png)
+```
+  - frontend
+    - server.js
+    - public
+      - index.html
+      - script.js
+    - .env
+```
 
 ### Lab 3: Interacting with the Smart Contract
 
@@ -431,3 +466,59 @@ add minting to all registered voters
 arrange NFT image and metadata
 focus on ducumentation
 add logo and favicon from email file @DONE
+
+## @todo List for Future Enhancements:
+
+### Lab3 - Voting dApp Development
+
+#### Frontend Development:
+- [x] Implement HTML and JavaScript code for the Voting dApp frontend.
+- [ ] Use web3.js or ethers.js to connect the frontend to deployed smart contracts.
+- [ ] Design and implement UI components for each interaction step.
+
+#### Testing:
+- [ ] Thoroughly test the interaction between the frontend and smart contracts.
+- [ ] Simulate various scenarios to ensure robust handling of different use cases.
+
+#### Documentation:
+- [ ] Update the Lab3 markdown file with detailed explanations and code snippets.
+- [ ] Include screenshots or diagrams illustrating UI components and the interaction flow.
+
+#### Security:
+- [ ] Emphasize secure coding practices in both smart contracts and frontend code.
+- [ ] Implement proper input validation and error handling mechanisms.
+
+#### Deployment:
+- [ ] Provide clear instructions on deploying the frontend of the Voting dApp.
+- [ ] Consider using GitHub Pages or Netlify for easy deployment.
+
+#### Coding Style:
+- [ ] Ensure a consistent coding style throughout smart contracts and frontend code.
+- [ ] Follow best practices for code readability and maintainability.
+
+#### User Experience (UX):
+- [ ] Pay attention to the overall user experience and make improvements if needed.
+- [ ] Consider adding tooltips, loading indicators, or other UX elements.
+
+#### Error Handling:
+- [ ] Implement robust error handling mechanisms to guide users in unexpected situations.
+
+#### Optimization:
+- [ ] Optimize smart contracts and frontend code for gas efficiency and performance.
+
+#### Feedback Mechanisms:
+- [ ] Incorporate feedback messages or notifications to inform users about actions.
+
+#### Cross-browser Compatibility:
+- [ ] Ensure the frontend works seamlessly across different web browsers.
+
+#### Accessibility:
+- [ ] Consider accessibility aspects to make the dApp usable for individuals with disabilities.
+
+#### Final Review:
+- [ ] Conduct a final review of the Lab3 markdown file and code for completeness and clarity.
+
+### General Enhancements:
+- [ ] Explore additional features or improvements that can enhance the overall tutorial.
+- [ ] Stay updated on new technologies or tools that could be integrated into the tutorial.
+
