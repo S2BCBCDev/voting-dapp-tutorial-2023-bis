@@ -3,7 +3,7 @@
 ### S2BC
 
 <div style="text-align: center;">
-  <img src="s2bc-logo.svg" alt="Alt text" width="96" height="96">
+  <img src="s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
 ---
@@ -329,7 +329,7 @@ Classes are fundamental to object-oriented programming (OOP). They encapsulate d
 
 Certainly! Here's the completed section you can include before creating the contract:
 
-```markdown
+
 ## Set up main repo
 
 To get started with our decentralized voting application tutorial, we'll first set up the main repository. Follow these steps:
@@ -924,148 +924,6 @@ contract ElectionNFT is ERC721 {
 
 ```
 
-
-
-### DEPLOY COMPILED CONTRACT TO BLOCKCHAIN NETWORK
-
-To deploy the compiled contract to the Ethereum blockchain network, follow these steps:
-
-#### Step 1: Configure a dotenv (.env) file
-
-First, install the `dotenv` package using the following command:
-
-```bash
-npx install dotenv
-```
-
-Next, create a `.env` file in the root folder of your HardHat project. This file will contain sensitive information that should be kept secure. Add the following variables to the `.env` file:
-
-```dotenv
-# This is the URL of the Ethereum RPC provider
-RPC_URL="https://example.com/rpc"
-
-# This is a private key for signing transactions
-PRIVATE_KEY="your_private_key_here"
-
-# This is an API key for accessing a specific service
-API_KEY="your_api_key_here"
-
-# This is the chain ID for the Ethereum network
-CHAIN_ID=12345
-
-# This is the address of a smart contract (optional)
-CONTRACT_ADDRESS='0x1234567890abcdef'
-```
-
-Make sure to replace the placeholder values with your actual credentials.
-
-#### Step 2: Configure hardhat.config.js
-
-Modify your `hardhat.config.js` file as follows:
-
-```javascript
-require("@nomicfoundation/hardhat-toolbox");
-
-require("dotenv").config();
-
-module.exports = {
-  solidity: "0.8.20",
-  networks: {
-    sepolia: {
-      chainId: 11155111,
-      url: process.env.RPC_URL,
-      accounts: [process.env.PRIVATE_KEY],
-    },
-  },
-  etherscan: {
-    apiKey: process.env.API_KEY,
-  },
-  paths: {
-    artifacts: "./src/artifacts",
-    contracts: './src/contracts',
-  }
-};
-```
-
-
-### Step 3: Create a New Deployment Script
-
-Create a new file named `deploy.js` inside the `hardhat/scripts` directory. Add the following content to the file:
-
-```javascript
-const hre = require("hardhat");
-const fs = require('fs');
-
-async function main() {
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying contracts with the account:", deployer.address);
-  const votingContract = await hre.ethers.getContractFactory("Voting");
-  const deployedVotingContract = await votingContract.deploy();
-
-  const deploymentInfo = `Deployer Address: ${deployer.address}\nContract Address: ${deployedVotingContract.address}`;
-
-  console.log(`Voting Contract Address deployed: ${deployedVotingContract.address}`);
-  fs.writeFileSync('deploymentInfo.txt', deploymentInfo);
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-```
-
-To deploy the contract, use the following command in your terminal:
-
-```bash
-npx hardhat run scripts/deploy.js --network sepolia
-```
-
-The result output from the terminal will provide the contract addresses.
-
-A "deploymentInfo.txt" file will be created with the contract addresses.
-
----
-
-### Step 3-bis: Create a New Deployment Script for ElectionNFT contract
-
-Next, deploy the ElectionNFT contract using the address of the previously deployed contract.
-
-Create a new file named `deploy2.js` inside the `hardhat/scripts` directory. Add the following content to the file:
-
-```javascript
-const hre = require("hardhat");
-const fs = require('fs');
-
-async function main() {
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying ElectionNFT contract with the account:", deployer.address);
-
-  const electionNFTContract = await hre.ethers.getContractFactory("ElectionNFT");
-  const deployedElectionNFTContract = await electionNFTContract.deploy("<FIRST CONTRACT ADDRESS>");
-
-  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
-
-  const deploymentInfo = `Deployer Address: ${deployer.address}\nContract Address: ${deployedElectionNFTContract.address}`;
-
-  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
-  fs.writeFileSync('deploymentInfoNFT.txt', deploymentInfo);
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-```
-
-Remember to replace `<FIRST CONTRACT ADDRESS>` with the address of the first contract deployed (check `deploymentInfo.txt`).
-
-### Verify contracts
-
-If you've added your Etherscan API key, you'll be able to verify the contracts using the following command:
-
-```bash
-npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
-```
 
 ---
 
