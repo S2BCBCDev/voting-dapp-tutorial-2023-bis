@@ -26,7 +26,7 @@ To deploy the compiled contract to the Ethereum blockchain network, follow these
 First, install the `dotenv` package using the following command:
 
 ```bash
-npx install dotenv
+npm install dotenv
 ```
 
 Next, create a `.env` file in the root folder of your HardHat project. This file will contain sensitive information that should be kept secure. Add the following variables to the `.env` file:
@@ -281,6 +281,10 @@ mkdir public
 cd public
 ```
 
+The `public folder` is where you store files that can be accessed by users, such as the main HTML file (`index.html`) and client-side JavaScript (`script.js`). As well that where you store the images of the app like the `logo.svg` and `favicon.ico`.
+
+
+
 ### 3. Create HTML and JavaScript Files
 
 Within the `public` folder, create the following files:
@@ -297,7 +301,48 @@ Server is Up
 
 ```javascript
 // JavaScript code will be here
+console.log("Server is Up and Running");
 ```
+
+### 3. Create styles.css Files
+
+Within the `public` folder, create a styles.css file, it will contain the custom styles for your UI.
+
+```css
+:root {
+    --prussian-blue: #102537ff; /* Main background color */
+    --prussian-blue-2: #24344Cff; /* Table background color */
+    --oxford-blue: #111A2Eff; /* Alternate background color */
+    --oxford-blue-2: #1D283Cff; /* Panel background color */
+    --oxford-blue-3: #172237ff; /* Header background color */
+    --persian-green: #019B83ff; /* Button background color (e.g., Connect Wallet Button) */
+    --blue-ncs: #0684C2ff; /* Border color and accent color */
+    --paynes-gray: #5D7084ff; /* Text color and secondary elements */
+    --rusty-red: #CA323Eff; /* Alert or error color (e.g., Reinitialise Election Button) */
+}
+
+
+body {
+    font-family: 'Roboto Regular', Helvetica, Arial, Lucida, sans-serif;
+    background-color: var(--oxford-blue);
+    line-height: 1.7em;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0 20px;
+    font-size: 1.2em;
+    color: #ffffff;
+}
+```
+
+
+
+---
+
+### Frontend Folder Structure
 
 A this point your folder structure should looks like that:
 ```
@@ -308,63 +353,293 @@ A this point your folder structure should looks like that:
     - public
       - index.html
       - script.js
+      - styles.css
 ```        
 
-
-
-### 5. Configure Environment Variables
-
-#### Install Dotenv dependencies
-Come back to the frontend folder:
+Test out if the server works again:
 
 ```
-cd ..
+npm start
 ```
-then
-```
-npm instal dotenv
-```
-
-To securely manage sensitive information, it's best practice to use environment variables. Create a file named `.env` in the root directory of your project.
-
-
-
-
-
-Here's an example of how you can structure your `.env` file:
-
-```plaintext
-# This is the URL of the Ethereum RPC provider
-RPC_URL="https://example.com/rpc"
-
-# This is a private key for signing transactions
-PRIVATE_KEY="your_private_key_here"
-
-# This is an API key for accessing a specific service
-API_KEY="your_api_key_here"
-
-# This is the chain ID for the Ethereum network
-CHAIN_ID=12345
-
-# This are the addresses of smart-contracts
-CONTRACT_ADDRESS='0x1234567890abcdef'
-NFT_CONTRACT_ADDRESS='0x1234567890abcdef'
-```
-
----
-
-### Frontend Folder Structure
+Then Check http://localhost:3000 in your browser. Open console with F12 and check the console logs after refreshing the page.
 
 ```
-  - frontend
-    - server.js
-    - public
-      - index.html
-      - script.js
-    - .env
+Server is Up and Running
 ```
 
-### Lab 3: Interacting with the Smart Contract
+## Building the index.html Page
+
+Let's concentrate on the HTML page for now. We will reference the script.js file, include the ethers CDN link to load the ethers functions into our app, and make them accessible. Afterward, we will design the layout, integrate some buttons, and set up IDs and classes for some elements to make them interactable with the scripts.
+
+### Including Ethers.js CDN link, reference to script.js and style.css
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting dApp</title>
+    <!-- Include Ethers.js CDN link with crossorigin attribute -->
+       <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div id="votingStation">
+        <!-- all the following code into this div -->
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+```
+
+### Create votingStation DIV into `<body></body>`
+    
+```
+<body>
+<div id="votingStation">
+// all the folowing code into this div
+</div>
+<script src="script.js"></script>
+</body>
+
+```
+The votingStation DIV encapsulates all components related to the voting process, making it modular and easy to manage. Each subcomponent, such as wallet connection, panel buttons, and voting forms, resides within this container for a clean and organized structure.
+
+In the upcoming sections, we will continue building upon the votingStation DIV, adding interactive elements and functionalities to create a comprehensive and user-friendly decentralized voting experience. Let's proceed with the next steps to enrich the user interface and interaction capabilities of your voting dApp.
+
+Structure expected:
+```
+<html>
+    <head>
+        <!-- Head content goes here -->
+    </head>
+    <body>
+        <!-- Voting Station DIV -->
+        <div id="votingStation">
+        
+            <!-- Logo -->
+            <img src="s2bc-logo.svg" alt="S2BC Logo" id="logo">
+
+            <!-- Title -->
+            <h1>Voting dApp 2023</h1>
+        
+            <!-- Connect Wallet Section -->
+            <div id="connectWallet">
+                <button id="connectWalletbutton">Connect Wallet</button>
+                <p id="connectWalletMessage"><span id="connectWalletMessageSpan"></span></p>
+            </div>
+
+            <!-- Panel Buttons Section -->
+            <div id="buttonPanel">
+                <hr class="custom-line">
+                <button id="votePanelButton">Vote Panel</button>
+                <button id="adminPanelButton">Admin Panel</button>
+            </div>
+
+            <!-- Vote Panel and Admin Panel Sections -->
+            <div id="votePanel" class="panel">
+                <!-- Vote Panel content -->
+            </div>
+
+            <div id="admin" class="panel">
+                <!-- Admin Panel content -->
+            </div>
+
+            <!-- Other sections within the votingStation DIV -->
+        </div>
+    </body>
+</html>
+```
+### Add a Logo and the app Title
+
+```
+<img src="s2bc-logo.svg" alt="S2BC Logo" id="logo">
+
+<h1>Voting dApp 2023</h1>
+```
+
+
+
+### Add a Connect Button
+
+```
+<div id="connectWallet">
+    <button id="connectWalletbutton">Connect Wallet</button>
+    <p id="connectWalletMessage"><span id="connectWalletMessageSpan"></span></p>
+</div>
+```
+
+We provide an ID to this button and span message to be abble to interact with it from the javascript code in script.js
+
+### Add Panel Buttons
+
+```html
+<div id="buttonPanel">
+    <hr class="custom-line">
+    <button id="votePanelButton">Vote Panel</button>
+    <button id="adminPanelButton">Admin Panel</button>
+</div>
+```
+
+These buttons, with the IDs `votePanelButton` and `adminPanelButton`, are designed to serve as navigation elements for users interacting with your voting dApp. These IDs will be utilized in your script.js file to enable specific functionalities associated with the vote panel and admin panel.
+
+### Add Voting panel
+
+
+```html
+<div id="votePanel" class="panel">
+
+    <!-- Main board for displaying election information -->
+    <div id="mainBoard">
+
+        <!-- Section for displaying election ID and timer -->
+        <div id="topBoard">
+            <p style="margin-right: 20px;">Election ID: <span id="electionID"></span></p>
+            <p id="timerMessage" style="margin-right: 20px;">Timer: <span id="time" onclick="showTimer()">[refresh]</span></p>
+        </div>
+
+        <!-- Table for displaying candidates -->
+        <table id="candidateBoard">
+            <tr>
+                <th>ID</th>
+                <th>Candidates</th>
+                <th>Votes count</th>
+                <th>Vote Button</th>
+            </tr>
+            <!-- Rows for each candidate will be dynamically added here using JavaScript -->
+        </table>
+
+    </div>
+
+    <!-- Button to refresh the voting board -->
+    <div id="showCandidateListContainer">
+        <button id="showCandidateList" onclick="showTimer()">Refresh voting board</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for casting a vote -->
+    <div id="voteForm">
+        <h3>Please enter the candidate's ID for your vote:</h3>
+        <label for="">
+            <input type="number" id="vote" />
+            <button id="sendVote">Send Vote</button>
+        </label>
+    </div>
+
+</div>
+```
+
+Here's a breakdown of what each section does:
+
+1. **Main Board**: This section contains the key information about the ongoing election, including the Election ID and a timer.
+
+2. **Candidate Board Table**: A table where candidate information will be dynamically displayed. The table headers indicate the information presented for each candidate.
+
+3. **Show Candidate List Button**: A button to refresh and display the current voting board.
+
+4. **Vote Form**: This section allows users to cast their votes by entering the candidate's ID and clicking the "Send Vote" button.
+
+
+### Add Administration panel
+
+And then, to finish with the HTML file, we will add the admin panel div.
+
+```html
+<div id="admin" class="panel">
+
+    <!-- Section for starting an election -->
+    <div id="startElection">
+        <h3 id="startElectionMessage">Start an Election:</h3>
+        <input type="text" id="addCandidateInput" placeholder="Candidate 1" />
+        <input type="text" id="addCandidateInput2" placeholder="Candidate 2" />
+        <input type="text" id="addCandidateInput3" placeholder="Candidate 3" />
+        <input type="text" id="addCandidateInput4" placeholder="+ candidates separated by (,) " />
+        <p>How long the election will last?:</p>
+        <input type="number" id="specifyDuration" placeholder="Duration in minutes" />
+        <button id="startElectionButton">Start Election</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for registering voters' addresses -->
+    <div id="addVoterArray">
+        <h3>Register voters' addresses:</h3>
+        <input type="text" id="addVoterInputArray" placeholder="+ addresses separated by(,)" />
+        <button id="addVoterButtonArray">Register Voters</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for changing the election duration -->
+    <div id="changeElectionDuration">
+        <h3>Change election duration:</h3>
+        <input type="number" id="changeElectionDurationInput" />
+        <button id="changeElectionDurationButton">Change duration</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for adding a candidate to the election -->
+    <div id="addCandidate">
+        <h3>Add a candidate to the election:</h3>
+        <input type="text" id="addCandidateInputBonus" />
+        <button id="addCandidateButton">Add Candidate</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for finalizing the election -->
+    <div id="endElection">
+        <h3>Finalize the election:</h3>
+        <button id="endElectionButton">End Election</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for minting an NFT certificate -->
+    <div id="saveResultsNFT">
+        <h3>Generate an NFT certificate representing the election results and distribute it to the addresses of
+            all voters:</h3>
+        <button id="generateAndUploadMetadataButton">Mint NFT</button>
+    </div>
+
+    <hr class="custom-line">
+
+    <!-- Section for reinitializing the election -->
+    <div id="resetElection">
+        <h3>Reinitialize the election:</h3>
+        <button id="resetElectionButton">Reinitialize</button>
+    </div>
+
+</div>
+```
+
+Here's a breakdown of what each section does:
+
+1. **Start Election Section**: Allows administrators to start a new election by providing candidate names, election duration, and clicking the "Start Election" button.
+
+2. **Register Voters Section**: Enables administrators to register voters' addresses by providing a list of addresses separated by commas and clicking the "Register Voters" button.
+
+3. **Change Election Duration Section**: Allows administrators to change the duration of the ongoing election by entering a new duration and clicking the "Change duration" button.
+
+4. **Add Candidate Section**: Provides administrators with the ability to add additional candidates to the ongoing election by entering the candidate's name and clicking the "Add Candidate" button.
+
+5. **Finalize Election Section**: Allows administrators to finalize the election by clicking the "End Election" button.
+
+6. **Save Results NFT Section**: Provides a button for administrators to generate an NFT certificate representing the election results and distribute it to all voters.
+
+7. **Reset Election Section**: Allows administrators to reinitialize the election by clicking the "Reinitialize" button.
+
+## Build script.js: Interacting with the Smart Contract by adding javascript functions
+
+Now, we will focus on writing the javascrip functions we need to interact with index.html
+
+fisrt, let's make the connect button working!
+
+
 
 #### 1. **Connecting the Wallet**
    - Explain the purpose of this function and its significance in blockchain development.

@@ -1,20 +1,18 @@
-/* CSS HEX */
 :root {
     --prussian-blue: #102537ff;
+    --prussian-blue-2: #24344Cff;
     --oxford-blue: #111A2Eff;
     --oxford-blue-2: #1D283Cff;
-    --prussian-blue-2: #24344Cff;
+    --oxford-blue-3: #172237ff;
     --persian-green: #019B83ff;
     --blue-ncs: #0684C2ff;
     --paynes-gray: #5D7084ff;
-    --oxford-blue-3: #172237ff;
     --rusty-red: #CA323Eff;
-    --cerulean: #077CB2ff;
 }
 
 body {
     font-family: 'Roboto Regular', Helvetica, Arial, Lucida, sans-serif;
-    background-color: var(--prussian-blue);
+    background-color: var(--oxford-blue);
     line-height: 1.7em;
     font-weight: 500;
     display: flex;
@@ -23,10 +21,8 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0 20px;
-    background: var(--oxford-blue);
     font-size: 1.2em;
     color: #ffffff;
-
 }
 
 #connectWalletBtn {
@@ -53,8 +49,6 @@ body {
     background-color: #fff;
     border-radius: 12px;
     box-sizing: border-box;
-    /* Ensure padding and border don't increase width */
-
 }
 
 h1,
@@ -119,9 +113,7 @@ h3 p {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    /* Evenly distribute elements */
     align-items: center;
-    /* Center items vertically */
     border: 3px solid var(--blue-ncs);
     border-radius: 12px;
 }
@@ -223,5 +215,3 @@ hr.custom-line {
     height: auto;
     margin-bottom: 10px;
 }
-
-
