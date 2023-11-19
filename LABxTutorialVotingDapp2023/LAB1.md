@@ -408,15 +408,94 @@ contract Voting {
 
 ```
 
+---
+
 ### Step 2: Define the Contract Structure
 
-Within the `Voting.sol` file, we'll define the structure of our smart contract. This includes declaring variables, creating functions, and implementing modifiers. The content of the contract will be placed within the curly braces `{}`.
+Within the `Voting.sol` file, we'll outline the fundamental structure of our smart contract. This involves declaring variables, creating functions, and implementing modifiers. The entire content of the contract will be placed within the curly braces `{}`.
 
+```solidity
+contract Voting {
+    // Declare variables
+    address public electionNFTContract;
 
+    // Define data structures, modifiers, and events
+
+    struct Candidate {
+        uint256 id;
+        string name;
+        uint256 numberOfVotes;
+    }
+
+    uint256 public electionID = 0;
+    Candidate[] public candidates;
+    address public owner;
+
+    // Define access modifiers
+    modifier onlyOwner() {
+        // Modifier code to restrict access
+        require(msg.sender == owner, "Only the owner can call this function");
+        _;
+    }
+
+    modifier electionOnGoing() {
+        // Modifier code to check if election is ongoing
+        require(block.timestamp >= votingStartTimeStamp && block.timestamp <= votingEndTimeStamp, "Election is not ongoing");
+        _;
+    }
+
+    // Define events
+    event ElectionStarted(
+        address indexed owner,
+        uint256 startTimestamp,
+        uint256 endTimestamp
+    );
+
+    event CandidateAdded(
+        uint256 indexed candidateId,
+        string name
+    );
+
+    // ... (more events)
+
+    // Define functions
+    function startElection(string[] memory _candidates, uint256 _votingDuration) 
+        public 
+        onlyOwner 
+    {
+        // Function code to start an election
+        require(_candidates.length > 0, "At least one candidate is required");
+        require(electionNFTContract != address(0), "ElectionNFT contract address not set");
+
+        // Initialize election variables
+        electionID++;
+        votingStartTimeStamp = block.timestamp;
+        votingEndTimeStamp = block.timestamp + _votingDuration;
+
+        // Create candidates
+        for (uint256 i = 0; i < _candidates.length; i++) {
+            candidates.push(Candidate({
+                id: i,
+                name: _candidates[i],
+                numberOfVotes: 0
+            }));
+
+            emit CandidateAdded(i, _candidates[i]);
+        }
+
+        emit ElectionStarted(owner, votingStartTimeStamp, votingEndTimeStamp);
+    }
+
+    // ... (more functions)
+
+}
+```
+
+In this step, we've defined the basic structure of the `Voting.sol` contract. We've declared variables for essential components, defined a `Candidate` struct, implemented access modifiers for security, and created events for key occurrences. Additionally, we've started the implementation of the `startElection` function, which initializes the election and creates candidate entries.
 
 ---
 
-## Step 3: Implementing the Voting System Logic
+## Step 3: Implementing the Voting System Logic part 1
 
 In this step, we will dive into the actual implementation of the decentralized voting system. This encompasses defining essential data structures, setting up administrator roles, managing candidates, registering voters, and orchestrating the entire voting process.
 
@@ -491,13 +570,161 @@ We'll create functions to perform crucial tasks, such as initiating an election,
     // ... (more functions)
 ```
 
-The `startElection` function, for instance, allows the owner to kickstart a new election by specifying candidate names and the voting duration.
+The `startElection` function, for instance, allows the owner to start a new election by specifying candidate names and the voting duration.
 
-### Conclusion
+---
 
-With this step, we've laid the foundation for our decentralized voting system. The defined data structures, modifiers, events, and functions form the core logic of our contract. In the subsequent steps, we'll continue to build upon this foundation, adding more functionalities and fine-tuning the system.
+## Step 4: Implementing the Voting System Logic in `Voting.sol` part 2
 
-Next, we'll explore additional features like managing candidates, registering voters, and handling the voting process.
+Now that we've set up the basic structure of our decentralized voting system in `Voting.sol`, it's time to delve into the actual logic that governs the election process. In this step, we'll be adding functions and features that handle candidate management, voter registration, voting, and more.
+
+### Managing Candidates
+
+In our smart contract, each candidate is represented by a `Candidate` struct. This struct includes essential details such as an ID, name, and the number of votes received.
+
+```solidity
+struct Candidate {
+    uint256 id;
+    string name;
+    uint256 numberOfVotes;
+}
+```
+
+We have implemented functions to facilitate the addition and removal of candidates, allowing for flexibility even during an ongoing election. Additionally, these functions provide the capability to reset the election session, facilitating the creation of a new election process when needed.
+
+```solidity
+function addCandidate(string memory _name) public onlyOwner electionOnGoing {
+    // ... (Function code to add a new candidate)
+    emit CandidateAdded(candidates.length - 1, _name);
+}
+
+function removeCandidate(uint256 _candidateId) public onlyOwner {
+    // ... (Function code to remove a candidate)
+}
+```
+
+### Voter Registration and Voting
+
+The voting process involves ensuring that each voter can only cast one vote. We track voters through the `voters` mapping and verify eligibility using the `eligibleVoters` mapping.
+
+```solidity
+mapping(address => bool) public voters;
+mapping(address => bool) public eligibleVoters;
+
+// ... (other mappings and variables)
+
+function registerVoter(address _eligible_voter) public onlyOwner {
+    // ... (Function code to register an eligible voter)
+}
+
+function voteTo(uint256 _id) public electionOnGoing {
+    // ... (Function code to cast a vote)
+    emit VoteCast(msg.sender, _id);
+}
+```
+
+### Election Management
+
+The contract provides functionality to start, end, and reset elections. The owner can also extend the duration of an ongoing election.
+
+```solidity
+function startElection(string[] memory _candidates, uint256 _votingDuration) public onlyOwner {
+    // ... (Function code to start a new election)
+    emit ElectionStarted(owner, votingStartTimeStamp, votingEndTimeStamp);
+}
+
+function endElection() public onlyOwner electionOnGoing {
+    // ... (Function code to end the current election)
+    emit ElectionFinished(owner);
+}
+
+function resetElection() public onlyOwner {
+    // ... (Function code to reset the election)
+    emit ElectionReset(owner);
+}
+
+function changeElectionDuration(uint256 _newDuration) public onlyOwner electionOnGoing {
+    // ... (Function code to change the duration of the ongoing election)
+    emit ElectionDurationChanged(_newDuration);
+}
+```
+
+### Winner Determination and NFT Minting
+
+The contract determines the winner based on the candidate with the highest number of votes. Additionally, it supports minting NFTs for voters and participants.
+
+```solidity
+function getWinnerInfo() public view returns (Winner memory) {
+    // ... (Function code to determine the winner)
+}
+
+function mintResultNFTs(string memory _tokenURI) public onlyOwner {
+    // ... (Function code to mint NFTs for all voters)
+}
+
+function mintResult(address _participant, string memory _tokenURI) public onlyOwner {
+    // ... (Function code to mint an NFT for a specific participant)
+}
+```
+
+### Election Metadata
+
+The `generateMetadata` function provides essential metadata about the election.
+
+```solidity
+function generateMetadata() public view returns (ElectionMetadata memory) {
+    // ... (Function code to generate metadata)
+}
+```
+
+This marks the completion of the implementation of the voting system logic in our `Voting.sol` contract. In the next step, we'll proceed to explore additional features like handling candidate removal and examining the final results.
+
+---
+
+## Step 5: Managing Candidates and Reviewing Results
+
+### Handling Candidate Removal
+
+In a dynamic voting system, the ability to remove candidates is crucial. We'll add functionality to remove a candidate, updating the state and ensuring a fair and accurate representation of the election.
+
+```solidity
+function removeCandidate(uint256 _candidateId) public onlyOwner electionOnGoing {
+    // ... (Function code to remove a candidate)
+    emit CandidateRemoved(_candidateId);
+}
+```
+
+This function allows the owner to remove a candidate during an ongoing election, triggering the `CandidateRemoved` event.
+
+### Reviewing Final Results
+
+Once the election concludes, it's essential to review the final results. The contract provides functions to retrieve winner information and overall election metadata.
+
+```solidity
+function getWinnerInfo() public view returns (Winner memory) {
+    // ... (Function code to determine the winner)
+}
+
+function generateMetadata() public view returns (ElectionMetadata memory) {
+    // ... (Function code to generate metadata)
+}
+```
+
+These functions provide a comprehensive overview of the election results, including the winner and additional metadata.
+
+### Emitting Events for Transparency
+
+To ensure transparency and accountability, we emit events throughout the process. Events such as `CandidateRemoved` and `ElectionFinished` provide a clear record of actions taken.
+
+```solidity
+event CandidateRemoved(uint256 indexed candidateId);
+event ElectionFinished(address indexed owner);
+// ... (other events)
+```
+
+These events serve as a transparent log of significant occurrences within the contract.
+
+---
 
 ### Full Voting.sol contract code
 
@@ -900,8 +1127,103 @@ In this section, we'll guide you through the process of creating the `ElectionNF
 
 Create a new file named `ElectionNFT.sol` and paste the following code:
 
+It's a good start for the explanation of the `ElectionNFT.sol` file. However, you can provide more details and context for each part of the code to ensure that your audience, especially those new to blockchain and smart contracts, can understand the purpose and functionality of each component. Here's a more detailed breakdown of the code and additional explanations you can include:
+
+### CREATING THE ElectionNFT.SOL FILE
+
+In this section, we'll guide you through the process of creating the `ElectionNFT.sol` file, which will handle the creation of unique NFTs for each voter in our decentralized voting application.
+
+#### Code Explanation:
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.19;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+contract ElectionNFT is ERC721 {
+    address public electionContractAddress;
+    uint256 public electionId;
+    uint256 private tokenIdCounter;
+    string private baseTokenURI;
+    mapping(uint256 => string) private tokenURIs;
+```
+
+- **SPDX-License-Identifier:** Specifies the license type under which the code is released. In this case, it's set to "UNLICENSED," indicating that the code doesn't have a specific license.
+
+- **Solidity Version:** Indicates the compiler version the code is compatible with (Solidity version 0.8.19 in this case).
+
+- **Importing ERC721:** This contract inherits from the ERC721 standard, which is the Ethereum standard for non-fungible tokens (NFTs). It provides the basic functionality needed for NFTs.
+
+- **Variables:**
+  - `electionContractAddress`: Stores the address of the election contract that interacts with this NFT contract.
+  - `electionId`: Represents the unique identifier for the election.
+  - `tokenIdCounter`: Keeps track of the unique token IDs minted.
+  - `baseTokenURI`: Stores the base URI for token metadata.
+  - `tokenURIs`: Maps token IDs to their respective token URIs.
+
+#### Constructor:
+
+```solidity
+    constructor(address _electionContractAddress) ERC721("Election NFT", "ENFT") {
+        electionContractAddress = _electionContractAddress;
+    }
+```
+
+- **Constructor:** Initializes the NFT contract with the name "Election NFT" and the symbol "ENFT." It also sets the `electionContractAddress` to the provided address.
+
+#### Base URI Function:
+
+```solidity
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseTokenURI;
+    }
+```
+
+- **Base URI Function:** Overrides the internal `_baseURI` function from the ERC721 standard. It returns the base URI for all token metadata.
+
+#### Set Base Token URI Function:
+
+```solidity
+    function setBaseTokenURI(string memory _newBaseTokenURI) external {
+        require(msg.sender == electionContractAddress, "Only the election contract can set base URI");
+        baseTokenURI = _newBaseTokenURI;
+    }
+```
+
+- **Set Base Token URI Function:** Allows the election contract to set the base URI for token metadata. This is essential for generating unique token URIs.
+
+#### Mint NFT Function:
+
+```solidity
+    function mintNFT(address _to, string memory _tokenURI) external {
+        require(msg.sender == electionContractAddress, "Only the election contract can mint NFTs");
+        _safeMint(_to, tokenIdCounter);
+        tokenURIs[tokenIdCounter] = _tokenURI;
+        tokenIdCounter++;
+    }
+```
+
+- **Mint NFT Function:** Enables the election contract to mint a new NFT for a specified address (`_to`). It uses `_safeMint` from the ERC721 standard and associates the new token ID with the provided token URI.
+
+#### Get Token URI Function:
+
+```solidity
+    function getTokenURI(uint256 _tokenId) external view returns (string memory) {
+        return tokenURIs[_tokenId];
+    }
+}
+```
+
+- **Get Token URI Function:** Allows external parties to retrieve the token URI associated with a specific token ID. (This is generaly the URL of already uploaded metadata on IPFS.)
+
+#### Conclusion:
+
+In conclusion, the `ElectionNFT.sol` file defines a contract that complements the main voting contract by handling the creation and management of unique NFTs for each voter. These NFTs serve as a transparent and verifiable record of each voter's participation in the election.
+
 ### Full ElectionNFT.sol contract code
 
+Your smart contract `ElectionNFT.sol` should look like this:
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
@@ -940,9 +1262,12 @@ contract ElectionNFT is ERC721 {
         return tokenURIs[_tokenId];
     }
 }
-
 ```
+---
 
+@TODO
+- Testing Methodologies for Solidity Contracts
+- Security Considerations and Best Practices
 
 ---
 
