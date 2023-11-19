@@ -29,3 +29,74 @@ Congratulations on reaching the final lab! Here, we'll discuss crucial considera
 Before you begin, make sure you have a basic understanding of JavaScript, Node.js, CSS, and HTML. Familiarity with blockchain concepts is a plus but not required.
 
 Now, let's dive into Lab 1 and start building your first Ethereum smart contracts!
+
+
+## Specifications
+
+### Stack
+
+- Solidity
+- HardHat
+- Node
+- Javascript
+- Metamask
+- Morpheus
+- Oppen Zeppelin
+- IPFS
+- EVM testnet (private network)
+
+
+---
+
+## User Stories
+
+### Administrator Perspective
+
+1. **Start Election**
+   - *Objective*: Enable the administrator to commence the election for voter participation.
+   - *Functional Specification*: Provide an interface allowing the administrator to add candidates, define the voting duration, and initiate the election.
+
+2. **Add Candidates**
+   - *Objective*: Allow the administrator to include new candidates in the list.
+   - *Functional Specification*: Provide an interface for the administrator to input candidate names.
+
+3. **End Election**
+   - *Objective*: Permit the administrator to conclude the election, preventing further votes.
+   - *Functional Specification*: Offer an interface for the administrator to officially conclude the election.
+
+4. **View Election Results**
+   - *Objective*: Enable the administrator to review the results for the purpose of announcing the winner.
+   - *Functional Specification*: Display the candidates along with the respective number of votes they have received.
+
+5. **New Election**
+   - *Objective*: Provide the administrator with the ability to delete and start a new election.
+   - *Functional Specification*: Furnish an interface allowing the administrator to reset all variables in order to start a new election.
+
+### User Perspective
+
+6. **Check Election Status**
+   - *Objective*: Allow the voter to determine if the election has commenced.
+   - *Functional Specification*: Display a message indicating whether the election has begun or not. If started, provide the start and end timestamps of the election period.
+
+7. **View Candidates**
+   - *Objective*: Enable the voter to see the list of candidates for an informed decision.
+   - *Functional Specification*: Display the names of all candidates along with their respective IDs.
+
+8. **Cast Vote**
+   - *Objective*: Enable the voter to submit their vote for a specific candidate.
+   - *Functional Specification*: Provide a button or interface for the voter to select a candidate. Upon selection, process the vote.
+
+9. **View Election Period**
+   - *Objective*: Allow the voter to see the start and end timestamps of the election.
+   - *Functional Specification*: Display the timestamp range for the election period.
+
+10. **Receive NFT of Final Result**
+    - *Objective*: Provide the voter with an NFT containing the final election results for verification.
+    - *Functional Specification*: Upon concluding the election session through the 'End Election' action, the administrator will generate an NFT containing the election results. This NFT will then be minted and sent to the respective voter’s wallet address.
+
+
+## Link of interest
+### Hardhat
+
+Link to official Hardhat installation documentation:
+- https://hardhat.org/hardhat-runner/docs/getting-started#installation
