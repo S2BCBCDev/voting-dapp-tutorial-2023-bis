@@ -95,8 +95,80 @@ Now, let's dive into Lab 1 and start building your first Ethereum smart contract
     - *Functional Specification*: Upon concluding the election session through the 'End Election' action, the administrator will generate an NFT containing the election results. This NFT will then be minted and sent to the respective voter’s wallet address.
 
 
-## Link of interest
-### Hardhat
+## Links of Interest
 
-Link to official Hardhat installation documentation:
-- https://hardhat.org/hardhat-runner/docs/getting-started#installation
+### Node.js
+Link to the official Node.js website:
+- [Node.js](https://nodejs.org/en)
+
+Node.js is a JavaScript runtime built on the V8 JavaScript engine. It allows developers to run JavaScript on the server side, enabling the development of scalable and high-performance web applications. Visit the official Node.js website to get started with Node.js.
+
+### Hardhat
+Link to the official Hardhat documentation:
+- [Hardhat Documentation](https://hardhat.org/hardhat-runner/docs/getting-started#installation)
+
+Hardhat is a development environment for Ethereum that facilitates the building, testing, and deployment of smart contracts. Refer to the official Hardhat documentation for comprehensive installation instructions and guidance on using Hardhat for Ethereum development.
+
+### OpenZeppelin
+Link to the official OpenZeppelin documentation:
+- [OpenZeppelin Documentation](https://docs.openzeppelin.com/)
+
+OpenZeppelin is a widely-used library for secure smart contract development on the Ethereum blockchain. The documentation provides in-depth information on using OpenZeppelin's pre-built contracts and tools for building custom, secure contracts.
+
+### Solidity
+Link to the official Solidity documentation:
+- [Solidity Documentation](https://docs.soliditylang.org/)
+
+Solidity is the programming language specifically designed for developing smart contracts on the Ethereum blockchain. Explore the Solidity documentation for detailed insights into language features, syntax, and best practices for writing secure and efficient smart contracts.
+
+### Express
+Link to the official Express documentation:
+- [Express Documentation](https://expressjs.com/)
+
+Express is a popular web application framework for Node.js, simplifying the development of robust web applications and APIs. The Express documentation includes guides, API references, and examples to assist developers in building scalable and efficient web solutions.
+
+### Ethereum Virtual Machine (EVM)
+Link to Ethereum's EVM documentation:
+- [Ethereum EVM Documentation](https://ethereum.org/en/developers/docs/evm/)
+
+The Ethereum Virtual Machine (EVM) is the runtime environment for executing smart contracts on the Ethereum blockchain. Gain a comprehensive understanding of the EVM by referring to Ethereum's official documentation, crucial for developing secure and efficient smart contracts.
+
+### Metamask
+Link to the official Metamask documentation:
+- [Metamask Documentation](https://docs.metamask.io/)
+
+Metamask is a popular Ethereum wallet and a gateway to blockchain applications. The documentation guides users through the installation, configuration, and usage of Metamask for seamless interaction with decentralized applications.
+
+### IPFS (InterPlanetary File System)
+Link to the official IPFS documentation:
+- [IPFS Documentation](https://docs.ipfs.io/)
+
+IPFS is a decentralized file storage system enabling content addressing and sharing. Visit the official IPFS documentation to understand how to use IPFS in blockchain projects for distributed and resilient data storage and retrieval.
+
+### Morpheus Labs
+Link to Morpheus Labs documentation and resources:
+- [Morpheus Labs Resources](https://morpheuslabs.io/resources/)
+
+Morpheus Labs provides a platform for blockchain application development and deployment. Explore their official resources, including documentation, guides, and tutorials, to effectively use Morpheus Labs for your blockchain projects.
+
+### Remix IDE
+Link to the official Remix IDE website:
+- [Remix IDE](https://remix.ethereum.org/)
+
+Remix IDE is an open-source web and desktop application that helps you write, test, and deploy smart contracts on the Ethereum blockchain. It provides a user-friendly interface with features like code highlighting, debugging, and testing tools. Visit the official Remix IDE website to start developing and testing your Ethereum smart contracts.
+
+### Visual Studio Code (VSCode)
+Link to the official Visual Studio Code website:
+- [Visual Studio Code](https://code.visualstudio.com/)
+
+Visual Studio Code is a free and open-source code editor developed by Microsoft. It offers excellent support for various programming languages, including Solidity for Ethereum smart contract development. Install relevant extensions to enhance your Solidity development experience. Visit the official Visual Studio Code website to download and explore the features of this versatile code editor.
+
+### Coloors - Color Palette Generator
+- [Coloors - Color Palette Generator](https://coolors.co/)
+
+Coloors is a handy tool for generating color palettes. Use this tool to create visually appealing color schemes for your web applications and user interfaces.
+
+### Favicon - Utility to Convert Images to Favicon
+- [Favicon - Favicon Converter](https://favicon.io/favicon-converter/)
+
+Favicon is a utility that allows you to convert images into favicon formats. Use this tool to generate favicons for your web applications, ensuring a consistent and recognizable icon across different platforms.
