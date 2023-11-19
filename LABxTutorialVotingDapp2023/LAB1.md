@@ -330,7 +330,7 @@ Classes are fundamental to object-oriented programming (OOP). They encapsulate d
 Certainly! Here's the completed section you can include before creating the contract:
 
 
-## Set up main repo
+## Set up the main dapp repository
 
 To get started with our decentralized voting application tutorial, we'll first set up the main repository. Follow these steps:
 
@@ -342,51 +342,70 @@ Open a terminal and execute the following commands to create a new folder for ou
 mkdir voting-dapp-tutorial
 cd voting-dapp-tutorial
 touch README.md
+git init
+git add .
+git commit -m "Initial commit"
 ```
 
-This will create a new directory named `voting-dapp-tutorial` and a `README.md` file, which will serve as the main documentation for our project.
+This will create a new directory named `voting-dapp-tutorial` and a `README.md` file, which will serve as the main documentation for our project. Additionaly this will initialise Git for our project.
 
 ### Step 2: Install HardHat
 
 Next, we'll install HardHat, a popular development environment for Ethereum. HardHat provides a set of tools that make it easy to compile, deploy, and test smart contracts. Execute the following command to install HardHat:
 
 ```bash
-npx install hardhat
-```
-
-lunch VSCode
-```
-code .
-```
-
-```
-cd hardhat
+mkdir hardhat    // this will create a hardhat folder
+cd hardhat       // this will make you move into hardhat folder
+npx hardhat init // this will initialise hardhat and create a folder structure
 ```
 
 This command will fetch and set up the HardHat environment in our project directory.
 
+In the dialogue box of hardhat:
+- Create a JavaScript project - YES
+- Confirm root folder location - ENTER
+- Add gitignore - YES
+- install dependencies with npm (hardhat @nomicfoundation/hardhat-toolbox)- YES
+
+#### Verify HardHat installation
+```
+npx hardhat --version
+```
+
+#### Lunch VSCode by typing in the terminal
+```
+code .    // (write: "code <space> <dot>")
+```
+
 With these initial steps completed, we're now ready to proceed with the creation of our smart contract for the decentralized voting system. Let's move on to the next section!
 
-
-
-## CREATING THE `Voting.sol` FILE
+## Creating the `Voting.sol` smart contract with Solidity
 
 In this section, we'll guide you through the process of creating the `Voting.sol` file, which will house the smart contract for our decentralized voting application. This Solidity file will define the behavior and rules of our voting system on the Ethereum blockchain.
 
-- into hardhat/contracts folder, create a new file named Voting.sol
 
 ### Step 1: Set the Compiler Version and Import Dependencies
 
-Open your preferred code editor and create a new file named `Voting.sol`. At the top of the file, specify the Solidity compiler version and import any necessary dependencies. In our case, we're importing the `ElectionNFT.sol` contract, which will handle the creation of unique NFTs for each voter.
+- Create a new file named `Voting.sol` in hardhat/contracts folder
+- At the top of the file, specify the License type (SPDX-License-Identifier: UNLICENSED)
+- Then specify the compiler version pragma solidity (pragma solidity ^0.8.19;)
+- Then import any necessary dependencies. In our case, we're importing the `ElectionNFT.sol` (not yet created) contract, which will handle the creation of unique NFTs for each voter.
+- Finaly write the name of the contract and open curly braces {}
+
+Your file should looks like this:
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.19;
-import "./ElectionNFT.sol"; //this is the import of the futur NFT contract
+// This file defines the main Voting contract for our decentralized voting application.
+
+pragma solidity ^0.8.19; // Specifies the compiler version
+
+import "./ElectionNFT.sol"; // Import the future NFT contract
 
 contract Voting {
-    // ... (content of the Voting.sol contract)
+    // ... (content of the Voting.sol contract will be added later)
 }
+
 ```
 
 ### Step 2: Define the Contract Structure
