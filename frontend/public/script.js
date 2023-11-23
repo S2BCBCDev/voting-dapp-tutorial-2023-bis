@@ -1,1119 +1,1096 @@
 // Address and ABI of the Voting.sol contract
-const contractAddress = '0xa8E7220367bF8487371e6e02D651439B74E00720';
+const contractAddress = '0x468FA9eBdEa030dc6B6DEED50C807b9e62De236a';
 const contractABI = [
-    {
-        "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "uint256",
-                "name": "id",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            }
-        ],
-        "name": "CandidateAdded",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "newDuration",
-                "type": "uint256"
-            }
-        ],
-        "name": "ElectionDurationChanged",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            }
-        ],
-        "name": "ElectionFinished",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            }
-        ],
-        "name": "ElectionReset",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "startTimestamp",
-                "type": "uint256"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "endTimestamp",
-                "type": "uint256"
-            }
-        ],
-        "name": "ElectionStarted",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "voter",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "candidateId",
-                "type": "uint256"
-            }
-        ],
-        "name": "VoteCast",
-        "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_name",
-                "type": "string"
-            }
-        ],
-        "name": "addCandidate",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "candidates",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "id",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "numberOfVotes",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_newDuration",
-                "type": "uint256"
-            }
-        ],
-        "name": "changeElectionDuration",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "checkElectionPeriod",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "electionID",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "electionNFTContract",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "electionStarted",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "electionTimer",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "eligibleVoters",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "endElection",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "generateMetadata",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "electionID",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "winnerID",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "winnerName",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "numberOfVotes",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "startTime",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "endTime",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct Voting.ElectionMetadata",
-                "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getWinnerInfo",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "candidateID",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "numberOfVotes",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "electionID",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct Voting.Winner",
-                "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_participant",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "_tokenURI",
-                "type": "string"
-            }
-        ],
-        "name": "mintResult",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_tokenURI",
-                "type": "string"
-            }
-        ],
-        "name": "mintResultNFTs",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_eligible_voter",
-                "type": "address"
-            }
-        ],
-        "name": "registerVoter",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address[]",
-                "name": "_eligible_voters",
-                "type": "address[]"
-            }
-        ],
-        "name": "registerVoters",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "removeAllCandidates",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_candidateId",
-                "type": "uint256"
-            }
-        ],
-        "name": "removeCandidate",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "resetAllVoterStatus",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "resetElection",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "retrieveVotes",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "uint256",
-                        "name": "id",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "numberOfVotes",
-                        "type": "uint256"
-                    }
-                ],
-                "internalType": "struct Voting.Candidate[]",
-                "name": "",
-                "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_electionNFTContract",
-                "type": "address"
-            }
-        ],
-        "name": "setElectionNFTContract",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string[]",
-                "name": "_candidates",
-                "type": "string[]"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_votingDuration",
-                "type": "uint256"
-            }
-        ],
-        "name": "startElection",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "newOwner",
-                "type": "address"
-            }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_id",
-                "type": "uint256"
-            }
-        ],
-        "name": "voteTo",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_voter",
-                "type": "address"
-            }
-        ],
-        "name": "voterStatus",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "voters",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "votingEndTimeStamp",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "votingStartTimeStamp",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "CandidateAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newDuration",
+				"type": "uint256"
+			}
+		],
+		"name": "ElectionDurationChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "ElectionFinished",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "ElectionReset",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "startTimestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "endTimestamp",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			}
+		],
+		"name": "ElectionStarted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "voter",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "candidateId",
+				"type": "uint256"
+			}
+		],
+		"name": "VoteCast",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			}
+		],
+		"name": "addCandidate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "candidates",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "numberOfVotes",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_newDuration",
+				"type": "uint256"
+			}
+		],
+		"name": "changeElectionDuration",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "checkElectionPeriod",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionFinalised",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionID",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionNFTContract",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionStarted",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionTimer",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionTitle",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "eligibleVoters",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "endElection",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "generateMetadata",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "electionID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "winnerID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "winnerName",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "startTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "endTime",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "title",
+						"type": "string"
+					}
+				],
+				"internalType": "struct Voting.ElectionMetadata",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getWinnerInfo",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "candidateID",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfVotes",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "electionID",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Voting.Winner",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_participant",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_tokenURI",
+				"type": "string"
+			}
+		],
+		"name": "mintResult",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_tokenURI",
+				"type": "string"
+			}
+		],
+		"name": "mintResultNFTs",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_eligible_voter",
+				"type": "address"
+			}
+		],
+		"name": "registerVoter",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address[]",
+				"name": "_eligible_voters",
+				"type": "address[]"
+			}
+		],
+		"name": "registerVoters",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "removeAllCandidates",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_candidateId",
+				"type": "uint256"
+			}
+		],
+		"name": "removeCandidate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "resetAllVoterStatus",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "resetElection",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "retrieveVotes",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "numberOfVotes",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Voting.Candidate[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_electionNFTContract",
+				"type": "address"
+			}
+		],
+		"name": "setElectionNFTContract",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_electionTitle",
+				"type": "string"
+			},
+			{
+				"internalType": "string[]",
+				"name": "_candidates",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_votingDuration",
+				"type": "uint256"
+			}
+		],
+		"name": "startElection",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "voteTo",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_voter",
+				"type": "address"
+			}
+		],
+		"name": "voterStatus",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "voters",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "votingEndTimeStamp",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "votingStartTimeStamp",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
 ];
 
 // Address and ABI of the ElectionNFT contract
-const electionNFTAddress = '0x26E860c449A7e0430a5C7b694cC75659d462b12C'; // Address of the deployed ElectionNFT contract
+const electionNFTAddress = '0x30A0FB92a9093c6013a481CC8E9090411e062Dbf'; // Address of the deployed ElectionNFT contract
 const electionNFTABI = [
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_electionContractAddress",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "sender",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            }
-        ],
-        "name": "ERC721IncorrectOwner",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "operator",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "ERC721InsufficientApproval",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "approver",
-                "type": "address"
-            }
-        ],
-        "name": "ERC721InvalidApprover",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "operator",
-                "type": "address"
-            }
-        ],
-        "name": "ERC721InvalidOperator",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            }
-        ],
-        "name": "ERC721InvalidOwner",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "receiver",
-                "type": "address"
-            }
-        ],
-        "name": "ERC721InvalidReceiver",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "sender",
-                "type": "address"
-            }
-        ],
-        "name": "ERC721InvalidSender",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "ERC721NonexistentToken",
-        "type": "error"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "approved",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "Approval",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "operator",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "bool",
-                "name": "approved",
-                "type": "bool"
-            }
-        ],
-        "name": "ApprovalForAll",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "Transfer",
-        "type": "event"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "approve",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            }
-        ],
-        "name": "balanceOf",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "electionContractAddress",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "electionId",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getApproved",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "getTokenURI",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "operator",
-                "type": "address"
-            }
-        ],
-        "name": "isApprovedForAll",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "_tokenURI",
-                "type": "string"
-            }
-        ],
-        "name": "mintNFT",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "name",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "ownerOf",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "safeTransferFrom",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            },
-            {
-                "internalType": "bytes",
-                "name": "data",
-                "type": "bytes"
-            }
-        ],
-        "name": "safeTransferFrom",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "operator",
-                "type": "address"
-            },
-            {
-                "internalType": "bool",
-                "name": "approved",
-                "type": "bool"
-            }
-        ],
-        "name": "setApprovalForAll",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_newBaseTokenURI",
-                "type": "string"
-            }
-        ],
-        "name": "setBaseTokenURI",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes4",
-                "name": "interfaceId",
-                "type": "bytes4"
-            }
-        ],
-        "name": "supportsInterface",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "symbol",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "tokenURI",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "tokenId",
-                "type": "uint256"
-            }
-        ],
-        "name": "transferFrom",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_electionContractAddress",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "approved",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Approval",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "ApprovalForAll",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "tokenURI",
+				"type": "string"
+			}
+		],
+		"name": "NFTMinted",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionContractAddress",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "electionId",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getApproved",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "getTokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			}
+		],
+		"name": "isApprovedForAll",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_tokenURI",
+				"type": "string"
+			}
+		],
+		"name": "mintNFT",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "ownerOf",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "setApprovalForAll",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_newBaseTokenURI",
+				"type": "string"
+			}
+		],
+		"name": "setBaseTokenURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes4",
+				"name": "interfaceId",
+				"type": "bytes4"
+			}
+		],
+		"name": "supportsInterface",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "symbol",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tokenIdCounter",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "tokenURI",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
 ];
 
 const connectWalletMsg = document.querySelector("#connectWalletMessage");
@@ -1184,6 +1161,8 @@ async function connectToWallet() {
                 // Display address connected
                 connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
                 getElectionID();
+                fetchElectionTitle();
+                                
             });
         });
 
@@ -1239,6 +1218,28 @@ document.getElementById('votePanelButton').addEventListener('click', () => {
     displayCandidates();
     showTimer();
 });
+
+// Function to fetch and display the election title
+async function fetchElectionTitle() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+    try {
+        await provider.send("eth_requestAccounts", []);
+
+        const accounts = await provider.listAccounts();
+
+        const signer = provider.getSigner(accounts[0]);
+        const contract = new ethers.Contract(contractAddress, contractABI, signer);
+        
+        const title = await contract.electionTitle();
+        console.log('Election Title:', title);
+
+        document.getElementById('electionTitleSpan').textContent = title;
+    } catch (error) {
+        console.error('Error fetching election title:', error);
+        // Handle the error appropriately, e.g., display a default title or show an error message
+    }
+}
 
 // Function to call the election ID
 async function getElectionID() {
@@ -1329,7 +1330,6 @@ async function displayCandidates() {
                     }
                 });
                 getElectionID();
-
             });
         }
     }
@@ -1430,6 +1430,9 @@ function formatDuration(seconds) {
 // Function to start the election
 startElectionButton.addEventListener("click", async () => {
     try {
+
+        const electionTitle = document.querySelector("#electionTitleInput").value;
+
         const candidates = [
             addCandidateInput.value,
             addCandidateInput2.value,
@@ -1453,7 +1456,7 @@ startElectionButton.addEventListener("click", async () => {
             });
         });
 
-        await contract.startElection(candidates, votingDuration);
+        await contract.startElection(electionTitle, candidates, votingDuration);
         console.log("Election is starting, wait for blockchain confirmation");
     } catch (error) {
         console.error(error);
@@ -1589,8 +1592,10 @@ async function generateAndUploadMetadata2() {
         const winner = await contract.getWinnerInfo();
         const startTimestamp = await contract.votingStartTimeStamp();
         const endTimestamp = await contract.votingEndTimeStamp();
+        const title = await contract.electionTitle();
 
         metadata = {
+            electionTitle: title,
             electionID: parseInt(winner.electionID._hex, 16),
             winnerID: parseInt(winner.candidateID._hex, 16),
             winnerName: winner.name,
