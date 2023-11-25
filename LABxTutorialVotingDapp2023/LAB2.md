@@ -9,6 +9,7 @@
 ---
 
 ### Lab 2: Testing Ethereum Smart Contracts with Hardhat
+
 - BUILD / **TEST** / INTEGRATE / RUN
 
 ---
@@ -60,37 +61,201 @@ Integrating Hardhat into your development workflow is straightforward and highly
 
 ---
 
-### Example of test
+### Step-by-Step Guide to Writing Tests for the "Voting" Smart Contract
+
+#### 1. **Create a Test File:**
+
+- Create a new file named `Voting.test.js` in your hardhat/test folder.
+
+#### 2. **Import Dependencies:**
+
+- Import the necessary dependencies, including the testing library (chai) and ethers.
+
+```javascript
+const { expect } = require("chai");
+```
+
+#### 3. **Setup Test Environment:**
+
+- Create a describe block for the "Voting Contract" test suite. Inside, declare variables for the Voting contract, deployed instance, owner, and two additional addresses.
+
+```javascript
+describe("Voting Contract", function () {
+    let Voting;  // Declare variable for the Voting contract
+    let voting;  // Declare variable for the deployed instance of the Voting contract
+    let owner;   // Declare variable for the owner of the contract
+    let addr1;   // Declare variable for address 1
+    let addr2;   // Declare variable for address 2
+```
+
+#### 4. **Deploy a Fresh Instance Before Each Test:**
+
+- Use the `beforeEach` hook to deploy a fresh instance of the Voting contract before each test.
+
+```javascript
+beforeEach(async function () {
+    [owner, addr1, addr2] = await ethers.getSigners();
+
+    const VotingFactory = await ethers.getContractFactory("Voting");
+    voting = await VotingFactory.deploy();
+    Voting = await VotingFactory.connect(owner);
+});
+```
+
+#### 5. **Write Test Cases:**
+
+- Write test cases to check the correct owner after deployment, starting an election with the correct parameters, and handling voter registration and voting check.
+
+```javascript
+it("should have the correct owner after deployment", async function () {
+    expect(await voting.owner()).to.equal(owner.address);
+});
+
+it("should start an election with the correct parameters", async function () {
+    // Test logic for starting an election
+    // Assertions related to election start
+});
+
+it("should handle voter registration and voting", async function () {
+    // Test logic for voter registration and voting
+    // Assertions related to the voting process
+});
+```
+
+#### 6. **Example Test Logic for "Start an Election":**
+
+- Within the second test case, write logic to start an election with specific parameters and make assertions related to the election start.
+
+```javascript
+it("should start an election with the correct parameters", async function () {
+    const electionTitle = "Test Election";
+    const candidates = ["Candidate1", "Candidate2"];
+    const votingDuration = 10; // in minutes
+
+    await voting.startElection(electionTitle, candidates, votingDuration);
+
+    expect(await voting.electionStarted()).to.be.true;
+    // Additional assertions related to the election start
+    // ...
+});
+```
+
+#### 7. **Closing the Describe Block:**
+
+- Close the describe block.
+
+```javascript
+});
+```
+
+## Voting.test.js (complete)
 
 ```
 const { expect } = require("chai");
-const { ethers } = require("hardhat");
 
+// Describe block for the Voting Contract test suite
 describe("Voting Contract", function () {
-  it("Non-owner should not be allowed to start an election", async function () {
-    // Deploy the Voting contract
-    const Voting = await ethers.getContractFactory("Voting");
-    const votingInstance = await Voting.deploy();
-    await votingInstance.deployed();
+    let Voting;  // Declare variable for the Voting contract
+    let voting;  // Declare variable for the deployed instance of the Voting contract
+    let owner;   // Declare variable for the owner of the contract
+    let addr1;   // Declare variable for address 1
+    let addr2;   // Declare variable for address 2
 
-    // Connect to a wallet to simulate a non-owner address
-    const [nonOwner] = await ethers.getSigners();
+    // Before each test case, deploy a fresh instance of the Voting contract
+    beforeEach(async function () {
+        // Get signers (addresses) from ethers
+        [owner, addr1, addr2] = await ethers.getSigners();
 
-    // Try to start the election
-    try {
-      await votingInstance.connect(nonOwner).startElection(["Candidate 1", "Candidate 2"], 60);
-      // If the above line doesn't throw an error, the test should fail
-      expect(true).to.equal(false); // This line should not be reached
-    } catch (error) {
-      // Check if the error message contains the expected error message
-      expect(error.message).to.contain("not authorized to start election");
-    }
-  });
+        // Deploy the Voting contract using the factory
+        const VotingFactory = await ethers.getContractFactory("Voting");
+        voting = await VotingFactory.deploy();
+
+        // Connect the contract factory to the owner
+        Voting = await VotingFactory.connect(owner);
+    });
+
+    // Test case 1: Should check if the correct owner is set after deployment
+    it("should have the correct owner after deployment", async function () {
+        // Assert that the owner of the contract is equal to the expected owner's address
+        expect(await voting.owner()).to.equal(owner.address);
+    });
+
+    // Test case 2: Should start an election with the correct parameters
+    it("should start an election with the correct parameters", async function () {
+        const electionTitle = "Test Election";
+        const candidates = ["Candidate1", "Candidate2"];
+        const votingDuration = 10; // in minutes
+
+        // Start an election with the specified parameters
+        await voting.startElection(electionTitle, candidates, votingDuration);
+
+        // Additional assertions related to the election start
+        expect(await voting.electionStarted()).to.be.true;
+        expect(await voting.votingStartTimeStamp()).to.not.equal(0);
+        expect(await voting.votingEndTimeStamp()).to.not.equal(0);
+        expect(await voting.electionTitle()).to.equal(electionTitle);
+    });
+
+    // Test case 3: Should handle voter registration and voting
+    it("should handle voter registration and voting", async function () {
+
+       // Start an election before registering voters and casting votes
+        const electionTitle = "Test Election";
+        const candidates = ["Candidate1", "Candidate2"];
+        const votingDuration = 10; // in minutes
+        await voting.startElection(electionTitle, candidates, votingDuration);
+
+        // Register voters for this specific test scenario
+        await voting.registerVoter(addr1.address);
+        await voting.registerVoter(addr2.address);
+        await voting.registerVoter(owner.address);
+
+        // Cast votes for Candidate with ID 0
+        await voting.connect(addr1).voteTo(0);
+        await voting.connect(addr2).voteTo(0);
+        await voting.connect(owner).voteTo(0);
+
+        // Additional assertions related to the voting process
+        const voteCountCandidate0 = (await voting.retrieveVotes())[0].numberOfVotes;
+
+        // Assert various conditions for the voting process, here all voters voted for candidate ID 0, so he should get 3 votes.
+        expect(voteCountCandidate0).to.equal(3); // Assuming three voters
+    });
+
+    // Add more focused test cases as needed
 });
 
+```
+
+## Launch the test
+
+1. Open your terminal or command prompt.
+
+2. Navigate to the root directory of your project where your `hardhat.config.js` file is located.
+
+3. Run the following command to execute the tests:
+
+```bash
+npx hardhat test
+```
+
+Hardhat will automatically detect and run all the test files in your `test` directory. It will then display the test results, indicating whether each test case passed or failed.
+
+The output should look like this:
+
+```
+$ npx hardhat test
+
+
+  Voting Contract
+    ✔ should have the correct owner after deployment
+    ✔ should start an election with the correct parameters (63ms)
+    ✔ should handle voter registration and voting (111ms)
+
+
+  3 passing (2s)
 ```
 
 ## Contact
 
 S2BC
-
