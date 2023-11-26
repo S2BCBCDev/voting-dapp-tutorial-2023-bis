@@ -39,10 +39,9 @@ The testing object in Solidity is a critical component for writing comprehensive
 
 To run tests using Hardhat, follow these steps:
 
-1. Ensure you have Hardhat installed in your development environment.
-2. Create a new directory for your tests and write test files using the testing object discussed earlier.
-3. Use the Hardhat command-line interface (CLI) to execute the tests.
-4. Review the output for any failed tests and debug accordingly.
+1. Find the hardhat/tests directory and write test files Voting.test.js
+2. Use the Hardhat command-line interface (CLI) to execute the tests.
+3. Review the output for any failed tests and debug accordingly.
 
 ### Best Practices for Smart Contract Testing
 
@@ -51,14 +50,6 @@ Writing effective test cases is crucial for contract security. Here are some bes
 - Use descriptive test case names to clearly indicate the purpose of each test.
 - Write assertions to validate contract behavior. This ensures that contracts function as expected.
 - Test edge cases and potential failure scenarios to cover all possible outcomes.
-
-### Integration with Hardhat
-
-Integrating Hardhat into your development workflow is straightforward and highly beneficial for efficient testing. Follow these steps:
-
-1. Add Hardhat as a development dependency in your project.
-2. Configure your Hardhat environment to suit your specific needs, including network configurations and plugins.
-3. Write tests using the testing object and run them using the Hardhat CLI.
 
 ---
 
