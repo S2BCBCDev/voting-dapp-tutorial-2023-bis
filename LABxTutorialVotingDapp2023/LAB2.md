@@ -236,11 +236,9 @@ describe("Voting Contract", function () {
 
 <a name="running-the-tests"></a>
 
-1. Open your terminal or command prompt.
+1. Make sure you are located into "voting-dapp-2023/hardhat", directory where your `hardhat.config.js` file is located.
 
-2. Navigate to the root directory of your project where your `hardhat.config.js` file is located.
-
-3. Run the following command to execute the tests:
+2. Run the following command to execute the tests:
 
 ```bash
 npx hardhat test
