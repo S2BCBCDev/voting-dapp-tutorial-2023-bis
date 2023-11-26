@@ -19,14 +19,15 @@
 ### Table of Contents
 
 1. [Introduction to Testing Ethereum Smart Contracts](#introduction-to-testing-ethereum-smart-contracts)
-2. [The Contract Testing Object](#the-contract-testing-object)
-3. [Running the Tests](#running-the-tests)
-4. [Best Practices for Smart Contract Testing](#best-practices-for-smart-contract-testing)
-5. [Integration with Hardhat](#integration-with-hardhat)
+2. [Writing Tests for the "Voting" Smart Contract](#writing-tests-for-the-voting-smart-contract)
+3. [Voting.test.js (complete code)](#voting-test-js)
+4. [Running the Tests](#running-the-tests)
 
 ---
 
 ## Introduction to Testing Ethereum Smart Contracts
+
+<a name="introduction-to-testing-ethereum-smart-contracts"></a>
 
 In this section, we'll explore the importance of testing smart contracts and how it ensures the integrity of the blockchain application. Testing helps identify and fix potential vulnerabilities in your code before deployment.
 
@@ -61,7 +62,9 @@ Integrating Hardhat into your development workflow is straightforward and highly
 
 ---
 
-### Step-by-Step Guide to Writing Tests for the "Voting" Smart Contract
+### Writing Tests for the "Voting" Smart Contract
+
+<a name="writing-tests-for-the-voting-smart-contract"></a>
 
 #### 1. **Create a Test File:**
 
@@ -148,7 +151,9 @@ it("should start an election with the correct parameters", async function () {
 });
 ```
 
-## Voting.test.js (complete)
+## Voting.test.js
+
+<a name="voting-test-js"></a>
 
 ```
 const { expect } = require("chai");
@@ -227,7 +232,9 @@ describe("Voting Contract", function () {
 
 ```
 
-## Launch the test
+## Running the test
+
+<a name="running-the-tests"></a>
 
 1. Open your terminal or command prompt.
 
