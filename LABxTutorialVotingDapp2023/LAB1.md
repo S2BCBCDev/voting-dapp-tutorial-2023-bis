@@ -136,7 +136,7 @@ sequenceDiagram
 
 
 ## To Set Up the Development Environment
-### SETUP DEVELOPMENT ENVIRONMENT ON MORPHEUSLABS BPAAS SEED
+### @TODO SETUP DEVELOPMENT ENVIRONMENT ON MORPHEUSLABS BPAAS SEED
 <!--  add setup -->
 
 
@@ -326,8 +326,6 @@ let result = addNumbers(5, 3); // 'result' will be 8.
 ##### Classes
 
 Classes are fundamental to object-oriented programming (OOP). They encapsulate data and functions into a single unit. A class can contain multiple functions that define the behavior of objects created from that class.
-
-Certainly! Here's the completed section you can include before creating the contract:
 
 
 ## Set up the main dapp repository
@@ -1266,7 +1264,6 @@ contract ElectionNFT is ERC721 {
 ---
 
 @TODO
-- Testing Methodologies for Solidity Contracts
 - Security Considerations and Best Practices
 
 ---
