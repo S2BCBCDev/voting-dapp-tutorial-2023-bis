@@ -646,23 +646,130 @@ fisrt, let's make the connect button working!
    - Emphasize the security aspect of connecting to a wallet and handling accounts.
 
 ```javascript
-// Add your code snippet for connecting the wallet here
+// Function to connect Metamask
+async function connectToWallet() {
+    try {
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+        provider.send("eth_requestAccounts", []).then(() => {
+            console.log("Accounts requested");
+
+            provider.listAccounts().then((accounts) => {
+                console.log("List of accounts:", accounts);
+
+                signer = provider.getSigner(accounts[0]);
+                contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+                console.log("Signer and Contract set up");
+
+                // Update UI elements and display messages
+                connectWalletBtn.textContent = "Connected";
+                connectWalletBtn.style.backgroundColor = "#019B83ff"; // Change the background color to light green
+
+                // Display address connected
+                connectWalletMessageSpan.innerHTML = `${accounts[0]}`;
+                getElectionID();
+                fetchElectionTitle();
+                                
+            });
+        });
+
+        votingStation.style.display = "block";
+    } catch (error) {
+        console.error(error);
+        console.log("Error connecting to Metamask. Please make sure it's installed and unlocked.");
+    }
+}
+
 ```
 
 #### 2. **Starting an Election**
-   - Describe the process of starting an election, including providing candidate names and specifying the duration.
-   - Highlight any validations or checks that are in place to ensure a smooth election setup.
+   - The process of starting an election includes providing an election title, specifying candidate names, and specifying the duration.
+   
 
 ```javascript
-// Add your code snippet for starting an election here
+// Function to start the election
+startElectionButton.addEventListener("click", async () => {
+    try {
+
+        const electionTitle = document.querySelector("#electionTitleInput").value;
+
+        const candidates = [
+            addCandidateInput.value,
+            addCandidateInput2.value,
+            addCandidateInput3.value,
+            ...addCandidateInput4.value.split(",")
+        ].filter(Boolean);
+        console.log(candidates);
+        const votingDuration = specifyDuration.value;
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+
+
+        provider.send("eth_requestAccounts", []).then(() => {
+
+            provider.listAccounts().then((accounts) => {
+                console.log("List of accounts:", accounts);
+
+                signer = provider.getSigner(accounts[0]);
+                contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+            });
+        });
+
+        await contract.startElection(electionTitle, candidates, votingDuration);
+        console.log("Election is starting, wait for blockchain confirmation");
+    } catch (error) {
+        console.error(error);
+        console.log("Error starting the election: " + error.message);
+        const errorMessage = "Error starting the election: " + extractErrorMessage(error);
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
+
 ```
 
-#### 3. **Voting**
-   - Walk through the process of casting a vote, emphasizing the importance of secure and transparent voting mechanisms.
-   - Explain any error handling or feedback mechanisms for incorrect inputs.
+#### 3. **Register Voters**
+   - Walk through the process of registering voters to an election, and discuss how this might be relevant in a real-world scenario.
 
 ```javascript
-// Add your code snippet for the voting process here
+// Event listening to registering of voter
+addVoterButtonArray.addEventListener("click", async () => {
+    try {
+        const voterAddresses = addVoterInputArray.value.split(',').map(address => address.trim());
+        await contract.registerVoters(voterAddresses);
+        console.log(`Voters registered successfully!`);
+    } catch (error) {
+        console.error(error);
+        console.log(`Error registering voters: ${error.message}`);
+        const errorMessage = "Error registering voters: " + extractErrorMessage(error);
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
+```
+
+#### 3. **Adding Candidates**
+   - Walk through the process of adding candidates to an election, and discuss how this might be relevant in a real-world scenario.
+
+```javascript
+// Function to add candidate after election start but before anyone voted
+addCandidateButton.addEventListener("click", async () => {
+    try {
+        const candidateName = addCandidateInputBonus.value;
+        await contract.addCandidate(candidateName);
+        console.log("Candidate added successfully!");
+    } catch (error) {
+        console.error(error);
+        console.log("Error adding candidate: " + error.message);
+        const errorMessage = "Error adding candidate: " + extractErrorMessage(error);
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
 ```
 
 #### 4. **Changing Election Duration**
@@ -670,35 +777,139 @@ fisrt, let's make the connect button working!
    - Discuss any considerations regarding the duration of an election.
 
 ```javascript
-// Add your code snippet for changing election duration here
+// Function to change the election duration
+changeDurationButton.addEventListener("click", async () => {
+    try {
+        const newDuration = specifyNewDuration.value;
+        await contract.changeElectionDuration(newDuration);
+        console.log("Election duration changed successfully!");
+    } catch (error) {
+        console.error(error);
+        console.log("Error changing election duration: " + error.message);
+        const errorMessage = "Error changing election duration: " + extractErrorMessage(error);
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
+
 ```
 
 #### 5. **Resetting the Election**
    - Describe the purpose of resetting an election and any safeguards in place to prevent accidental resets.
 
 ```javascript
-// Add your code snippet for resetting an election here
+// Function to reset the election
+resetElectionButton.addEventListener("click", async () => {
+    try {
+        await contract.resetElection();
+        console.log("Election reset successfully!");
+    } catch (error) {
+        console.error(error);
+        console.log("Error resetting the election: " + error.message);
+        const errorMessage = "Error resetting the election: " + extractErrorMessage(error);
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
+
 ```
 
-#### 6. **Adding Candidates**
-   - Walk through the process of adding candidates to an election, and discuss how this might be relevant in a real-world scenario.
+#### 6. **Voting**
+   - Walk through the process of casting a vote, emphasizing the importance of secure and transparent voting mechanisms.
+   - Explain any error handling or feedback mechanisms for incorrect inputs.
 
 ```javascript
-// Add your code snippet for adding candidates here
+// Function to cast a vote
+castVoteButton.addEventListener("click", async () => {
+    try {
+        const selectedCandidate = getSelectedCandidate(); // Implement a function to get the selected candidate
+        await contract.vote(selectedCandidate);
+        console.log("Vote cast successfully!");
+    } catch (error) {
+        console.error(error);
+        console.log("Error casting vote: " + error.message);
+        const errorMessage = "Error casting vote: " + extractErrorMessage(error);
+        console.log(errorMessage);
+        alert(errorMessage);
+    }
+});
 ```
 
-#### 7. **Displaying Candidates**
+
+#### 7. **Displaying Candidates and Timer**
    - Explain how the UI displays the list of candidates and the associated information.
 
 ```javascript
-// Add your code snippet for displaying candidates here
+// Function to display main voting board with candidate and timer
+async function displayCandidates() {
+    if (contract) {
+        const candidates = await contract.retrieveVotes();
+        const candidateBoard = document.querySelector("#candidateBoard");
+        const rows = candidateBoard.querySelectorAll("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            candidateBoard.removeChild(rows[i]);
+        }
+
+        if (candidates.length === 0) {
+            const noCandidatesRow = document.createElement("tr");
+            noCandidatesRow.innerHTML = `
+        <td colspan="3">No candidates yet</td>
+      `;
+            candidateBoard.appendChild(noCandidatesRow);
+        } else {
+            candidates.forEach(candidate => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+            <th style="word-break: break-all;">${candidate.id || "No ID yet"}</th>
+            <th style="word-break: break-all;">${candidate.name || "No name yet"}</th>
+            <th style="word-break: break-all;">${candidate.numberOfVotes || "No vote yet"}</th>
+            <th><button class="voteBtnRow">Vote</button></th>
+        `;
+                candidateBoard.appendChild(row);
+
+                const voteRowButton = row.querySelector('.voteBtnRow');
+                voteRowButton.addEventListener('click', async () => {
+                    try {
+                        const candidateId = candidate.id;
+                        await contract.voteTo(candidateId);
+                        console.log("Vote cast successfully!");
+                    } catch (error) {
+                        console.error(error);
+                        console.log("Error casting vote: " + error.message);
+                        const errorMessage = "Error casting vote: " + extractErrorMessage(error);
+                        console.log(errorMessage);
+                        alert(errorMessage);
+
+                    }
+                });
+                getElectionID();
+            });
+        }
+    }
+}
+
 ```
 
 #### 8. **Showing the Timer**
    - Describe how the timer functionality works, and its significance in the context of an election.
 
 ```javascript
-// Add your code snippet for timer functionality here
+// Function to call the timer value
+async function showTimer() {
+    try {
+        let secondsLeft = await contract.electionTimer();
+        console.log("Seconds left:", secondsLeft);
+        let formattedDuration = formatDuration(secondsLeft); // <-- Corrected this line
+        console.log("Formatted Duration:", formattedDuration);
+        updateTimerMessage(formattedDuration);
+
+        // ...
+    } catch (error) {
+        console.error("Error:", error); // Added console.error
+        // Handle errors
+    }
+}
 ```
 
 #### 9. **Handling Events**
@@ -709,12 +920,49 @@ fisrt, let's make the connect button working!
 ```
 
 #### 10. **Minting NFTs**
-   - Explain the concept of minting NFTs as a representation of election results.
-   - Highlight the potential use cases or benefits of issuing NFTs in this context.
+Minting NFTs in the context of an election serves as a unique and immutable representation of the election results. Each NFT corresponds to a specific voter and their participation in the electoral process. Here's the breakdown of the concept and the potential benefits:
 
-```javascript
-// Add your code snippet for minting NFTs here
-```
+1. **Concept of Minting NFTs for Election Results:**
+   - **Unique Representation:** Each NFT represents a specific voter and their role in the election.
+   - **Immutable Record:** The blockchain ensures that once an NFT is minted, its details cannot be altered or tampered with, providing a secure and transparent record.
+
+2. **Code Snippet for Minting NFTs:**
+   ```javascript
+   // Function to mint the results as an NFT by interacting with ElectionNFT contract
+   async function mintResultNFTs(tokenURI) {
+       try {
+           // Assuming you've already set up the connection to the Election contract and the ElectionNFT contract
+
+           const ListOfVoters = await contract.ListOfVoters(); // Assuming ListOfVoters is a public state variable
+           for (let i = 0; i < ListOfVoters.length; i++) {
+               const voterAddress = ListOfVoters[i];
+               const isEligible = await contract.eligibleVoters(voterAddress);
+
+               if (isEligible) {
+                   await electionNFTContract.mintNFT(voterAddress, tokenURI);
+                   console.log(`NFT minted for voter at address ${voterAddress}`);
+               }
+           }
+       } catch (error) {
+           console.error(error);
+           console.log("Error minting NFT: " + error.message);
+           const errorMessage = "Error minting NFT: " + extractErrorMessage(error);
+           console.log(errorMessage);
+           alert(errorMessage);
+       }
+   }
+   ```
+
+3. **Potential Use Cases and Benefits:**
+   - **Voter Engagement:** Issuing NFTs to voters can enhance their engagement by providing a digital token as a symbol of their participation in the democratic process.
+   - **Transparency:** NFTs on the blockchain provide a transparent and publicly accessible record of each voter's involvement, fostering trust in the election results.
+   - **Historical Records:** NFTs can serve as historical records, allowing stakeholders to review and analyze past elections.
+
+4. **Considerations:**
+   - Ensure that the NFT minting process adheres to any legal or regulatory requirements.
+   - Clearly communicate the significance of the NFTs to voters to promote understanding and acceptance.
+
+Integrating NFT minting into your election system adds a layer of transparency and uniqueness to the results, contributing to the overall integrity of the electoral process.
 
 ---
 
