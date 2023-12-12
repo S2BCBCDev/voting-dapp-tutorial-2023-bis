@@ -3,7 +3,7 @@
 ### S2BC
 
 <div style="text-align: center;">
-  <img src="s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
+  <img src="src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
 ---
@@ -133,11 +133,6 @@ sequenceDiagram
     ElectionNFTContract-->>User: Token URI for the specified token ID
 
 ```
-
-
-## To Set Up the Development Environment
-### @TODO SETUP DEVELOPMENT ENVIRONMENT ON MORPHEUSLABS BPAAS SEED
-<!--  add setup -->
 
 
 ## DEVELOPING ETHEREUM SMART CONTRACTS
@@ -327,6 +322,71 @@ let result = addNumbers(5, 3); // 'result' will be 8.
 
 Classes are fundamental to object-oriented programming (OOP). They encapsulate data and functions into a single unit. A class can contain multiple functions that define the behavior of objects created from that class.
 
+## To Set Up the Development Environment MORPHEUSLABS BPAAS SEED
+
+### Configure reposetory :
+- https://docs.morpheuslabs.io/docs/configuration
+
+### Create workspace morpheus doc page :
+- https://docs.morpheuslabs.io/docs/configure-a-workspace#section-create-a-workspace
+
+### Create a blockchain network :
+- https://docs.morpheuslabs.io/docs/blockchain-networks
+- We will use **Sepolia** ChainID 11155111(0xaa36a7) Currency ETH
+
+## Launch
+- click on this info icon to get to the VSCode interface of morpheus by retrieving the workspace url.
+
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/info-icon.png" alt="info icon">
+</div>
+
+into this
+
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/workspace.png" alt="info icon">
+</div>
+You will get to the Workspace information board:
+
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/app-infos-board.png" alt="info icon">
+</div>
+Click on "Retrive" button:
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/retrieve-button-app-workspace-url.png" alt="info icon">
+</div>
+It should transform into:
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/retrive-line.png" alt="info icon">
+</div>
+
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/workspace-url.png" alt="info icon">
+</div>
+Click on Workspace Url to get to your IDE:
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/workspace-url-line.png" alt="info icon">
+</div>
+You should have your IDE open now:
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/morpheus-vscode-windows.png" alt="info icon">
+</div>
+Go to your left menu and find for new Terminal:
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/vscode-left-menu.png" alt="info icon">
+</div>
+
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/look-for-terminal.png" alt="info icon">
+</div>
+
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/select-new-terminal.png" alt="info icon">
+</div>
+Check what is in your project and then change directory to your app or go next step by setting up your main directory:
+<div style="text-align: center;">
+  <img src="src/morpheus-screeshoot/change-directory.png" alt="info icon">
+</div>
 
 ## Set up the main dapp repository
 
@@ -1303,10 +1363,7 @@ contract ElectionNFT is ERC721 {
 ```
 ---
 
-@TODO
-- Security Considerations and Best Practices
 
----
 
 ### Contact
 
