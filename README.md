@@ -1,5 +1,10 @@
 # Blockchain & Solidity Voting dApp Tutorial 101 Documentation
 
+<div style="text-align: center;">
+  <img src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
+</div>
+
+
 ## Introduction
 
 Welcome to the Blockchain & Solidity Tutorial! This comprehensive tutorial is designed to provide you with a hands-on learning experience in blockchain development using Solidity, JavaScript, and other essential tools. This tutorial will equip you with the knowledge and skills needed to start developing your own decentralized applications (dApps).
@@ -7,6 +12,7 @@ Welcome to the Blockchain & Solidity Tutorial! This comprehensive tutorial is de
 ## About the Tutorial
 
 This tutorial is divided into four labs, each focusing on a specific aspect of blockchain and Solidity development. From setting up your development environment to integrating web applications with smart contracts, you'll embark on a step-by-step journey to become proficient in blockchain technology.
+
 
 ### **Lab 1 - Developing Ethereum Smart Contracts**
 
