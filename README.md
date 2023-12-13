@@ -5,12 +5,10 @@
 </div>
 
 Video screenshoot :
-<div align="center">
-  <video width="300" controls>
-    <source src="LABxTutorialVotingDapp2023/src/video/document_6325820007565495233.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
+
+https://github.com/S2BCBCDev/voting-dapp-tutorial-2023-bis/blob/main/LABxTutorialVotingDapp2023/src/video/document_6325820007565495233.mp4
+
+[![Click to Watch Video of UI frontend](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://github.com/S2BCBCDev/voting-dapp-tutorial-2023-bis/blob/main/LABxTutorialVotingDapp2023/src/video/document_6325820007565495233.mp4)
 
 
 ## Introduction
