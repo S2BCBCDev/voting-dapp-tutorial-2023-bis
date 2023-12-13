@@ -167,22 +167,27 @@ npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/home-m.jpeg" width="300px">
 </div>
+
 Voting panel :
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/voting-panel.jpg" width="300px">
 </div>
+
 Election is ongoing :
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/election-ongoing-non-voted.jpg" width="300px">
 </div>
+
 Someone voted:
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/election-ongoing-voted.jpg" width="300px">
 </div>
+
 Administrator panel :
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/start-election.jpg" width="300px">
 </div>
+
 Register voter :
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/register-voters.jpg" width="300px">
@@ -212,7 +217,6 @@ Reinitialise the election :
 <div style="text-align: center;">
   <img src="src/ui-screenshoot/rehinitialise-election.jpg" width="300px">
 </div>
-
 
 ### Setting Up the Frontend
 
