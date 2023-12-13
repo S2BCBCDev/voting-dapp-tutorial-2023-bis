@@ -4,6 +4,14 @@
   <img src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
+Video screenshoot :
+<div align="center">
+  <video width="300" controls>
+    <source src="LABxTutorialVotingDapp2023/src/video/document_6325820007565495233.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
 
 ## Introduction
 
