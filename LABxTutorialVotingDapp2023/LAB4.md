@@ -28,7 +28,10 @@ This will start the server for your dApp's frontend.
 
 For detailed steps on uploading your dApp, refer to the [documentation](https://docs.morpheuslabs.io/docs/submit-app-to-the-app-store).
 
-### Contact 
+---
 
-S2BC
+<div style="text-align: center;">
+  <img src="src/s2bc-logo.svg" alt="S2BC Logo" width="96">
+</div>
+
 

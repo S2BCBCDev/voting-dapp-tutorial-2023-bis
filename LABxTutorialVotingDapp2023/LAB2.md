@@ -315,6 +315,8 @@ Feel free to review and run the extended tests to gain a deeper understanding of
 
 ---
 
-## Contact
+<div style="text-align: center;">
+  <img src="src/s2bc-logo.svg" alt="S2BC Logo" width="96">
+</div>
 
-S2BC
+

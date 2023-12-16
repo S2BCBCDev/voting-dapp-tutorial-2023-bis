@@ -1023,6 +1023,8 @@ Integrating NFT minting into your election system adds a layer of transparency a
 
 ---
 
-### Contact Information
+<div style="text-align: center;">
+  <img src="src/s2bc-logo.svg" alt="S2BC Logo" width="96">
+</div>
 
-S2BC
+
