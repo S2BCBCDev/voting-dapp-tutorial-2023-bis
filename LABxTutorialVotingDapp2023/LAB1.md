@@ -347,10 +347,6 @@ In the dialogue box of hardhat:
 npx hardhat --version
 ```
 
-#### Lunch VSCode by typing in the terminal
-```
-code .    // (write: "code <space> <dot>")
-```
 
 With these initial steps completed, we're now ready to proceed with the creation of our smart contract for the decentralized voting system. Let's move on to the next section!
 
