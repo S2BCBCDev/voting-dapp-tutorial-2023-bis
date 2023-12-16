@@ -35,104 +35,21 @@ Let's dive in and get started with the first part of our journey: Developing Eth
 ---
 ## dApp structure Overview
 
-```mermaid
-graph TD;
-    A[Root Folder: voting-dapp-tutorial] -->|Contains| B[Hardhat Folder];
-    A -->|Contains| C[Front-end Folder];
-    B -->|Contains| D[Contracts];
-    B -->|Contains| E[Scripts];
-    B -->|Contains| F[Tests];
-    C -->|Contains| G[public];
-    C -->|Contains| K[server.js];
-    G -->|Contains| H[HTML Files];
-    G -->|Contains| I[CSS Files];
-    G -->|Contains| J[JavaScript Files];
+![diagram of interactions](/LABxTutorialVotingDapp2023/src/diagrams/d-of-structure.png)
 
-```
 ## Flow overview
 
-```mermaid
-    graph TD;
-    A[Front-end] -->|Triggers| B[Metamask];
-    B -->|Interacts with| C[Contract Blockchain];
-    C -->|Changes State / write data| D[Blockchain State];
+![diagram of flow](/LABxTutorialVotingDapp2023/src/diagrams/d-of-flow1.png)
 
+![diagram of flow](/LABxTutorialVotingDapp2023/src/diagrams/d-of-flow2.png)
 
-```
 ---
-```mermaid
-graph TD;
-    A[Front-end] -->|RPC + Metamask| B[Blockchain];
-    B -->|Interacts with| C[Smart Contract];
-    C -->|Returns Data| A;
-
-```
 
 ## Overview contract Voting.sol
 
 ### Diagram of interactions
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Administrator
-    participant VotingContract
-    participant ElectionNFTContract
-
-    User->>VotingContract: startElection()
-    VotingContract->>VotingContract: Check if election has started
-    VotingContract-->>User: ElectionStarted event emitted
-
-    Administrator->>VotingContract: addCandidate(name)
-    VotingContract->>VotingContract: Check if election is ongoing
-    VotingContract->>VotingContract: Add candidate to list
-    VotingContract-->>Administrator: CandidateAdded event emitted
-
-    Administrator->>VotingContract: registerVoter(address)
-    VotingContract->>VotingContract: Mark address as eligible voter
-    VotingContract-->>Administrator: VoterRegistered event emitted
-
-    User->>VotingContract: voteTo(candidateId)
-    VotingContract->>VotingContract: Check election period
-    VotingContract->>VotingContract: Check if user already voted
-    VotingContract->>VotingContract: Check if candidateId is valid
-    VotingContract->>VotingContract: Check if user is eligible to vote
-    VotingContract->>VotingContract: Update candidate's numberOfVotes
-    VotingContract->>VotingContract: Mark user as voted
-    VotingContract-->>User: VoteCast event emitted
-
-    User->>VotingContract: retrieveVotes()
-    VotingContract-->>User: List of candidates and their votes
-
-    User->>VotingContract: getWinnerInfo()
-    VotingContract-->>User: Winner information
-
-    User->>VotingContract: generateMetadata()
-    VotingContract-->>User: Election metadata
-
-    Administrator->>VotingContract: resetElection()
-    VotingContract->>VotingContract: Check if election is ongoing
-    VotingContract->>VotingContract: Reset all voter statuses
-    VotingContract->>VotingContract: Clear ListOfVotersEligible
-    VotingContract->>VotingContract: Reset election status and timers
-    VotingContract->>VotingContract: Remove all candidates
-    VotingContract-->>Administrator: ElectionReset event emitted
-
-    User->>ElectionNFTContract: mintNFT(to, tokenURI)
-    ElectionNFTContract->>ElectionNFTContract: Check if caller is election contract
-    ElectionNFTContract->>ElectionNFTContract: Mint NFT to 'to' address
-    ElectionNFTContract->>ElectionNFTContract: Store token URI
-    ElectionNFTContract-->>User: NFT Minted event emitted
-
-    Administrator->>ElectionNFTContract: setBaseTokenURI(newBaseTokenURI)
-    ElectionNFTContract->>ElectionNFTContract: Check if caller is election contract
-    ElectionNFTContract->>ElectionNFTContract: Set new base token URI
-    ElectionNFTContract-->>Administrator: BaseTokenURISet event emitted
-
-    User->>ElectionNFTContract: getTokenURI(tokenId)
-    ElectionNFTContract-->>User: Token URI for the specified token ID
-
-```
+![diagram of interactions](/LABxTutorialVotingDapp2023/src/diagrams/d-of-interactions.png)
 
 
 ## DEVELOPING ETHEREUM SMART CONTRACTS
