@@ -2,12 +2,13 @@
 
 <div style="text-align: center;">
   <img src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
+
+
+<img src="LABxTutorialVotingDapp2023/src/ui-screenshoot/election-ongoing-voted.jpg" alt="Homepage" style="max-width:300px;">
 </div>
 
-![Homepage](/LABxTutorialVotingDapp2023/src/ui-screenshoot/election-ongoing-voted.jpg)
 
-
-Video screenshoot :
+#### Video screenshoot :
 https://github.com/S2BCBCDev/voting-dapp-tutorial-2023-bis/blob/main/LABxTutorialVotingDapp2023/src/video/document_6325820007565495233.mp4
 
 
