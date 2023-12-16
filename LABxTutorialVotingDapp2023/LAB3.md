@@ -3,7 +3,7 @@
 ### S2BC
 
 <div style="text-align: center;">
-  <img src="src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
+  <img style="border-radius: 12px;"  src="src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
 ---
@@ -165,57 +165,57 @@ npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
 ## UI-Screenshoots :
 
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/home-m.jpeg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/home-m.jpeg" width="300px">
 </div>
 
 Voting panel :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/voting-panel.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/voting-panel.jpg" width="300px">
 </div>
 
 Election is ongoing :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/election-ongoing-non-voted.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/election-ongoing-non-voted.jpg" width="300px">
 </div>
 
 Someone voted:
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/election-ongoing-voted.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/election-ongoing-voted.jpg" width="300px">
 </div>
 
 Administrator panel :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/start-election.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/start-election.jpg" width="300px">
 </div>
 
 Register voter :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/register-voters.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/register-voters.jpg" width="300px">
 </div>
 
 Change election duration :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/change-election-duration.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/change-election-duration.jpg" width="300px">
 </div>
 
 Add a candidate to election :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/add-candidate.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/add-candidate.jpg" width="300px">
 </div>
 
 Finalise the election :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/finalise-election.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/finalise-election.jpg" width="300px">
 </div>
 
 Generate an NFT certificate :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/generate-nft.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/generate-nft.jpg" width="300px">
 </div>
 
 Reinitialise the election :
 <div style="text-align: center;">
-  <img src="src/ui-screenshoot/rehinitialise-election.jpg" width="300px">
+  <img style="border-radius: 12px;"  src="src/ui-screenshoot/rehinitialise-election.jpg" width="300px">
 </div>
 
 ### Setting Up the Frontend
@@ -477,7 +477,7 @@ Structure expected:
         <div id="votingStation">
         
             <!-- Logo -->
-            <img src="s2bc-logo.svg" alt="S2BC Logo" id="logo">
+            <img style="border-radius: 12px;"  src="s2bc-logo.svg" alt="S2BC Logo" id="logo">
 
             <!-- Title -->
             <h1>Voting dApp 2023</h1>
@@ -512,7 +512,7 @@ Structure expected:
 ### Add a Logo and the app Title
 
 ```
-<img src="s2bc-logo.svg" alt="S2BC Logo" id="logo">
+<img style="border-radius: 12px;"  src="s2bc-logo.svg" alt="S2BC Logo" id="logo">
 
 <h1>Voting dApp 2023</h1>
 ```
@@ -1024,7 +1024,7 @@ Integrating NFT minting into your election system adds a layer of transparency a
 ---
 
 <div style="text-align: center;">
-  <img src="src/s2bc-logo.svg" alt="S2BC Logo" width="96">
+  <img style="border-radius: 12px;"  src="src/s2bc-logo.svg" alt="S2BC Logo" width="96">
 </div>
 
 
