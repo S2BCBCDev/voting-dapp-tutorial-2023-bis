@@ -36,17 +36,17 @@ Let's dive in and get started with the first part of our journey: Developing Eth
 ## dApp structure Overview
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-structure.png" alt="S2BC Logo" width="600">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-structure.png" alt="S2BC Logo" width="500">
 </div>
 
 ## Flow overview
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-flow1.png" alt="S2BC Logo" width="600">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-flow1.png" alt="S2BC Logo" width="500">
 </div>
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-flow2.png" alt="S2BC Logo" width="600">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-flow2.png" alt="S2BC Logo" width="500">
 </div>
 
 
@@ -57,7 +57,7 @@ Let's dive in and get started with the first part of our journey: Developing Eth
 ### Diagram of interactions
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-interactions.png" alt="S2BC Logo" width="600">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/diagrams/d-of-interactions.png" alt="S2BC Logo" width="500">
 </div>
 
 
@@ -270,12 +270,12 @@ Classes are fundamental to object-oriented programming (OOP). They encapsulate d
 into this
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/workspace.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/workspace.png" alt="screenshoot of morpheus" width="500">
 </div>
 You will get to the Workspace information board:
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/app-infos-board.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/app-infos-board.png" alt="screenshoot of morpheus" width="500">
 </div>
 Click on "Retrive" button:
 <div style="text-align: center;">
@@ -283,19 +283,19 @@ Click on "Retrive" button:
 </div>
 It should transform into:
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/retrive-line.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/retrive-line.png" alt="screenshoot of morpheus" width="500">
 </div>
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/workspace-url.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/workspace-url.png" alt="screenshoot of morpheus" width="500">
 </div>
 Click on Workspace Url to get to your IDE:
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/workspace-url-line.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/workspace-url-line.png" alt="screenshoot of morpheus" width="500">
 </div>
 You should have your IDE open now:
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/morpheus-vscode-windows.png" alt="screenshoot of morpheus" width="600">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/morpheus-vscode-windows.png" alt="screenshoot of morpheus" width="500">
 </div>
 Go to your left menu and find for new Terminal:
 <div style="text-align: center;">
@@ -307,11 +307,11 @@ Go to your left menu and find for new Terminal:
 </div>
 
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/select-new-terminal.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/select-new-terminal.png" alt="screenshoot of morpheus" width="500">
 </div>
 Check what is in your project and then change directory to your app or go next step by setting up your main directory:
 <div style="text-align: center;">
-  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/change-directory.png" alt="screenshoot of morpheus">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/change-directory.png" alt="screenshoot of morpheus" width="500">
 </div>
 
 ## Set up the main dapp repository
