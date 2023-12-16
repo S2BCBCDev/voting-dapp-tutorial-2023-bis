@@ -1,10 +1,11 @@
 # Blockchain & Solidity Voting dApp Tutorial 101 Documentation
-
 <div style="text-align: center;">
   <img src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
 ![Homepage](/LABxTutorialVotingDapp2023/src/ui-screenshoot/home-small.png)
+
+![Homepage](/LABxTutorialVotingDapp2023/src/ui-screenshoot/start-elect-full.png)
 
 
 #### Video screenshoot :
@@ -184,3 +185,5 @@ Coloors is a handy tool for generating color palettes. Use this tool to create v
 - [Favicon - Favicon Converter](https://favicon.io/favicon-converter/)
 
 Favicon is a utility that allows you to convert images into favicon formats. Use this tool to generate favicons for your web applications, ensuring a consistent and recognizable icon across different platforms.
+
+![S2BC Logo](/LABxTutorialVotingDapp2023/src/s2bc-logo.svg)
