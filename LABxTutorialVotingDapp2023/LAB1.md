@@ -35,13 +35,14 @@ Let's dive in and get started with the first part of our journey: Developing Eth
 ---
 ## dApp structure Overview
 
-![diagram of interactions](/LABxTutorialVotingDapp2023/src/diagrams/d-of-structure.png)
+![diagram of interactions](src/diagrams/d-of-structure.png)
+
 
 ## Flow overview
 
-![diagram of flow](/LABxTutorialVotingDapp2023/src/diagrams/d-of-flow1.png)
+![diagram of flow](src/diagrams/d-of-flow1.png)
 
-![diagram of flow](/LABxTutorialVotingDapp2023/src/diagrams/d-of-flow2.png)
+![diagram of flow](src/diagrams/d-of-flow2.png)
 
 ---
 
@@ -49,7 +50,7 @@ Let's dive in and get started with the first part of our journey: Developing Eth
 
 ### Diagram of interactions
 
-![diagram of interactions](/LABxTutorialVotingDapp2023/src/diagrams/d-of-interactions.png)
+![diagram of interactions](src/diagrams/d-of-interactions.png)
 
 
 ## DEVELOPING ETHEREUM SMART CONTRACTS
