@@ -354,10 +354,21 @@ With these initial steps completed, we're now ready to proceed with the creation
 
 In this section, we'll guide you through the process of creating the `Voting.sol` file, which will house the smart contract for our decentralized voting application. This Solidity file will define the behavior and rules of our voting system on the Ethereum blockchain.
 
+### Step 0: Create a file named Voting.sol in hardhat/contract folder
+With vscode web interface:
+- navigate to voting-dapp-tutorial-2023/hardhat/contracts
+- create a new file named Voting.sol
+
+or with the terminal:
+
+```bash
+cd hardhat/contracts
+touch Voting.sol
+```
 
 ### Step 1: Set the Compiler Version and Import Dependencies
 
-- Create a new file named `Voting.sol` in hardhat/contracts folder
+
 - At the top of the file, specify the License type (SPDX-License-Identifier: UNLICENSED)
 - Then specify the compiler version pragma solidity (pragma solidity ^0.8.19;)
 - Then import any necessary dependencies. In our case, we're importing the `ElectionNFT.sol` (not yet created) contract, which will handle the creation of unique NFTs for each voter.
@@ -367,8 +378,6 @@ Your file should looks like this:
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
-// This file defines the main Voting contract for our decentralized voting application.
-
 pragma solidity ^0.8.19; // Specifies the compiler version
 
 import "./ElectionNFT.sol"; // Import the future NFT contract
