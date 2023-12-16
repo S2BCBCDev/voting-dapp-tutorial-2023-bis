@@ -1,18 +1,19 @@
 # Blockchain & Solidity Voting dApp Tutorial 101 Documentation
+
 <div style="text-align: center;">
-  <img src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96">
+  <img style="border-radius: 12px;"  src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
 
 ---
 Dapp homepage
 <div style="text-align: center;">
-  <img src="LABxTutorialVotingDapp2023/src/ui-screenshoot/home-small.png" alt="S2BC Logo" width="300">
+  <img style="border-radius: 12px;" src="LABxTutorialVotingDapp2023/src/ui-screenshoot/home-small.png" alt="S2BC Logo" width="300">
 </div>
 
 ---
 Vote panel:
 <div style="text-align: center;">
-  <img src="LABxTutorialVotingDapp2023/src/ui-screenshoot/start-elect-full.png" alt="S2BC Logo" width="300">
+  <img style="border-radius: 12px;" src="LABxTutorialVotingDapp2023/src/ui-screenshoot/start-elect-full.png" alt="S2BC Logo" width="300">
 </div>
 
 
@@ -197,5 +198,5 @@ Favicon is a utility that allows you to convert images into favicon formats. Use
 ---
 
 <div style="text-align: center;">
-  <img src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96">
+  <img style="border-radius: 12px;"  src="LABxTutorialVotingDapp2023/src/s2bc-logo.svg" alt="S2BC Logo" width="96" height="96">
 </div>
