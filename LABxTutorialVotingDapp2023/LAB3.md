@@ -29,23 +29,21 @@ First, install the `dotenv` package using the following command:
 npm install dotenv
 ```
 
-Next, create a `.env` file in the root folder of your HardHat project. This file will contain sensitive information that should be kept secure. Add the following variables to the `.env` file:
+Next, create a `.env` file in the root folder of your HardHat project.(hardhat/.env) This file will contain sensitive information that should be kept secure. Add the following variables to the `.env` file:
 
 ```dotenv
 # This is the URL of the Ethereum RPC provider
-RPC_URL="https://example.com/rpc"
+RPC_URL="https://example.com/rpc" (optain from morpheus)
 
-# This is a private key for signing transactions
+# This is a private key for signing transactions (private key of the deployer account)
 PRIVATE_KEY="your_private_key_here"
 
-# This is an API key for accessing a specific service
+# This is an API key for accessing a specific service like etherscan API to use hardhat verify to verify your contracts
 API_KEY="your_api_key_here"
 
 # This is the chain ID for the Ethereum network
 CHAIN_ID=12345
 
-# This is the address of a smart contract (optional)
-CONTRACT_ADDRESS='0x1234567890abcdef'
 ```
 
 Make sure to replace the placeholder values with your actual credentials.
@@ -77,34 +75,74 @@ module.exports = {
 };
 ```
 
-
-#### Step 3: Create a New Deployment Script
+### Step 3: Create a Combined Deployment Script
 
 Create a new file named `deploy.js` inside the `hardhat/scripts` directory. Add the following content to the file:
 
 ```javascript
+// Import required libraries
 const hre = require("hardhat");
 const fs = require('fs');
 
-async function main() {
+// Function to deploy the Voting contract
+async function deployVotingContract() {
+  // Get the deployer's address
   const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying contracts with the account:", deployer.address);
+  console.log("Deploying Voting contract with the account:", deployer.address);
+
+  // Get the Voting contract factory
   const votingContract = await hre.ethers.getContractFactory("Voting");
+  
+  // Deploy the Voting contract
   const deployedVotingContract = await votingContract.deploy();
 
-  const deploymentInfo = `Deployer Address: ${deployer.address}\nContract Address: ${deployedVotingContract.address}`;
-
+  // Save deployment information to a text file
+  const deploymentInfo = `Deployer Address: ${deployer.address}\nVoting Contract Address: ${deployedVotingContract.address}`;
   console.log(`Voting Contract Address deployed: ${deployedVotingContract.address}`);
-  fs.writeFileSync('deploymentInfo.txt', deploymentInfo);
+  fs.writeFileSync('deploymentInfoVoting.txt', deploymentInfo);
+
+  // Return the deployed Voting contract instance
+  return deployedVotingContract;
 }
 
+// Function to deploy the ElectionNFT contract
+async function deployElectionNFTContract(votingContract) {
+  // Get the deployer's address
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying ElectionNFT contract with the account:", deployer.address);
+
+  // Get the ElectionNFT contract factory
+  const electionNFTContract = await hre.ethers.getContractFactory("ElectionNFT");
+  
+  // Deploy the ElectionNFT contract, passing the address of the Voting contract
+  const deployedElectionNFTContract = await electionNFTContract.deploy(votingContract.address);
+
+  // Save deployment information to a text file
+  const deploymentInfo = `Deployer Address: ${deployer.address}\nElectionNFT Contract Address: ${deployedElectionNFTContract.address}`;
+  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
+  fs.writeFileSync('deploymentInfoNFT.txt', deploymentInfo);
+
+  // Call the setElectionNFTContract function in the Voting contract
+  await votingContract.setElectionNFTContract(deployedElectionNFTContract.address);
+}
+
+// Main function
+async function main() {
+  // Deploy the Voting contract
+  const votingContract = await deployVotingContract();
+
+  // Deploy the ElectionNFT contract and set the ElectionNFT contract address in the Voting contract
+  await deployElectionNFTContract(votingContract);
+}
+
+// Handle errors during deployment
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
 ```
 
-To deploy the contract, use the following command in your terminal:
+To deploy the contracts, use the following command in your terminal:
 
 ```bash
 npx hardhat run scripts/deploy.js --network sepolia
@@ -112,51 +150,24 @@ npx hardhat run scripts/deploy.js --network sepolia
 
 The result output from the terminal will provide the contract addresses.
 
-A "deploymentInfo.txt" file will be created with the contract addresses.
+A "deploymentInfoVoting.txt" file will be created with the Voting contract address, and a "deploymentInfoNFT.txt" file will be created with the ElectionNFT contract address.
 
 ---
 
-#### Step 3-bis: Create a New Deployment Script for ElectionNFT contract
-
-Next, deploy the ElectionNFT contract using the address of the previously deployed contract.
-
-Create a new file named `deploy2.js` inside the `hardhat/scripts` directory. Add the following content to the file:
-
-```javascript
-const hre = require("hardhat");
-const fs = require('fs');
-
-async function main() {
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying ElectionNFT contract with the account:", deployer.address);
-
-  const electionNFTContract = await hre.ethers.getContractFactory("ElectionNFT");
-  const deployedElectionNFTContract = await electionNFTContract.deploy("<FIRST CONTRACT ADDRESS>");
-
-  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
-
-  const deploymentInfo = `Deployer Address: ${deployer.address}\nContract Address: ${deployedElectionNFTContract.address}`;
-
-  console.log(`ElectionNFT Contract Address deployed: ${deployedElectionNFTContract.address}`);
-  fs.writeFileSync('deploymentInfoNFT.txt', deploymentInfo);
-}
-
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
-```
-
-Remember to replace `<FIRST CONTRACT ADDRESS>` with the address of the first contract deployed (check `deploymentInfo.txt`).
-
-#### Verify contracts
+### Verify contracts (optional)
 
 If you've added your Etherscan API key, you'll be able to verify the contracts using the following command:
 
 ```bash
 npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
 ```
+This should verify both contracts, but if it is not the case, so you can verify the second contract like this:
 
+Verify second contract: (the second contract take the first contract address as argument)
+
+```bash
+npx hardhat verify <SECOND CONTRACT ADDRESS> <FIRST CONTRACT ADDRESS> --network sepolia
+```
 
 ---
 

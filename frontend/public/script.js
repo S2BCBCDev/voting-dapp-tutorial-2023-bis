@@ -1,5 +1,5 @@
 // Address and ABI of the Voting.sol contract
-const contractAddress = '0x90B920bEFA02f1c458C5e7e5c14EcaDFFfE3EAD1';
+const contractAddress = '0x46c6a1AE9A084013eb5345e104Ee8AFEB497200e';
 const contractABI = [
 	{
 		"inputs": [],
@@ -634,7 +634,7 @@ const contractABI = [
 ];
 
 // Address and ABI of the ElectionNFT contract
-const electionNFTAddress = '0xE45b390BEF77F0B1280aE2964EA99b6C8d4Ef083'; // Address of the deployed ElectionNFT contract
+const electionNFTAddress = '0x382DB0Cb8f4f07472d2f8fD1BC70A3812870A66e'; // Address of the deployed ElectionNFT contract
 const electionNFTABI = [
 	{
 		"inputs": [
