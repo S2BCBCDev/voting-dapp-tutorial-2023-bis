@@ -250,17 +250,122 @@ Classes are fundamental to object-oriented programming (OOP). They encapsulate d
 
 ## To Set Up the Development Environment MORPHEUSLABS BPAAS SEED
 
-### Configure reposetory :
+### Configure repository :
 - https://docs.morpheuslabs.io/docs/configuration
 
 ### Create workspace morpheus doc page :
 - https://docs.morpheuslabs.io/docs/configure-a-workspace#section-create-a-workspace
 
-### Create a blockchain network :
+### Obtain or Create a private blockchain network POA:
 - https://docs.morpheuslabs.io/docs/blockchain-networks
-- We will use **Sepolia** ChainID 11155111(0xaa36a7) Currency ETH
 
-## Launch
+For development purposes, use the Ethereum POA Consortium with ChainID 1303 and currency ETH, which can be easily created within the Morpheus Seed environment.
+
+- **votinchain** ChainID 1303 Currency ETH 
+
+- click on this info icon to get to the VSCode interface of morpheus by retrieving the workspace url.
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/select-voting-chain.jpg" alt="screenshoot of morpheus">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/info-icon.png" alt="screenshoot of morpheus">
+</div>
+
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/blockchain-infos1.jpg" alt="screenshoot of morpheus" width="500">
+</div>
+Then click on retrive:
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/blockchain-infos2.jpg" alt="screenshoot of morpheus" width="500">
+</div>
+
+You can find your private here:
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/member-copy-pk.jpg" alt="screenshoot of morpheus" width="500">
+</div>
+
+Keep this informations at hand for the next configuration of Metamask.
+
+##### Notes for later:
+Then, into **Lab4**, at final stage of the development we will migrate to the **Sepolia** network with ChainID **11155111** (0xaa36a7) and currency ETH. This setup will simulate the Ethereum mainnet for testing purposes. 
+
+To accomplish this, you need to modify the ChainID value in both the frontend script and the .env file within the Hardhat configuration. Additionally, update the hardhat.config.js file to include the new ChainID, as well as adjust the RPC URL and the private key associated with the deployer account into .env file.
+
+- **Sepolia** ChainID 11155111(0xaa36a7) Currency ETH
+
+The same process would be applied if you wanted to deploy the **Ethereum** ETH **mainnet**.
+
+### Configure your Metamask:
+
+
+- Add custum network to metamask
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/metamask-add-network.png" alt="screenshoot of morpheus">
+</div>
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/metamask-add-network.-large.png" alt="screenshoot of morpheus" width="500">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/metamask-add-network-precise.png" alt="screenshoot of morpheus" width="500">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/metamask-add-network-2nd-screen.png" alt="screenshoot of morpheus" width="500">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/metamask-add-network.2nd-screen-precise.png" alt="screenshoot of morpheus" width="500">
+</div>
+
+
+- Add your Network infos:
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain//network-infos.png" alt="screenshoot of morpheus" width="500">
+</div>
+
+
+
+- Import account into metamask
+
+Use the private key of the member accout to import your inccount into metamask:
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/member-copy-pk.jpg" alt="screenshoot of morpheus">
+</div>
+
+Metamask -> accounts -> import account -> past private key
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/add-account-button.png" alt="screenshoot of morpheus">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/import-account-link.png" alt="screenshoot of morpheus">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/import-account-pk.png" alt="screenshoot of morpheus">
+</div>
+
+Then we have our Metamask ready to connect to the new network, click on change network and select the newly created custum network "votingchain"
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/change-network.png" alt="screenshoot of morpheus">
+</div>
+
+<div style="text-align: center;">
+  <img style="border: 3px solid #0684C2; border-radius: 12px;" src="src/morpheus-screeshoot/Morpheus-votingchain/change-network-large.png" alt="screenshoot of morpheus">
+</div>
+
+Link to the official Metamask documentation: https://docs.metamask.io/
+- [Metamask Documentation](https://docs.metamask.io/)
+
+## Launch Workspace IDE (vscode)
 - click on this info icon to get to the VSCode interface of morpheus by retrieving the workspace url.
 
 <div style="text-align: center;">
