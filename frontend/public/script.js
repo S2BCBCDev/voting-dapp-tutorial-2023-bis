@@ -1630,5 +1630,11 @@ generateAndUploadMetadataButton.addEventListener("click", async () => {
 });
 
 
+// JavaScript to refresh the page when the logo is clicked
+document.getElementById('logo').addEventListener('click', function() {
+	window.location.replace("index.html"); // Replace 'index.html' with your actual homepage URL
+  });
+  
+
 
 
