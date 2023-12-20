@@ -156,6 +156,8 @@ A "deploymentInfoVoting.txt" file will be created with the Voting contract addre
 
 ### Verify contracts (optional)
 
+It is good practice to verify your contract on Etherscan. If you are already on Sepolia Testnet, you can verify your contract from hardhat by including your API key into .env file.
+
 If you've added your Etherscan API key, you'll be able to verify the contracts using the following command:
 
 ```bash
@@ -320,7 +322,7 @@ app.listen(port, () => {
 
 ```
 
-To test out of the server works you can run:
+To test out of the server works you can run while you are located into frontend folder:
 
 ```
 npm start
