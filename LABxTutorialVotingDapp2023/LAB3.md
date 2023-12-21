@@ -156,20 +156,112 @@ A "deploymentInfoVoting.txt" file will be created with the Voting contract addre
 
 ### Verify contracts (optional)
 
-It is good practice to verify your contract on Etherscan. If you are already on votingchain Testnet, you can verify your contract from hardhat by including your API key into .env file.
+It is good practice to verify your contract on Etherscan. If you are already on sepolia Testnet, you can verify your contract from hardhat by including your API key into .env file.
 
 If you've added your Etherscan API key, you'll be able to verify the contracts using the following command:
 
 ```bash
-npx hardhat verify <FIRST CONTRACT ADDRESS> --network votingchain
+npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
 ```
 This should verify both contracts, but if it is not the case, so you can verify the second contract like this:
 
 Verify second contract: (the second contract take the first contract address as argument)
 
 ```bash
-npx hardhat verify <SECOND CONTRACT ADDRESS> <FIRST CONTRACT ADDRESS> --network votingchain
+npx hardhat verify <SECOND CONTRACT ADDRESS> <FIRST CONTRACT ADDRESS> --network sepolia
 ```
+
+
+---
+
+## Try Your Contracts on Remix IDE
+
+Remix IDE provides a visual way to interact with your contracts before implementing your frontend. Follow these steps to test your contracts:
+
+1. Visit the Remix website: [Remix IDE](https://remix.ethereum.org/).
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/remix-home-page.png" width="500px">
+</div>
+
+2. Upload your contracts Voting.sol and ElectionNFT.sol:
+    - Navigate to the contract folder.
+    - Click on one contract and press the compile green arrow.
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/remix-left-menu.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/upload-icons.png" width="300px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/remix-left-menu.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/upload-icons.png" width="300px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/contract-view.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/contract-view-large.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/green-arrow.png">
+</div>
+
+3. Ensure that the compiler version is set to 0.8.22:
+    - Select the "Compiler" tab.
+    - Confirm that version 0.8.22 is checked.
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/compiler-version.png" width="300px">
+</div>
+
+4. Go to the "Deploy" tab:
+    - In the deploy tab, select "Wallet Injected Provider."
+    - Connect your MetaMask account to Remix IDE.
+
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/injected-metamask-environement.png" width="300px">
+</div>
+
+
+5. Paste the address of your deployed Voting.sol contract at the bottom of the deploy tab.
+
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/click-address.png" width="300px">
+</div>
+
+and click on "address" button
+
+6. Load your already deployed contract:
+    - This action allows you to interact with your contract in the newly appeared menu.
+
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/menu-revealed.png" width="300px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/remix-ide-screenshots/contract-menu-interaction.png" width="500px">
+</div>
+
+
+By following these steps, you can effectively test and interact with your contracts using Remix IDE before proceeding with the frontend implementation.
+
+
+
+
+
 
 ---
 

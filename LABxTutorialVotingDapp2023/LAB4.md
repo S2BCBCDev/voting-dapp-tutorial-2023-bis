@@ -86,9 +86,73 @@ API_KEY="APIKEYFROMETHERSCAN"
 
 Ensure the private key corresponds to the deployer account on Sepolia. You can use any account created with Metamask, and acquire testnet ETH from a faucet like Alkemy faucet.
 
-2.2 Update the `chainID` in your `hardhat.config.js` file from 1303 to 11155111.
+2.2 Update the `chainID` in your `hardhat.config.js` file from 1303 to 11155111. Then change the network name "votingchain" to "sepolia"
+
+```
+require("@nomicfoundation/hardhat-toolbox");
+
+require("dotenv").config();
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.22",
+  networks: {
+    sepolia: {
+      chainId: 11155111,
+      url: process.env.RPC_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+  },
+  etherscan: {
+    apiKey: process.env.API_KEY,
+  },
+  paths: {
+    artifacts: "./src/artifacts",
+    contracts: './src/contracts',
+  }
+};
+
+```
 
 2.3 In your `frontend/public/script.js` file, replace all occurrences of "1303" with "11155111" to ensure the frontend connects to the Sepolia chainID.
+
+Tip: You can select **1305**, then do Ctrl+D several times to get all occurences selected, and then past 11155111.
+
+Certainly! Here's an organized and clear version of your tutorial:
+
+---
+
+**2.3 Update ChainID in `frontend/public/script.js` File**
+
+To ensure that your frontend connects to the Sepolia chainID, follow these steps to replace all occurrences of "1303" with "11155111" in the `frontend/public/script.js` file.
+
+**Manual Method:**
+
+1. Open your text editor and navigate to the `frontend/public/script.js` file.
+
+2. Locate the first occurrence of "1303" and position your cursor at the beginning of the number.
+
+3. Press `Ctrl + D` (or `Cmd + D` on macOS) to select the current occurrence.
+
+4. Continue pressing `Ctrl + D` until all instances of "1303" are selected.
+
+5. Type "11155111" to replace the selected occurrences.
+
+6. Save the file.
+
+**Alternative Method using Find and Replace:**
+
+1. Open the `frontend/public/script.js` file in your text editor.
+
+2. Use the find function (`Ctrl + F` or `Cmd + F`) to search for "1303."
+
+3. Click on "Replace" or "Replace All."
+
+4. Enter "11155111" as the replacement and confirm the action.
+
+5. Save the file.
+
+--- 
 
 ### Step 3: Redeploy the Contract on Sepolia
 
