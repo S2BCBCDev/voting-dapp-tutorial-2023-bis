@@ -484,7 +484,7 @@ touch Voting.sol
 
 
 - At the top of the file, specify the License type (SPDX-License-Identifier: UNLICENSED)
-- Then specify the compiler version pragma solidity (pragma solidity ^0.8.19;)
+- Then specify the compiler version pragma solidity (pragma solidity ^0.8.22;)
 - Then import any necessary dependencies. In our case, we're importing the `ElectionNFT.sol` (not yet created) contract, which will handle the creation of unique NFTs for each voter.
 - Finaly write the name of the contract and open curly braces {}
 
@@ -492,7 +492,7 @@ Your file should looks like this:
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.19; // Specifies the compiler version
+pragma solidity ^0.8.22; // Specifies the compiler version
 
 import "./ElectionNFT.sol"; // Import the future NFT contract
 
@@ -1269,7 +1269,7 @@ contract ElectionNFT is ERC721 {
 
 - **SPDX-License-Identifier:** Specifies the license type under which the code is released. In this case, it's set to "UNLICENSED," indicating that the code doesn't have a specific license.
 
-- **Solidity Version:** Indicates the compiler version the code is compatible with (Solidity version 0.8.19 in this case).
+- **Solidity Version:** Indicates the compiler version the code is compatible with (Solidity version 0.8.22 in this case).
 
 - **Importing ERC721:** This contract inherits from the ERC721 standard, which is the Ethereum standard for non-fungible tokens (NFTs). It provides the basic functionality needed for NFTs.
 

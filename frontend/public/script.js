@@ -1,5 +1,5 @@
 // Address and ABI of the Voting.sol contract
-const contractAddress = '0x46c6a1AE9A084013eb5345e104Ee8AFEB497200e';
+const contractAddress = '0x3039160294B2d5bB2F7FEC2d5Ff5EB450F31bad6';
 const contractABI = [
 	{
 		"inputs": [],
@@ -634,7 +634,7 @@ const contractABI = [
 ];
 
 // Address and ABI of the ElectionNFT contract
-const electionNFTAddress = '0x382DB0Cb8f4f07472d2f8fD1BC70A3812870A66e'; // Address of the deployed ElectionNFT contract
+const electionNFTAddress = '0x043661C9A659f465D7C01Ae7eAcdc6168f9cB061'; // Address of the deployed ElectionNFT contract
 const electionNFTABI = [
 	{
 		"inputs": [
@@ -1125,7 +1125,7 @@ let metadata;
 // Function to initialize provider, signer and contract
 function initializeProvider() {
     // Create a new Web3Provider with the window.ethereum object
-    provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+    provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
     // Request user accounts and set up the signer and contract
     return provider.send("eth_requestAccounts", []).then(() => {
@@ -1141,7 +1141,7 @@ async function connectToWallet() {
     try {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
         provider.send("eth_requestAccounts", []).then(() => {
             console.log("Accounts requested");
@@ -1221,7 +1221,7 @@ document.getElementById('votePanelButton').addEventListener('click', () => {
 
 // Function to fetch and display the election title
 async function fetchElectionTitle() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
     try {
         await provider.send("eth_requestAccounts", []);
@@ -1243,7 +1243,7 @@ async function fetchElectionTitle() {
 
 // Function to call the election ID
 async function getElectionID() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
     try {
         await provider.send("eth_requestAccounts", []);
@@ -1442,7 +1442,7 @@ startElectionButton.addEventListener("click", async () => {
         console.log(candidates);
         const votingDuration = specifyDuration.value;
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
 
         provider.send("eth_requestAccounts", []).then(() => {
@@ -1533,7 +1533,7 @@ endElectionButton.addEventListener("click", async () => {
 
 // Function to connect to the ElectionNFT contract
 async function connectToElectionNFTContract() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
     provider.send("eth_requestAccounts", []).then(() => {
 

@@ -6,8 +6,8 @@ require("dotenv").config();
 module.exports = {
   solidity: "0.8.22",
   networks: {
-    sepolia: {
-      chainId: 11155111,
+    votingchain: {
+      chainId: 1303,
       url: process.env.RPC_URL,
       accounts: [process.env.PRIVATE_KEY],
     },

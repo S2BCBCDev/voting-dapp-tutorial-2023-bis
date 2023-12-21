@@ -57,10 +57,10 @@ require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
 module.exports = {
-  solidity: "0.8.20",
+  solidity: "0.8.22",
   networks: {
-    sepolia: {
-      chainId: 11155111,
+    votingchain: {
+      chainId: 1303,
       url: process.env.RPC_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
@@ -145,7 +145,7 @@ main().catch((error) => {
 To deploy the contracts, use the following command in your terminal:
 
 ```bash
-npx hardhat run scripts/deploy.js --network sepolia
+npx hardhat run scripts/deploy.js --network votingchain
 ```
 
 The result output from the terminal will provide the contract addresses.
@@ -156,19 +156,19 @@ A "deploymentInfoVoting.txt" file will be created with the Voting contract addre
 
 ### Verify contracts (optional)
 
-It is good practice to verify your contract on Etherscan. If you are already on Sepolia Testnet, you can verify your contract from hardhat by including your API key into .env file.
+It is good practice to verify your contract on Etherscan. If you are already on votingchain Testnet, you can verify your contract from hardhat by including your API key into .env file.
 
 If you've added your Etherscan API key, you'll be able to verify the contracts using the following command:
 
 ```bash
-npx hardhat verify <FIRST CONTRACT ADDRESS> --network sepolia
+npx hardhat verify <FIRST CONTRACT ADDRESS> --network votingchain
 ```
 This should verify both contracts, but if it is not the case, so you can verify the second contract like this:
 
 Verify second contract: (the second contract take the first contract address as argument)
 
 ```bash
-npx hardhat verify <SECOND CONTRACT ADDRESS> <FIRST CONTRACT ADDRESS> --network sepolia
+npx hardhat verify <SECOND CONTRACT ADDRESS> <FIRST CONTRACT ADDRESS> --network votingchain
 ```
 
 ---
@@ -721,7 +721,7 @@ async function connectToWallet() {
     try {
         await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
         provider.send("eth_requestAccounts", []).then(() => {
             console.log("Accounts requested");
@@ -775,7 +775,7 @@ startElectionButton.addEventListener("click", async () => {
         console.log(candidates);
         const votingDuration = specifyDuration.value;
 
-        const provider = new ethers.providers.Web3Provider(window.ethereum, 11155111);
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 1303);
 
 
         provider.send("eth_requestAccounts", []).then(() => {
