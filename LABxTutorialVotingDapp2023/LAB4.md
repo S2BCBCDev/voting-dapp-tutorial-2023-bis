@@ -15,54 +15,69 @@
 
 So far, you've followed the steps in Labs 1 to 3, gaining valuable insights into the core components of blockchain development. Now, in Lab 4, we will discuss crucial considerations for running a dApp in Morpheus.
 
-## 1. Run the front end
+## 1. Running the Frontend
 
-in voting-dapp-2023/frontend run:
-```
-node server.js (or npm start)
-```
+Follow these steps to run the frontend of your voting Dapp:
 
-This will start the server for your dApp's frontend.
+1. **Start the Frontend Server:**
+   - Navigate to the `voting-dapp-2023/frontend` directory.
+   - Run the following command:
+     ```bash
+     node server.js
+     ```
+   This will initiate the server for your Dapp's frontend.
 
-Then, in your IDE interface from Morpheus, find in the left menu the CDE menu and click on the node service in order to open your web app.
+2. **Open the Web App in Morpheus:**
+   - In your Morpheus IDE interface, locate the CDE menu in the left menu bar.
 
-<div style="text-align: center;">
-  <img src="src/morpheus-screeshoot/CDE_service.png" alt="CDE menu" >
-</div>
+   <div style="text-align: center;">
+     <img src="src/morpheus-screeshoot/CDE_service.png" alt="CDE menu">
+   </div>
 
-## 2. Try the Voting Dapp
+   - Click on the node service to open your web app.
 
-- Click on the connect button, a metamask pop up will ask you if you want to connect and then accept with the deployer account imported.
+These steps ensure that your frontend server is up and running, and you can access your voting Dapp through Morpheus.
 
-- You can check the Voting status in te Vote Panel:
-<div style="text-align: center;">
-  <img src="src/morpheus-screeshoot/votingPanel.png" alt="Voting Panel" style="width:500 px">
-</div>
+## 2. Trying the Voting Dapp
 
-- Then go the Administrator Panel to Start an election:
+1. **Connect to Metamask:**
+   - Click the connect button. A Metamask popup will appear, asking if you want to connect. Accept using the deployer account.
 
-<div style="text-align: center;">
-  <img src="src/ui-screenshoot/start-election.jpg" alt="Voting Panel" style="width:300 px">
-</div>
+2. **Check Voting Status:**
+   - View the Voting status in the Vote Panel:
+     <div style="text-align: center;">
+       <img src="src/morpheus-screeshoot/votingPanel.png" alt="Voting Panel" style="width:500px">
+     </div>
 
-add election title, candidates and election duration, then click start election button
+3. **Start an Election:**
+   - Visit the Administrator Panel to initiate an election:
+     <div style="text-align: center;">
+       <img src="src/ui-screenshoot/start-election.jpg" alt="Start Election" style="width:300px">
+     </div>
+   - Provide election details (title, candidates, duration) and click the "Start Election" button.
 
-Next register voters:
-<div style="text-align: center;">
-  <img src="src/ui-screenshoot/register-voters.jpg" alt="Voting Panel" style="width:300 px">
-</div>
+4. **Register Voters:**
+   <div style="text-align: center;">
+     <img src="src/ui-screenshoot/register-voters.jpg" alt="Register Voters" style="width:300px">
+   </div>
 
-And you should be abble to return to Vote Panel and see the election ongoing information.
+5. **Monitor Ongoing Election:**
+   - Return to the Vote Panel to view ongoing election information.
 
-Cast a vote.
+6. **Cast a Vote:**
+   - Participate in the election by casting your vote.
 
-Then you can end the election by click on "End Election" button in the admin panel.
+7. **End the Election:**
+   - In the Admin Panel, conclude the election by clicking the "End Election" button.
 
-When election is finished, you can now mint the result with the next "Mint results" Buttun.
+8. **Mint Results:**
+   - Once the election is completed, mint the results using the "Mint Results" button.
 
-When everything is finished, you can reinitialise the Election by clicking on "Rehinitialise" election.
+9. **Reinitialize Election:**
+   - After everything is finished, reinitialize the election by clicking on "Reinitialize" in the Admin Panel.
 
-You can as well open you console in the devoloper options of your explorer ( F12 ) to see relative console logs while navigating the app.
+10. **Console Logs:**
+   - Open your browser's developer console (F12) to view relevant console logs while navigating the app.
 
 ## 3. Migrating to Sepolia Testnet and Utilizing Etherscan
 
@@ -220,10 +235,74 @@ Choose the method that best fits your workflow or preference. Successful verific
 
 By following these steps, your dApp should now be successfully migrated to the Sepolia Testnet, utilizing the specified RPC_URL and providing enhanced insights through Etherscan verification.
 
+Explore the following Etherscan screenshots for a visual confirmation:
+
+
+https://sepolia.etherscan.io/
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/select-metamask-small.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/metamask-sepolia-select.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/start-new-election.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/voted-front.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/tx-infos-method.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/tx-info-method-precise.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/green-arrow-verify.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/tx-details.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/encoded-data.png" width="300px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/decode-input-data-button.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/token-uri-decoded.png">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/nft-notification.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/nft.png" width="500px">
+</div>
+
+<div style="text-align: center;">
+  <img style="border-radius: 12px;"  src="src/etherscan-screenshots/events-voting.png" width="500px">
+</div>
+
+---
+
 ## 4. Uploading Your dApp on Morpheus app library to share with community
 
 For detailed steps on uploading your dApp, refer to the [documentation](https://docs.morpheuslabs.io/docs/submit-app-to-the-app-store).
 
+https://docs.morpheuslabs.io/docs/submit-app-to-the-app-store
 ---
 
 <div style="text-align: center;">
